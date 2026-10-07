@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proof of Grass</title>
+<style>
+  :root { --bg:#f4f1e8; --fg:#1d2a1f; --mut:#5d6b5f; --card:#fffdf6; --ok:#2f7d3a; --bad:#a23b2a; --mid:#8a7a1f; --line:#d8d3c0; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#141b15; --fg:#e7eadb; --mut:#98a597; --card:#1c261d; --ok:#7bc77f; --bad:#e0826f; --mid:#d2c25a; --line:#2f3d31; } }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.5 system-ui,sans-serif; }
+  main { max-width:640px; margin:0 auto; padding:24px 16px 64px; }
+  h1 { margin:0 0 4px; font-size:28px; }
+  p.sub { margin:0 0 24px; color:var(--mut); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; }
+  button, label.btn { background:var(--fg); color:var(--bg); border:0; border-radius:8px; padding:10px 16px; font:inherit; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:default; }
+  input[type=file] { display:none; }
+  input[type=text] { flex:1; min-width:0; padding:9px 10px; border:1px solid var(--line); border-radius:8px; background:var(--card); color:var(--fg); font:inherit; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin-top:20px; }
+  .verdict { font-size:22px; font-weight:700; }
+  .TOUCHED_GRASS, .GRASS_PLUS_NOISE { color:var(--ok); }
+  .HUMAN_MADE, .REPLAY { color:var(--bad); }
+  .AMBIENT_NATURE { color:var(--muted, #888); }
+  .INCONCLUSIVE { color:var(--mid); }
+  code { font-size:12px; word-break:break-all; color:var(--mut); }
+  ul { padding-left:18px; margin:8px 0 0; }
+  #status { color:var(--mut); margin-top:12px; min-height:1.5em; }
+  small { color:var(--mut); }
+</style>
+<main>
+  <h1>Proof of Grass</h1>
+  <p class="sub">Record a few seconds of outside. A local bird-sound model decides whether it sounds like nature, and seals a tamper-evident receipt. Nothing leaves this machine.</p>
+  <div class="row">
+    <button id="rec">Record 15 s</button>
+    <label class="btn">Upload audio<input id="file" type="file" accept="audio/*"></label>
+    <input id="note" type="text" placeholder="note (optional)">
+  </div>
+  <div id="status"></div>
+  <div id="out"></div>
+  <div class="card"><b>Ledger</b> <small id="chain"></small><ul id="hist"></ul></div>
+  <p><small>Heuristic, not a lie detector: thresholds were tuned on a small clip set, and a receipt only proves what this ledger recorded.</small></p>
+</main>
+<script>
+const SR = 32000, $ = id => document.getElementById(id);
+const say = t => $("status").textContent = t;
+
+async function resample(buf) {
+  const ch = buf.getChannelData(0);
+  const n = Math.round(ch.length * SR / buf.sampleRate);
+  const ctx = new OfflineAudioContext(1, n, SR);
+  const src = ctx.createBufferSource();
+  const mono = ctx.createBuffer(1, ch.length, buf.sampleRate);
+  mono.copyToChannel(ch, 0);
+  src.buffer = mono; src.connect(ctx.destination); src.start();
+  return (await ctx.startRendering()).getChannelData(0);
+}
+
+async function submit(samples) {
+  say("Listening…");
+  const r = await fetch("/api/listen", { method: "POST", body: samples.buffer,
+    headers: { "X-Note": $("note").value } });
+  const j = await r.json();
+  if (!r.ok) { say(j.error || "failed"); return; }
+  say("");
+  show(j); history();
+}
+
+function esc(s) { return String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c])); }
+
+function show({ result: r, receipt: c }) {
+  const v = c.body.verdict;
+  const sp = r.species.slice(0, 5).map(s => `<li>${esc(s.name)} <small>logit ${s.logit}</small></li>`).join("");
+  const replay = c.body.replay_of ? `<p>Matches an earlier receipt (<code>${c.body.replay_of.slice(0, 12)}</code>, ${c.body.replay_votes} landmarks agree). Score zeroed.</p>` : "";
+  $("out").innerHTML = `<div class="card"><div class="verdict ${v}">${v.replace(/_/g, " ")}</div>
+    <div>score ${c.body.score}/100 · ${r.seconds}s · life ${r.life.toFixed(2)} · human ${r.noise.toFixed(2)}</div>
+    ${replay}${sp ? "<ul>" + sp + "</ul>" : ""}<p><small>receipt</small><br><code>${c.hash}</code></p></div>`;
+}
+
+async function history() {
+  const j = await (await fetch("/api/ledger")).json();
+  $("chain").textContent = j.ok ? `chain intact · ${j.msg}` : `CHAIN BROKEN · ${j.msg}`;
+  $("hist").innerHTML = j.entries.slice(-8).reverse().map(e =>
+    `<li><span class="${e.verdict}">${e.verdict}</span> ${e.score}/100 <small>${new Date(e.t * 1000).toLocaleString()} ${esc(e.note || "")}</small></li>`).join("");
+}
+
+$("file").onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    say("Decoding…");
+    const ac = new AudioContext();
+    const buf = await ac.decodeAudioData(await f.arrayBuffer());
+    let x = await resample(buf);
+    x = x.slice(0, 125 * SR);
+    if (x.length < 4 * SR) return say("Need at least 4 seconds.");
+    await submit(new Float32Array(x));
+  } catch (err) { say("Couldn't decode that file."); }
+  e.target.value = "";
+};
+
+$("rec").onclick = async () => {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } });
+    const mr = new MediaRecorder(stream), parts = [];
+    mr.ondataavailable = e => parts.push(e.data);
+    mr.onstop = async () => {
+      stream.getTracks().forEach(t => t.stop());
+      $("rec").disabled = false; $("rec").textContent = "Record 15 s";
+      try {
+        const buf = await new AudioContext().decodeAudioData(await new Blob(parts).arrayBuffer());
+        await submit(new Float32Array(await resample(buf)));
+      } catch (err) { say("Couldn't decode the recording."); }
+    };
+    $("rec").disabled = true;
+    let left = 15; $("rec").textContent = `Recording… ${left}`;
+    const tick = setInterval(() => { $("rec").textContent = `Recording… ${--left}`; if (left <= 0) clearInterval(tick); }, 1000);
+    mr.start(); setTimeout(() => mr.stop(), 15000);
+  } catch (err) { say("Microphone not available."); }
+};
+history();
+</script>
