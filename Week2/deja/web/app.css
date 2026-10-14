@@ -342,7 +342,7 @@ dialog[open] { animation: rise .25s var(--ease); }
 .d-ask { display: flex; align-items: center; gap: 12px; padding: 7px 7px 7px 16px; border: 1px solid var(--line); border-radius: 14px; font-size: 15px; }
 .d-ask span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .d-ask b { margin-left: auto; padding: 9px 18px; border-radius: 10px; background: var(--blue-ink); color: var(--white); font-weight: 600; }
-.d-ans { margin: 18px 0 14px; font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
+.d-ans { margin: 18px 0 14px; font-size: 18px; line-height: 1.4; font-weight: 600; letter-spacing: -.01em; }
 .d-ans span { display: block; font-size: 14px; font-weight: 400; color: var(--ink-2); }
 .d-win { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
 .d-bar { display: flex; gap: 6px; padding: 9px 12px; background: var(--panel); }
