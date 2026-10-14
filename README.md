@@ -5,6 +5,7 @@ My work for the DEV Hacktoberfest Open-Source AI Challenge, one folder per week.
 | week | theme | project |
 |---|---|---|
 | 1 | Touch Grass | [Proof of Grass](Week1/) |
+| 2 | Side Hustle | [Thud](Week2/) |
 
 ## Week 1: Touch Grass
 
@@ -24,3 +25,14 @@ living / nature / human classes, and re-tune the decision rules after the evalua
 **AI disclosure.** Heavy. Claude (Anthropic) wrote most of the code, evaluation scripts and write-up under my
 direction. I chose the idea, reviewed results and approved what was published. Every number in the READMEs comes
 from the evaluation scripts in `Week1/eval/`. Not tested outdoors yet.
+
+## Week 2: Side Hustle
+
+**What the challenge asked.** Build something on open-weight or open-source AI that someone would pay for.
+
+**What I built.** Thud: drop a coin on each floor tile, the laptop mic listens, TabPFN learns that floor from a few
+tiles you confirm by hand, and Gemma 3 (local, via Ollama) writes the inspection report. Every report is sealed into
+the same hash-chained receipt as Week 1. Details and limits in [Week2/README.md](Week2/README.md).
+
+**AI disclosure.** Heavy, same as Week 1: Claude (Anthropic) wrote most of the code and write-up under my
+direction. Not tested on a real floor yet.
