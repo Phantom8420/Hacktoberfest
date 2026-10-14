@@ -8,6 +8,20 @@ const ICON = {
   left: '<path d="m15 6-6 6 6 6"/>',
   right: '<path d="m9 6 6 6-6 6"/>',
   x: '<path d="M6 6l12 12M18 6 6 18"/>',
+  home: '<path d="M4 11.5 12 5l8 6.5V19a1 1 0 0 1-1 1h-4v-5h-6v5H5a1 1 0 0 1-1-1Z"/>',
+  clock: '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+  note: '<path d="M7 4h8l4 4v11a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/><path d="M15 4v4h4M9 13h6M9 16h4"/>',
+  grid: '<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
+  box: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="M3 10h18"/>',
+  pause: '<path d="M9 6v12M15 6v12"/>',
+  play: '<path d="M8 6v12l10-6Z"/>',
+  erase: '<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-12M9 7V4h6v3"/>',
+  shield: '<path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6Z"/>',
+  disk: '<path d="M7 17 17 7M9 7h8v8"/>',
+  list: '<rect x="5" y="4" width="14" height="16" rx="2"/><path d="M9 9h6M9 13h6M9 17h3"/>',
+  bell: '<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15Z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+  check: '<path d="m6 12 4 4 8-8"/>',
+  dots: '<circle cx="6" cy="12" r="1"/><circle cx="12" cy="12" r="1"/><circle cx="18" cy="12" r="1"/>',
 };
 const icon = (name) => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${ICON[name]}</svg>`;
 // a grease-pencil loop around the screen that answered you
@@ -68,10 +82,22 @@ async function loadStatus() {
     "screen hidden": "A protected window is in front", "not recording": "Not recording",
     "sample screens": "Demo",
   }[s] || s.charAt(0).toUpperCase() + s.slice(1);
-  $("#counts").textContent = `${status.today} screens today, ${status.mb} MB kept`;
+  $("#counts").textContent = `Déjà kept ${status.today} screen${status.today === 1 ? "" : "s"} today.`;
+  $("#total").textContent = status.frames.toLocaleString();
+  $("#mb").textContent = `${status.mb} MB on this PC`;
+  $("#keep-days").textContent = `Each screen is kept ${status.settings.keep_days} days`;
   const paused = status.settings.paused;
-  $("#pause").textContent = paused ? "Resume" : "Pause";
+  $("#pause").innerHTML = `<span>${icon(paused ? "play" : "pause")}</span><b>${paused ? "Resume" : "Pause"}</b>`;
   $("#pause").setAttribute("aria-pressed", String(paused));
+  // the demo can't change anything, so its controls stay visible but inert
+  for (const b of document.querySelectorAll("#pause, #forget, #forget-tile, #settings-tile, #open-settings, #rail-settings")) {
+    b.disabled = !!status.public;
+    b.title = status.public ? "Works in the app on your own PC" : "";
+  }
+  const ex = status.settings.excluded;
+  $("#excluded-list").replaceChildren(...(ex.length ? ex.slice(0, 4).map((a) => {
+    const li = el("li"); li.append(el("span", null, a), el("span", "muted", "Skipped")); return li;
+  }) : [el("li", "muted", status.public ? "On your PC, apps you list in Privacy are never recorded." : "No apps excluded yet. Add them in Privacy.")]));
   const hint = $("#hint");
   hint.replaceChildren();
   const keys = { P: "pause or resume", F: "forget the last 5 minutes" };
@@ -87,7 +113,7 @@ $("#pause").onclick = async () => {
   await loadStatus();
   flash(status.settings.paused ? "Paused. Nothing is being recorded." : "Recording again.");
 };
-$("#forget").onclick = async () => {
+$("#forget").onclick = $("#forget-tile").onclick = async () => {
   const d = await api("/api/forget", { minutes: 5 });
   flash(`Forgot ${d.deleted} screen${d.deleted === 1 ? "" : "s"} from the last 5 minutes.`);
   loadStatus(); loadDay();
@@ -252,12 +278,17 @@ async function loadNotes() {
   }
   const now = Date.now() / 1000;
   for (const n of notes) {
-    const li = el("li", n.due && n.due <= now ? "late" : "");
+    const li = el("li", `k-${n.kind}` + (n.due && n.due <= now ? " late" : "") + (n.done ? " done" : ""));
     const box = el("input");
     box.type = "checkbox";
     box.id = `n${n.id}`;
     box.disabled = !!status.public;
+    box.checked = !!n.done;
+    box.setAttribute("aria-label", `Done: ${n.text}`);
     box.onchange = async () => { await api("/api/notes/done", { id: n.id, done: box.checked }); li.classList.toggle("done", box.checked); };
+    const ico = el("span", "ico");
+    ico.innerHTML = icon(n.kind === "reminder" ? "bell" : n.kind === "todo" ? "check" : "note");
+    ico.append(box);
     const label = el("label");
     label.htmlFor = box.id;
     const kind = n.kind === "reminder" ? (n.due <= now ? `Due ${when(n.due)}` : when(n.due)) : n.kind === "todo" ? "To-do" : "Note";
@@ -267,19 +298,21 @@ async function loadNotes() {
     del.setAttribute("aria-label", `Delete “${n.text}”`);
     del.innerHTML = icon("x");
     del.onclick = async () => { await api("/api/notes/delete", { id: n.id }); loadNotes(); };
-    li.append(box, label, del);
+    li.append(ico, label, del);
     ul.append(li);
   }
 }
 
 /* day */
-let day = new Date(), frames = [], shown = null;
-const scrub = $("#scrub");
+let day = new Date(), frames = [], hour = null;
+const pad = (n) => String(n).padStart(2, "0");
+const hourOf = (f) => new Date(f.t * 1000).getHours();
 $("#day-prev").innerHTML = icon("left");
 $("#day-next").innerHTML = icon("right");
 $("#open-settings").innerHTML = icon("gear");
-
-function minuteOf(t) { const d = new Date(t * 1000); return d.getHours() * 60 + d.getMinutes() + d.getSeconds() / 60; }
+$("#forget").innerHTML = `${icon("erase")} Forget last 5 min`;
+for (const e of document.querySelectorAll("[data-i]")) e.innerHTML = icon(e.dataset.i);
+const AV = [["t-blue", "blue"], ["t-violet", "violet"], ["t-peach", "peach"], ["t-green", "green"]];
 
 async function loadDay(keep) {
   const key = dayKey(day), today = dayKey(new Date());
@@ -290,48 +323,95 @@ async function loadDay(keep) {
   $("#day-title").textContent = key === today ? "Today" : key === dayKey(y) ? "Yesterday"
     : day.toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" });
   ({ frames } = await api(`/api/timeline?day=${key}&limit=400`));
-  if (key === today) $("#hero-shots").replaceChildren(...frames.slice(-3).reverse().map((f) => {
-    const i = el("img"); i.src = `/frames/${f.image}`; i.alt = ""; return i;
+  $("#day-count").textContent = frames.length;
+
+  const counts = Array(24).fill(0);
+  for (const f of frames) counts[hourOf(f)]++;
+  const max = Math.max(1, ...counts);
+  if (!(keep && counts[hour])) hour = null;
+  // a window of at least 8 hours ending at the last busy one, so the bars stay wide
+  const busy = counts.flatMap((n, h) => (n ? [h] : []));
+  const last = busy.length ? busy[busy.length - 1] : new Date().getHours();
+  const first = Math.max(0, Math.min(busy.length ? busy[0] : last, last - 7));
+  const span = Array.from({ length: Math.max(last, Math.min(23, first + 7)) - first + 1 }, (_, i) => first + i);
+  const peak = counts.lastIndexOf(Math.max(...counts));
+  $("#bars").replaceChildren(...span.map((h) => {
+    const n = counts[h];
+    const b = el("button", (n ? "" : "zero") + (n && h === peak ? " peak" : ""));
+    b.dataset.h = h;
+    b.type = "button";
+    b.disabled = !n;
+    const pct = n ? Math.max(8, (n / max) * 100) : 2;
+    b.style.setProperty("--h", `${pct}%`);
+    b.setAttribute("aria-label", `${n} screen${n === 1 ? "" : "s"} from ${pad(h)}:00`);
+    const col = el("span", "col"), bar = el("span", "b");
+    bar.style.height = `${pct}%`;
+    col.append(bar, el("span", "tip", `${n} at ${pad(h)}:00`));
+    b.append(col, el("span", "hl" + (span.length > 12 && (h - first) % 3 ? " skip" : ""), pad(h)));
+    b.onclick = () => pickHour(hour === h ? null : h);
+    return b;
   }));
-  const svg = $("#ticks");
-  svg.replaceChildren();
-  for (const f of frames) {
-    const x = minuteOf(f.t).toFixed(1);
-    const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    l.setAttribute("x1", x); l.setAttribute("x2", x); l.setAttribute("y1", "6"); l.setAttribute("y2", "34");
-    svg.append(l);
-  }
-  scrub.disabled = !frames.length;
-  if (!frames.length) {
-    shown = null;
-    $("#preview-img").hidden = true;
-    $("#preview-empty").hidden = false;
-    $("#preview-cap").replaceChildren();
-    $("#preview").disabled = true;
-    return;
-  }
-  if (!(keep && shown)) scrub.value = Math.round(minuteOf(frames[frames.length - 1].t));
-  shown = null;
-  showAt(+scrub.value);
+
+  const byApp = new Map();
+  for (const f of frames) byApp.set(f.app, (byApp.get(f.app) || 0) + 1);
+  $("#day-apps").textContent = `${byApp.size} app${byApp.size === 1 ? "" : "s"}`;
+  const top = [...byApp].sort((a, b) => b[1] - a[1]).slice(0, 5);
+  $("#app-list").replaceChildren(...(top.length ? top.map(([app, n], i) => {
+    const li = el("li"), av = el("span", "av", (app || "?").charAt(0).toUpperCase());
+    av.style.background = `var(--${AV[i % 4][0]})`;
+    av.style.color = `var(--${AV[i % 4][1]})`;
+    li.append(av, el("span", "nm", app), el("span", "ct", `${n} screen${n === 1 ? "" : "s"}`));
+    return li;
+  }) : [el("li", "muted", "Nothing recorded on this day.")]));
+  pickHour(hour);
 }
 
-function showAt(minute) {
-  let best = frames[0];
-  for (const f of frames) if (Math.abs(minuteOf(f.t) - minute) < Math.abs(minuteOf(best.t) - minute)) best = f;
-  if (shown === best) return;
-  shown = best;
+function pickHour(h) {
+  hour = h;
+  for (const b of $("#bars").children) {
+    b.classList.toggle("on", +b.dataset.h === h);
+    b.setAttribute("aria-pressed", String(+b.dataset.h === h));
+  }
+  const list = h == null ? frames.slice(-6).reverse() : frames.filter((f) => hourOf(f) === h).reverse();
+  $("#hour-title").textContent = h == null ? "Latest screens" : `Screens from ${pad(h)}:00 to ${pad(h + 1)}:00`;
+  $("#rows").replaceChildren(...(list.length ? list.map(row) : [(() => {
+    const tr = el("tr", "empty-row"), td = el("td", null, "Nothing recorded on this day.");
+    td.colSpan = 4; tr.append(td); return tr;
+  })()]));
+  show(list[0]);
+}
+
+function row(f) {
+  const tr = el("tr"), name = el("td"), wrap = el("div", "row-name"), img = el("img");
+  img.src = `/frames/${f.image}`;
+  img.loading = "lazy";
+  img.alt = "";
+  wrap.append(img, el("b", null, f.title || f.app));
+  name.append(wrap);
+  const more = el("td", "more"), b = el("button");
+  b.type = "button";
+  b.innerHTML = icon("dots");
+  b.setAttribute("aria-label", `Open ${f.title || f.app} at ${clock(new Date(f.t * 1000))}`);
+  more.append(b);
+  tr.append(name, el("td", "src", f.app), el("td", "time", clock(new Date(f.t * 1000))), more);
+  tr.onclick = () => openFrame(f.id);
+  return tr;
+}
+
+let shown = null;
+function show(f) {
+  shown = f || null;
   const img = $("#preview-img");
-  img.src = `/frames/${best.image}`;
-  img.alt = `Your screen at ${clock(new Date(best.t * 1000))}, ${best.app}`;
-  img.hidden = false;
-  $("#preview-empty").hidden = true;
-  $("#preview").disabled = false;
-  const cap = $("#preview-cap");
-  cap.replaceChildren(el("b", null, clock(new Date(best.t * 1000))), el("span", null, best.app), el("span", null, best.title));
+  img.hidden = !f;
+  $("#preview-empty").hidden = !!f;
+  $("#preview").disabled = !f;
+  $("#preview-cap").replaceChildren();
+  if (!f) return;
+  img.src = `/frames/${f.image}`;
+  img.alt = `Your screen at ${clock(new Date(f.t * 1000))}, ${f.app}`;
+  $("#preview-cap").append(el("b", null, f.title || f.app), el("span", null, `${f.app}, ${clock(new Date(f.t * 1000))}`));
 }
 
-scrub.oninput = () => frames.length && showAt(+scrub.value);
-scrub.onchange = () => { if (shown) scrub.value = Math.round(minuteOf(shown.t)); };
 $("#preview").onclick = () => shown && openFrame(shown.id);
 $("#day-prev").onclick = () => { day.setDate(day.getDate() - 1); loadDay(); };
 $("#day-next").onclick = () => { day.setDate(day.getDate() + 1); loadDay(); };
@@ -341,6 +421,9 @@ $("#day-pick").onchange = (e) => {
   day = new Date(yy, mm - 1, dd);
   loadDay();
 };
+for (const a of document.querySelectorAll(".tabs a, .rail a")) a.addEventListener("click", () => {
+  for (const b of document.querySelectorAll(".tabs a, .rail a")) b.classList.toggle("on", b.hash === a.hash);
+});
 
 /* frame viewer */
 const viewer = $("#viewer");
@@ -370,7 +453,7 @@ viewer.onclick = (e) => { if (e.target === viewer) viewer.close(); };
 
 /* settings */
 const settings = $("#settings");
-$("#open-settings").onclick = async () => {
+$("#open-settings").onclick = $("#settings-tile").onclick = $("#rail-settings").onclick = async () => {
   await loadStatus();
   const s = status.settings;
   $("#excluded").value = s.excluded.join("\n");
