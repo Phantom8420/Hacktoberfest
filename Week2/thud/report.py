@@ -8,12 +8,11 @@ import urllib.request
 OLLAMA = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 MODEL = os.environ.get("THUD_GEMMA", "gemma3:4b")
 
-# The tile list and photo count are written by code, never by the model: a small model will
-# happily invent flagged tiles or describe photos it was never sent.
-PROSE = """You write the summary of a floor inspection from an acoustic tap test. Use only the numbers
-and tile names in the facts, copied exactly; never count anything yourself; never mention photos. Give tile positions as row-column (A1 is
-top-left). Write exactly two markdown sections: "## Summary" (two or three sentences) and
-"## Recommended next steps" (two to four bullets). No preamble, under 150 words."""
+# Every fact (summary, tile list, photo count) is written by code, never by the model: a 1B model
+# swaps tiles and numbers even when handed them. Gemma writes only advice and photo descriptions.
+STEPS = """You advise after a floor inspection by acoustic tap test. Write two to four markdown
+bullets of practical next steps for the owner or inspector, given the facts. Do not name tiles, give
+numbers or mention photos. Only the bullets, no heading, no preamble."""
 
 PHOTOS = """You describe photos of a tiled floor for an inspection report. For each photo, one bullet:
 "Photo N:" then the visible defects (cracks, gaps, stains, lippage, loose grout) or "nothing
@@ -37,7 +36,6 @@ def facts(insp):
             "solid": [tile_name(t["r"], t["c"]) for t in tiles if t.get("label") == "solid"],
             "hollow": [tile_name(t["r"], t["c"]) for t in tiles if t.get("label") == "hollow"],
         },
-        "number_flagged_hollow": len(flagged),  # small models miscount lists
         "flagged_hollow": [{"tile": tile_name(t["r"], t["c"]), "p_hollow": t["p_hollow"]} for t in flagged],
         "model": insp.get("backend", "none"),
     }
@@ -50,13 +48,21 @@ def tiles_md(f):
     return ["## Flagged tiles"] + (out or ["- None"])
 
 
+def summary(f):
+    return (f'{f["room"] or "Room"}: {f["tiles_tapped"]} tiles tapped on a {f["grid"]} grid. '
+            f'{len(f["flagged_hollow"])} flagged as likely hollow, '
+            f'{len(f["confirmed_by_inspector"]["hollow"])} confirmed hollow by hand.')
+
+
+def assemble(f, photos, steps):
+    return "\n".join(["## Summary", summary(f), "", *tiles_md(f), "", "## Photo findings", photos, "",
+                      "## Recommended next steps", steps])
+
+
 def template(f, n_photos):
-    return "\n".join([
-        "## Summary", f'{f["room"] or "Room"}: {f["tiles_tapped"]} tiles tapped on a {f["grid"]} grid. '
-        f'{len(f["flagged_hollow"])} flagged as likely hollow.', "", *tiles_md(f), "",
-        "## Photo findings", f"{n_photos} photo(s) attached. Not described: the local Gemma model was not running.",
-        "", "## Recommended next steps", "- Re-tap flagged tiles and confirm by pressing on the edges.",
-        "- Ask for flagged tiles to be lifted and re-bedded before signing off."])
+    return assemble(f, f"{n_photos} photo(s) attached. Not described: the local Gemma model was not running.",
+                    "- Re-tap flagged tiles and confirm by pressing on the edges.\n"
+                    "- Ask for flagged tiles to be lifted and re-bedded before signing off.")
 
 
 def _chat(system, content, images, timeout):
@@ -75,11 +81,9 @@ def write(insp, photos_b64, timeout=600):
     """Returns (markdown, model_used). photos_b64: base64 JPEG/PNG strings."""
     f = facts(insp)
     try:
-        prose = _chat(PROSE, f"Facts:\n{json.dumps(f, indent=1)}", None, timeout)
+        steps = _chat(STEPS, f"Facts:\n{json.dumps(f, indent=1)}", None, timeout)
         photos = (_chat(PHOTOS, f"{len(photos_b64)} photo(s), in order.", photos_b64, timeout)
                   if photos_b64 else "No photos attached.")
     except Exception:
         return template(f, len(photos_b64)), "template (Ollama not reachable)"
-    head, sep, steps = prose.partition("## Recommended next steps")
-    return "\n".join([head.strip(), "", *tiles_md(f), "", "## Photo findings", photos, "",
-                      (sep + steps).strip()]).strip(), MODEL
+    return assemble(f, photos, steps), MODEL

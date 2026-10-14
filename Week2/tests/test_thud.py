@@ -78,9 +78,10 @@ def test_report_falls_back_without_ollama(monkeypatch):
 
 
 def test_model_cannot_invent_tiles_or_photos(monkeypatch):
-    monkeypatch.setattr(report, "_chat", lambda *a: "## Summary\nSix tiles flagged.\n## Recommended next steps\n- Lift A1.")
+    monkeypatch.setattr(report, "_chat", lambda *a: "- Lift A1.")
     insp = {"room": "Hall", "rows": 1, "cols": 2, "tiles": [
         {"r": 0, "c": 0, "tapped": True, "p_hollow": 0.9}, {"r": 0, "c": 1, "tapped": True, "p_hollow": 0.1}]}
     md, model = report.write(insp, [])
     assert "- A1: 90% likely hollow" in md and "A2" not in md
+    assert "Hall: 2 tiles tapped on a 1 rows x 2 columns grid. 1 flagged as likely hollow" in md
     assert "## Photo findings\nNo photos attached." in md and md.endswith("- Lift A1.")
