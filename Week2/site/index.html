@@ -8,156 +8,43 @@
 <link rel="stylesheet" href="app.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 </head>
-<body>
-<div class="app">
-<header class="top">
-  <h1 class="brand">Déjà</h1>
-  <nav class="tabs" aria-label="Sections">
-    <a href="#ask" class="on">Ask</a>
-    <a href="#day">Timeline</a>
-    <a href="#notes-card">Notes</a>
-    <a href="#apps">Apps</a>
-  </nav>
-  <div class="top-end">
-    <p class="state" id="state"><span class="dot" aria-hidden="true"></span><span id="state-text">Starting</span></p>
-    <button class="round" id="open-settings" type="button" aria-label="Settings"></button>
+<body class="welcome">
+<main class="hero">
+  <div class="hero-copy">
+    <p class="wbrand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#111827"/><ellipse cx="16" cy="16" rx="9" ry="6.5" fill="none" stroke="#2F7CF6" stroke-width="3"/></svg>Déjà</p>
+    <h1>Your screen, remembered.</h1>
+    <p class="lede">Déjà looks at your screen as you work and keeps it on your PC. Ask what you saw, and it answers with the screenshot it came from.</p>
+    <a class="open" href="app.html">Open dashboard
+      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
+    <ul class="facts">
+      <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6Z"/></svg>Stays on this PC</li>
+      <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>Pause any time</li>
+      <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-12M9 7V4h6v3"/></svg>Forget the last 5 minutes</li>
+    </ul>
   </div>
-</header>
 
-<nav class="rail" aria-label="Sections">
-  <a href="#ask" class="on" aria-label="Ask" data-i="home"></a>
-  <a href="#day" aria-label="Timeline" data-i="clock"></a>
-  <a href="#notes-card" aria-label="Notes" data-i="note"></a>
-  <a href="#apps" aria-label="Apps" data-i="grid"></a>
-  <button class="rail-end" id="rail-settings" type="button" aria-label="Privacy settings" data-i="gear"></button>
-</nav>
-
-<main class="panel">
-  <div class="hello">
-    <div>
-      <h2 class="greet">Your screen, remembered</h2>
-      <p class="muted" id="counts">Here's what Déjà kept today.</p>
-    </div>
-    <div class="hello-end">
-      <div class="pill date">
-        <button class="ghost" id="day-prev" type="button" aria-label="Previous day"></button>
-        <label class="sr" for="day-pick">Day</label>
-        <input type="date" id="day-pick">
-        <button class="ghost" id="day-next" type="button" aria-label="Next day"></button>
+  <div class="hero-demo" aria-hidden="true">
+    <div class="d-card">
+      <div class="d-ask"><span>What was that hotel I looked at yesterday?</span><b>Ask</b></div>
+      <p class="d-ans">It was in your browser yesterday evening.<span>Here is the screen it came from.</span></p>
+      <div class="d-win">
+        <div class="d-bar"><i></i><i></i><i></i></div>
+        <div class="d-body">
+          <span class="ln" style="width: 46%"></span>
+          <span class="ln" style="width: 78%"></span>
+          <span class="ln hit" style="width: 58%"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><path pathLength="1" d="M52 4C24 2 3 9 4 21c1 12 30 16 52 15 24-1 41-8 40-18C95 7 70 2 44 5"/></svg></span>
+          <span class="ln" style="width: 70%"></span>
+          <span class="ln" style="width: 34%"></span>
+        </div>
       </div>
-      <button class="pill act" id="forget" type="button"></button>
+    </div>
+    <div class="d-card d-day">
+      <p>Today</p>
+      <div class="d-bars"><i style="--h: 30%"></i><i style="--h: 55%"></i><i style="--h: 40%"></i><i style="--h: 80%"></i><i style="--h: 62%"></i><i style="--h: 45%"></i><i class="on" style="--h: 92%"></i><i style="--h: 25%"></i></div>
     </div>
   </div>
-  <p class="demo-note" id="demo-note" hidden>This is a demo on a day of sample screens. The real app runs on your own Windows PC,
-    reads your screen as you work and keeps everything there. Ask it anything below.</p>
-
-  <div class="bento">
-    <section class="card ask" id="ask" aria-label="Ask or keep a note">
-      <form id="ask-form" class="ask-row">
-        <button class="mic" id="mic" type="button" aria-pressed="false" aria-label="Speak"></button>
-        <label class="sr" for="q">Ask about something you saw, or keep a note</label>
-        <input id="q" name="q" autocomplete="off" maxlength="500"
-               placeholder="What was that hotel I looked at yesterday?">
-        <button class="go" type="submit">Ask</button>
-      </form>
-      <p class="hint" id="hint"></p>
-      <div class="result" id="result" aria-live="polite"></div>
-    </section>
-
-    <section class="card wallet" aria-labelledby="mem-title">
-      <div class="card-head"><span class="chip" data-i="box"></span><h2 id="mem-title">Memory</h2></div>
-      <p class="muted">Screens kept</p>
-      <p class="big" id="total">0</p>
-      <div class="tiles">
-        <button type="button" id="pause" class="tile t-blue" aria-pressed="false"><span data-i="pause"></span><b>Pause</b></button>
-        <button type="button" id="forget-tile" class="tile t-violet"><span data-i="erase"></span><b>Forget 5 min</b></button>
-        <button type="button" id="settings-tile" class="tile t-peach"><span data-i="shield"></span><b>Privacy</b></button>
-      </div>
-      <div class="saved">
-        <span class="chip t-green" data-i="disk"></span>
-        <div><b id="mb">0 MB</b><span class="muted" id="keep-days">on this PC</span></div>
-      </div>
-    </section>
-
-    <section class="card notes" id="notes-card" aria-labelledby="notes-title">
-      <div class="card-head"><h2 id="notes-title">Notes and reminders</h2></div>
-      <ul id="notes"></ul>
-    </section>
-
-    <section class="card chart" id="day" aria-labelledby="day-title">
-      <div class="card-head"><span class="chip" data-i="clock"></span><h2 id="day-title">Today</h2></div>
-      <p class="big" id="day-count">0</p>
-      <p class="muted"><span class="badge" id="day-apps">0 apps</span> screens on this day, by hour</p>
-      <div class="bars" id="bars" role="group" aria-label="Screens by hour"></div>
-    </section>
-
-    <section class="card apps" id="apps" aria-labelledby="apps-title">
-      <div class="card-head"><span class="chip" data-i="grid"></span><div><h2 id="apps-title">Apps on this day</h2>
-        <p class="muted">Where your screens came from.</p></div></div>
-      <ul class="avatars" id="app-list"></ul>
-      <h3>Never recorded</h3>
-      <ul class="plain" id="excluded-list"></ul>
-    </section>
-
-    <section class="card table" aria-labelledby="hour-title">
-      <div class="card-head"><span class="chip" data-i="list"></span><div><h2 id="hour-title">Screens</h2>
-        <p class="muted">Pick an hour on the chart to narrow it down. Open any screen to read it.</p></div></div>
-      <table>
-        <thead><tr><th>Screen</th><th>App</th><th>Time</th><th><span class="sr">Open</span></th></tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
-    </section>
-
-    <section class="card shot" aria-label="Selected screen">
-      <button class="preview" id="preview" type="button" aria-label="Open this screen">
-        <img id="preview-img" alt="" hidden>
-        <span class="preview-empty" id="preview-empty">Nothing recorded on this day.</span>
-      </button>
-      <p class="preview-cap" id="preview-cap"></p>
-    </section>
-  </div>
-  <p class="foot">A memory of your own screen. Runs on your Windows PC and keeps everything there.
-    <a href="https://github.com/Phantom8420/Hacktoberfest/tree/main/Week2">Source on GitHub</a></p>
 </main>
-</div>
-
-<p class="flash" id="flash" role="status"></p>
-
-<dialog id="viewer" aria-labelledby="viewer-title">
-  <div class="viewer">
-    <img id="viewer-img" alt="" hidden>
-    <div class="viewer-side">
-      <h2 id="viewer-title"></h2>
-      <p class="meta" id="viewer-meta"></p>
-      <pre id="viewer-text"></pre>
-      <div class="row">
-        <button class="btn danger" id="viewer-forget" type="button">Forget this screen</button>
-        <button class="btn" id="viewer-close" type="button">Close</button>
-      </div>
-    </div>
-  </div>
-</dialog>
-
-<dialog id="settings" aria-labelledby="settings-title">
-  <form id="settings-form" class="settings">
-    <h2 id="settings-title">Privacy</h2>
-    <label for="excluded">Never record these apps, one per line</label>
-    <textarea id="excluded" rows="7" spellcheck="false"></textarea>
-    <div class="two">
-      <label>Look every <input type="number" id="interval" min="2" max="60"> seconds</label>
-      <label>Keep screens for <input type="number" id="keep" min="1" max="365"> days</label>
-    </div>
-    <p class="meta" id="models"></p>
-    <p class="meta">Windows that block screen capture, the lock screen, admin prompts and private browser windows are never recorded. Lines that look like passwords, keys, card numbers or codes are blacked out before a screen is saved.</p>
-    <div class="row">
-      <button class="go" type="submit">Save</button>
-      <button class="btn" id="settings-close" type="button">Close</button>
-      <button class="btn danger" id="forget-all" type="button">Forget everything</button>
-    </div>
-  </form>
-</dialog>
-
-<script src="static.js"></script>
-<script src="app.js"></script>
+<p class="foot">Runs on your Windows PC and keeps everything there.
+  <a href="https://github.com/Phantom8420/Hacktoberfest/tree/main/Week2">Source on GitHub</a></p>
 </body>
 </html>

@@ -70,12 +70,14 @@ def main():
     web = HERE / "deja" / "web"
     for name in ("app.css", "app.js", "static.js"):
         shutil.copy(web / name, OUT / name)
-    html = (web / "index.html").read_text("utf8")
+    # the local app stays offline and falls back to Segoe UI; the hosted pages can fetch Inter
+    font = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">\n</head>'
+    html = (web / "app.html").read_text("utf8")
     html = html.replace("Ask it anything below, by typing or with the mic.", "Ask it anything below.")
-    # the local app stays offline and falls back to Segoe UI; the hosted page can fetch Inter
-    html = html.replace("</head>", '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">\n</head>')
+    html = html.replace("</head>", font)
     html = html.replace('<script src="app.js"></script>', '<script src="static.js"></script>\n<script src="app.js"></script>')
-    (OUT / "index.html").write_text(html, "utf8")
+    (OUT / "app.html").write_text(html, "utf8")
+    (OUT / "index.html").write_text((web / "index.html").read_text("utf8").replace("</head>", font), "utf8")
     (OUT / "data.json").write_text(json.dumps(data, indent=1), "utf8")
     print(f"{len(answers)}/{len(QUESTIONS)} answers kept, site written to {OUT}")
 
