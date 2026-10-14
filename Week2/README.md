@@ -34,8 +34,26 @@ It opens `http://127.0.0.1:8777` in your browser and starts recording. The first
 | `--port N` | web page port (default 8777) |
 | `--no-record` | open the app without recording |
 | `--no-browser` | don't open the page |
+| `--public` | hosted demo: sample screens, no recording, read-only (see below) |
 
 Hotkeys, anywhere in Windows: **Ctrl Alt P** pauses or resumes, **Ctrl Alt F** forgets the last 5 minutes.
+
+## Hosted demo
+
+A server can't see your screen, so the online version runs on a day of sample screens (`deja/demo.py`) with
+Gemma 3 1B, Whisper and the search all running on the server. It is read-only: questions and spoken notes work,
+nothing is saved, and the forget, pause and settings controls are hidden.
+
+It runs on a free Hugging Face Docker Space (2 CPUs, 16 GB RAM). Both models are baked into the image:
+
+```bash
+.venv/Scripts/pip install huggingface_hub
+.venv/Scripts/hf auth login
+.venv/Scripts/python deploy_space.py
+```
+
+The Space sleeps after two days without visitors and wakes on the next visit, which takes a minute or two.
+Run the same image anywhere else with `docker build -t deja . && docker run -p 7860:7860 deja`.
 
 ## What it never records
 
@@ -90,9 +108,9 @@ under a second.
 .venv/Scripts/python -m pytest -q
 ```
 
-21 tests: secret scrubbing (both directions), time parsing, note/question routing, search and forgetting, the
-number check on answers, OCR painting a key black in a real screenshot, the server refusing other sites, and Whisper
-hearing a spoken reminder.
+22 tests: secret scrubbing (both directions), time parsing, note/question routing, search and forgetting, the
+number check on answers, OCR painting a key black in a real screenshot, the server refusing other sites, the
+read-only hosted demo, and Whisper hearing a spoken reminder.
 
 ## Credits
 

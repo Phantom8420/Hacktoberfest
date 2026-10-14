@@ -18,17 +18,20 @@ from .notify import toast
 WEB = Path(__file__).parent / "web"
 FRAME = re.compile(r"^/frames/(\d{4}-\d{2}-\d{2}/\d{6}_\d{3}\.jpg)$")
 MAX_BODY = 25 * 2**20
+DEMO_OK = ("/api/ask", "/api/voice")  # the only writes a public demo accepts
 
 
 class App:
-    def __init__(self, store, settings, recorder=None):
-        self.store, self.settings, self.recorder = store, settings, recorder
+    def __init__(self, store, settings, recorder=None, public=False):
+        self.store, self.settings, self.recorder, self.public = store, settings, recorder, public
         self.hotkeys = []
 
     def keep(self, text, kind):
         due, body = when.due(text)
         if kind == "reminder" and due is None:
             kind = "todo"
+        if self.public:  # strangers share one demo: show what would be kept, keep nothing
+            return {"id": None, "text": body or text, "kind": kind, "due": due and due.timestamp()}
         nid = self.store.add_note(body or text, kind, due and due.timestamp())
         return {"id": nid, "text": body or text, "kind": kind, "due": due and due.timestamp()}
 
@@ -69,8 +72,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def _trusted(self):
         host = self.headers.get("Host", "")
-        if host not in (f"127.0.0.1:{self.port}", f"localhost:{self.port}"):
-            return False  # DNS rebinding: some other site's name pointed at 127.0.0.1
+        # DNS rebinding: some other site's name pointed at 127.0.0.1. A public demo holds only sample screens.
+        if not self.app.public and host not in (f"127.0.0.1:{self.port}", f"localhost:{self.port}"):
+            return False
         return self.headers.get("Sec-Fetch-Site", "same-origin") in ("same-origin", "none")
 
     def _body(self, kind):
@@ -112,7 +116,7 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, {**a.store.stats(), "state": r.state if r else "not recording",
                                     "settings": a.settings.dict(), "gemma": ask.gemma_ready(),
                                     "gemma_model": ask.MODEL, "whisper_model": voice.MODEL,
-                                    "hotkeys": a.hotkeys})
+                                    "hotkeys": a.hotkeys, "public": a.public})
         if url.path == "/api/timeline":
             day = datetime.strptime(q["day"], "%Y-%m-%d") if q.get("day") else datetime.now()
             start = datetime(day.year, day.month, day.day).timestamp()
@@ -137,6 +141,8 @@ class Handler(BaseHTTPRequestHandler):
 
     def _post(self):
         a, path = self.app, urllib.parse.urlsplit(self.path).path
+        if a.public and path not in DEMO_OK:
+            return self._send(403, {"error": "this is a read-only demo"})
         if path == "/api/voice":
             text = voice.transcribe(self._body("audio"))
             if not text:
@@ -173,9 +179,10 @@ class Handler(BaseHTTPRequestHandler):
         return {"text": text, "intent": "ask", **ask.ask(self.app.store, body or text)}
 
 
-def run(app, port):
+def run(app, port, host="127.0.0.1"):
     Handler.app, Handler.port = app, port
-    threading.Thread(target=app.reminders, daemon=True, name="reminders").start()
-    srv = ThreadingHTTPServer(("127.0.0.1", port), Handler)
-    print(f"Déjà is open at http://127.0.0.1:{port}")
+    if not app.public:
+        threading.Thread(target=app.reminders, daemon=True, name="reminders").start()
+    srv = ThreadingHTTPServer((host, port), Handler)
+    print(f"Déjà is open at http://{host}:{port}", flush=True)
     srv.serve_forever()

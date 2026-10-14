@@ -58,11 +58,14 @@ function flash(msg) {
 let status = {};
 async function loadStatus() {
   try { status = await api("/api/status"); } catch { $("#state-text").textContent = "Déjà isn't running"; return; }
-  const s = status.state || "";
+  document.body.classList.toggle("demo", !!status.public);
+  $("#demo-note").hidden = !status.public;
+  const s = status.public ? "sample screens" : status.state || "";
   $("#state").classList.toggle("rec", s === "recording");
   $("#state-text").textContent = {
     recording: "Recording", paused: "Paused", locked: "Screen locked", idle: "Idle", starting: "Starting",
     "screen hidden": "A protected window is in front", "not recording": "Not recording",
+    "sample screens": "Demo",
   }[s] || s.charAt(0).toUpperCase() + s.slice(1);
   $("#counts").textContent = `${status.today} screens today, ${status.mb} MB kept`;
   const paused = status.settings.paused;
@@ -150,6 +153,7 @@ function render(d) {
     const head = n.kind === "reminder" ? `Reminder set for ${when(n.due)}.`
       : n.kind === "todo" ? "Added to your to-dos." : "Noted.";
     result.append(el("h2", "answer", head), el("p", "sub", n.text));
+    if (status.public) result.append(el("p", "sub", "In this demo nothing is saved. On your own PC it would be."));
     loadNotes();
     return;
   }
@@ -250,6 +254,7 @@ async function loadNotes() {
     const box = el("input");
     box.type = "checkbox";
     box.id = `n${n.id}`;
+    box.disabled = !!status.public;
     box.onchange = async () => { await api("/api/notes/done", { id: n.id, done: box.checked }); li.classList.toggle("done", box.checked); };
     const label = el("label");
     label.htmlFor = box.id;
@@ -392,8 +397,7 @@ $("#forget-all").onclick = async () => {
 };
 
 intro();
-loadStatus();
-loadNotes();
+loadStatus().then(loadNotes);
 loadDay();
 setInterval(loadStatus, 5000);
 setInterval(loadNotes, 30000);

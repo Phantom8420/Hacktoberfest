@@ -22,20 +22,26 @@ def main(argv=None):
     ap.add_argument("--home", default=home, help=f"where memories are kept (default {home})")
     ap.add_argument("--no-record", action="store_true", help="open the app without recording the screen")
     ap.add_argument("--no-browser", action="store_true")
+    ap.add_argument("--public", action="store_true", default=bool(os.environ.get("DEJA_PUBLIC")),
+                    help="hosted demo: sample screens, no recording, read-only, listens on all interfaces")
     a = ap.parse_args(argv)
 
     from .capture import Recorder, Settings, lower_priority
-    from .hotkeys import listen
     from .server import App, run
     from .store import Store
 
     store = Store(a.home)
     settings = Settings(Path(a.home) / "settings.json")
+    if a.public:
+        from .demo import seed
+        seed(store)
+        return run(App(store, settings, public=True), a.port, "0.0.0.0")
     recorder = None
     if not a.no_record:
         lower_priority()
         recorder = Recorder(store, settings)
         recorder.start()
+    from .hotkeys import listen  # Windows only
     app = App(store, settings, recorder)
     app.hotkeys = listen({"P": app.toggle_pause, "F": app.forget_recent})
     if not a.no_browser:

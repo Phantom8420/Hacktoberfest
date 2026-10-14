@@ -158,3 +158,23 @@ def test_whisper_hears_a_question(tmp_path):
     text = voice.transcribe(wav.read_bytes())
     assert "water the plants" in text.lower()
     assert voice.route(text)[:2] == ("note", "reminder")
+
+
+def test_public_demo_is_read_only(tmp_path):
+    from deja.demo import seed
+    s = Store(tmp_path)
+    assert seed(s) > 0 and seed(s) == 0  # seeds once
+    app = server.App(s, capture.Settings(tmp_path / "settings.json"), public=True)
+    srv = ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    server.Handler.app, server.Handler.port = app, srv.server_port
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    try:
+        port, j = srv.server_port, {"Content-Type": "application/json"}
+        assert call(port, "GET", "/api/status", headers={"Host": "deja.hf.space"})[0] == 200
+        assert call(port, "POST", "/api/forget", json.dumps({"all": True}), j)[0] == 403
+        notes = len(s.notes())
+        status, raw = call(port, "POST", "/api/ask", json.dumps({"text": "remind me to stretch in 20 minutes"}), j)
+        assert status == 200 and json.loads(raw)["note"]["kind"] == "reminder" and len(s.notes()) == notes
+        assert s.search(ask.terms("which hotel had a sea view"))[0]["title"].startswith("Hotel Mirador")
+    finally:
+        srv.shutdown()
