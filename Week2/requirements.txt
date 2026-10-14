@@ -1,5 +1,9 @@
+mss
+rapidocr
+onnxruntime
+faster-whisper
+pillow
 numpy
-scipy
-av
-tabpfn-client
+psutil
+pywin32
 pytest

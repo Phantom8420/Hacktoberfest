@@ -1,74 +1,103 @@
-# Thud
+# Déjà
 
-Drop a coin on each floor tile, let the laptop listen, and get a map of the tiles that came loose underneath.
-A hollow (debonded) tile rings lower and longer than one sitting on its adhesive bed. Inspectors find them by ear
-with a tapping hammer. Thud does the same on every tile, then keeps a receipt nobody can quietly edit.
+A memory of your own screen that you can talk to. Windows, fully local.
 
-Who it is for: home inspectors who want a map instead of a hunch, and renters or new owners who want proof of the
-floor on the day they got the keys.
+Every few seconds Déjà reads what is on your screen, keeps the text in a search index on your disk next to a small
+screenshot, and lets you ask about it later, by voice or by typing:
 
-## How it works
+- "What was that hotel I looked at yesterday?"
+- "What error did I get in orders.py this morning?"
+- "Remind me to call the dentist tomorrow at 5"
+- "Note that the spare key is with Sam"
 
-1. **Tap.** Record one row at a time (phone or laptop mic, or upload a recording). `thud/taps.py` finds each
-   tap with a 1 ms envelope and adaptive threshold and measures seven loudness-independent features: peak
-   frequency, spectral centroid and roll-off, energy below 1 kHz, decay time to -20 dB, ring ratio (energy after
-   30 ms over the first 30 ms) and spectral flatness.
-2. **Confirm.** Before any labels, tiles are ranked by how unusual they sound on this floor (robust z-score,
-   median/MAD). You check the top few by hand and mark at least two solid and two hollow.
-3. **Score.** TabPFN (Prior Labs, open weights) learns this floor in-context from those few labels and scores
-   every other tile. No training run, no model trained on someone else's floor.
-4. **Report.** Code writes every fact: the summary, the flagged-tile list and the photo count, so a report
-   can't list a tile, a number or a photo that isn't there. Gemma 3, run locally through Ollama, writes the
-   recommended next steps and describes your photos. If Ollama is not running, a plain template writes it instead and says so.
-5. **Receipt.** Each report is sealed into a hash-chained ledger with the tile features, the photo hashes and
-   the report hash. `python -m thud verify thud.ledger.jsonl --anchor HASH` fails if anything was changed.
-
-Audio, photos and reports stay on the machine. Only if local TabPFN can't load does Thud fall back to the
-TabPFN API, which receives the numeric tap features and nothing else.
+Questions come back as one sentence plus the screenshots that matched, with the one the answer came from circled.
+Reminders pop up as a Windows notification when they are due.
 
 ## Run it
 
+Needs Windows 10/11 and Python 3.11 or newer. [Ollama](https://ollama.com) with `gemma3:1b` is optional: without it
+you still get the matching screenshots, just no one-line answer.
+
 ```bash
-pip install -r requirements-local.txt
-ollama pull gemma3:4b
-python -m thud serve
+python -m venv .venv
+.venv/Scripts/pip install -r requirements.txt
+ollama pull gemma3:1b
+.venv/Scripts/python -m deja
 ```
 
-Open http://127.0.0.1:8766 and press **Load a demo floor** to try it without a floor. Local TabPFN needs a one-time
-licence acceptance at https://ux.priorlabs.ai; set `TABPFN_TOKEN` to your key from there. With only
-`requirements.txt` installed, the same token uses the TabPFN API instead.
+It opens `http://127.0.0.1:8777` in your browser and starts recording. The first spoken question downloads the Whisper
+`base.en` model (about 140 MB) and the OCR models once.
 
-Settings can go in a `.env` file next to the README (`TABPFN_TOKEN=...`, `THUD_GEMMA=...`, `THUD_TABPFN=api` to
-skip local weights); it is gitignored, and real environment variables override it.
+| option | what it does |
+|---|---|
+| `--home DIR` | where memories are kept (default `%LOCALAPPDATA%\Deja`) |
+| `--port N` | web page port (default 8777) |
+| `--no-record` | open the app without recording |
+| `--no-browser` | don't open the page |
 
-Gemma 3 4B needs about 4 GB of free memory. On a machine with less, `THUD_GEMMA=gemma3:1b` runs the 1B model
-instead: text only, so photos are counted but not described.
+Hotkeys, anywhere in Windows: **Ctrl Alt P** pauses or resumes, **Ctrl Alt F** forgets the last 5 minutes.
 
-Phones only allow the microphone over https. Pass `--host 0.0.0.0 --cert cert.pem --key key.pem` to serve on
-your network, or record with the phone's own recorder and upload the file.
+## What it never records
 
-Tests: `python -m pytest -rs tests`
+- **Windows that ask not to be captured.** Password managers, banking apps and DRM video that set Windows' capture
+  exclusion come out black, the same way they do in any screen recorder. Black frames are thrown away.
+- **The lock screen, sign-in and admin (UAC) prompts.** They live on a separate secure desktop; Déjà checks for it
+  and skips.
+- **Private browser windows** (InPrivate, Incognito, Private Browsing) and any app on the excluded list (password
+  managers are on it by default; edit it in Settings).
+- **Anything while paused.**
 
-## Limits (read these)
+Before a screen is saved, every line that looks like a secret is replaced in the text and painted black in the
+screenshot: API keys and tokens, `password = ...` lines, card numbers that pass the Luhn check, one-time codes, and
+long random-looking strings.
 
-- **Not field tested.** Everything is checked on synthetic taps (damped sinusoids, with an extra low mode
-  for hollow tiles). No measured set of real hollow tiles has been run yet.
-- Until you confirm two solid and two hollow tiles, Thud only ranks tiles by how unusual they sound. A floor
-  with no hollow tiles still has a "most unusual" tile.
-- Tap detection uses fixed thresholds. Drills, traffic and voices cause extra or missed taps, and one missed tap
-  shifts every later tile in that recording. Record row by row and use **Undo last recording**.
-- The ledger is tamper-evident, not tamper-proof: publish the head hash somewhere you can't edit. A receipt
-  proves what the inspection page sent and when, not that the server recomputed it.
-- A crash halfway through writing a receipt leaves a broken last line, and the server won't start until it is
-  removed by hand.
+Nothing leaves the computer. The web page listens on 127.0.0.1 only and refuses requests from other websites (it
+checks the Host header and the browser's Sec-Fetch-Site, and only accepts JSON or audio bodies). Screens older than
+30 days are deleted (change it in Settings). You can forget one screen, the last 5 minutes, or everything.
+
+## How it works
+
+| step | done by |
+|---|---|
+| capture the foreground window's monitor when it changes | `mss`, a 64×40 thumbnail diff |
+| read the text | RapidOCR (PP-OCR, ONNX Runtime, CPU) |
+| hide secrets | regular expressions in `deja/scrub.py` |
+| store and search | SQLite FTS5 with a trigram index, so "error" finds "ConnectionError" |
+| hear you | faster-whisper `base.en`, int8 on CPU |
+| note or question, and when | code: `deja/voice.py` and `deja/when.py` ("tomorrow at 5", "last tuesday", "in 20 minutes") |
+| answer | Gemma 3 1B through Ollama, given only the top five matching screens |
+
+The model never searches. Code finds the screens, Gemma only reads the few that matched and says which one answers
+you. If its answer contains a number that was not on any of those screens, the answer is dropped and you see the
+screenshots instead.
+
+Measured on an i5-12500H laptop with no GPU: OCR takes about 5 s for a full 2880×1800 screen (it runs at below-normal
+priority, and when it falls behind it skips to the newest screen); Whisper turns a short spoken question into text in
+under a second.
+
+## Limits
+
+- Windows only (capture, secure-desktop check, hotkeys, notifications).
+- Text, not pictures: it finds what was written on screen, not what an image showed.
+- A 1B model sometimes gives a clumsy or partial sentence. The screenshots underneath are always the real evidence.
+- The secret filter is pattern-based. It will miss a password typed somewhere that does not look like one, so keep
+  password managers excluded and pause for anything sensitive.
+- Times are read in English only.
+
+## Tests
+
+```bash
+.venv/Scripts/python -m pytest -q
+```
+
+21 tests: secret scrubbing (both directions), time parsing, note/question routing, search and forgetting, the
+number check on answers, OCR painting a key black in a real screenshot, the server refusing other sites, and Whisper
+hearing a spoken reminder.
 
 ## Credits
 
-Photos via Wikimedia Commons: "Cracked tile flooring" by Mk2010 (CC BY-SA 4.0); "FEMA damage inspector in
-resident's home in Texas" by Bob McMillan (public domain); "Floor tile installation, LIRR passenger concourse" by
-MTA Capital Construction (CC BY 2.0); "US Navy steelworker setting tiles" by U.S. Navy (public domain); "Trowels of
-various sizes" by Pittigrilli (CC0). Full sources in `thud/web/assets/credits.json`. Fonts: Anton and Barlow
-(SIL OFL).
+RapidOCR and PaddleOCR (Apache-2.0), faster-whisper (MIT) and OpenAI Whisper (MIT), Gemma 3 (Gemma Terms of Use),
+Ollama (MIT), python-mss (MIT).
 
 AI assistance was used for this project: Claude (Anthropic) wrote most of the code and this README under my
-direction. I chose the idea, reviewed the results and approved what was published.
+direction.
