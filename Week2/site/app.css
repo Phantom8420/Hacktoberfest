@@ -7,15 +7,17 @@
   --ink-2: #5B6472;
   --line: #E2E5EA;
   --blue: #2F7CF6;
+  --blue-ink: #1D5FD6; /* the bright blue is for bars; text on or in blue needs this one */
   --bar: #BCD5FB;
   --t-blue: #E3EDFF;
   --t-violet: #EFE7FF;
   --t-peach: #FFE9DC;
   --t-green: #DDF5E6;
-  --green: #15803D;
+  --green: #166534;
   --violet: #7C3AED;
   --peach: #C2410C;
   --mark: #E5322D;
+  --mark-ink: #B91C1C;
   --mark-soft: #FDE3E2;
   --lift: 0 1px 2px rgb(17 24 39 / .04), 0 8px 24px -12px rgb(17 24 39 / .12);
   --ui: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
@@ -34,7 +36,7 @@ body {
 h1, h2, h3, p { margin: 0; }
 h2 { font-size: 20px; font-weight: 600; letter-spacing: -.01em; }
 h3 { font-size: 14px; font-weight: 600; color: var(--ink-2); margin-top: 22px; }
-a { color: var(--blue); }
+a { color: var(--blue-ink); }
 button, input, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
@@ -135,7 +137,7 @@ svg.i { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-widt
 .mic[aria-pressed="true"] { background: var(--mark); animation: listen 1.2s ease-in-out infinite; }
 @keyframes listen { 50% { transform: scale(1.08); } }
 .go {
-  height: 46px; padding: 0 26px; border: 0; border-radius: 14px; background: var(--blue); color: var(--white);
+  height: 46px; padding: 0 26px; border: 0; border-radius: 14px; background: var(--blue-ink); color: var(--white);
   font-weight: 600; transition: filter .15s;
 }
 .go:hover { filter: brightness(1.08); }
@@ -155,7 +157,7 @@ kbd { font: 600 12px/1 var(--ui); padding: 3px 6px; border: 1px solid var(--line
   border: 0; background: var(--panel); border-radius: 999px; padding: 9px 16px; font-weight: 500; text-align: left;
   transition: background .15s, color .15s;
 }
-.examples button:hover { background: var(--blue); color: var(--white); }
+.examples button:hover { background: var(--blue-ink); color: var(--white); }
 .skel { margin-top: 18px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .skel span { aspect-ratio: 16 / 10; border-radius: 14px; background: var(--panel); animation: pulse 1.4s ease-in-out infinite; }
 .sheet { margin-top: 14px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
@@ -173,7 +175,7 @@ kbd { font: 600 12px/1 var(--ui); padding: 3px 6px; border: 1px solid var(--line
 .circle path { fill: none; stroke: var(--mark); stroke-width: 1.6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .9s var(--ease) .15s forwards; }
 @keyframes draw { to { stroke-dashoffset: 0; } }
 .cited { border-color: var(--mark-soft); }
-.cited .when { color: var(--mark); }
+.cited .when { color: var(--mark-ink); }
 .kept-list { margin: 10px 0 0; padding-left: 18px; }
 
 /* memory (wallet) */
@@ -209,10 +211,10 @@ kbd { font: 600 12px/1 var(--ui); padding: 3px 6px; border: 1px solid var(--line
 #notes .done .ico { background: var(--green); color: var(--white); }
 #notes .txt { display: block; font-weight: 600; }
 #notes .due { display: block; font-size: 13px; color: var(--ink-2); }
-#notes .late .due { color: var(--mark); font-weight: 600; }
+#notes .late .due { color: var(--mark-ink); font-weight: 600; }
 #notes .done .txt { text-decoration: line-through; color: var(--ink-2); }
 #notes .del { border: 0; background: none; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; color: var(--ink-2); }
-#notes .del:hover { background: var(--white); color: var(--mark); }
+#notes .del:hover { background: var(--white); color: var(--mark-ink); }
 #notes .empty { display: block; background: none; padding: 0; color: var(--ink-2); }
 
 /* chart */
@@ -281,7 +283,7 @@ td.more button:hover { background: var(--panel); }
   border-radius: 12px; border: 1px solid var(--line); background: var(--white); font-weight: 500;
 }
 .btn:hover { border-color: var(--ink-2); }
-.btn.danger { color: var(--mark); }
+.btn.danger { color: var(--mark-ink); }
 .btn.danger:hover { border-color: var(--mark); background: var(--mark-soft); }
 
 /* flash */
