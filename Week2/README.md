@@ -17,8 +17,9 @@ floor on the day they got the keys.
    median/MAD). You check the top few by hand and mark at least two solid and two hollow.
 3. **Score.** TabPFN (Prior Labs, open weights) learns this floor in-context from those few labels and scores
    every other tile. No training run, no model trained on someone else's floor.
-4. **Report.** Gemma 3 4B, run locally through Ollama, writes the report from the tile map and your photos. If
-   Ollama is not running, a plain template writes it instead and the report says so.
+4. **Report.** Gemma 3 4B, run locally through Ollama, writes the summary and next steps, and describes your
+   photos. The flagged-tile list and photo count are written by code, never by the model, so a report can't list
+   a tile or a photo that isn't there. If Ollama is not running, a plain template writes it instead and says so.
 5. **Receipt.** Each report is sealed into a hash-chained ledger with the tile features, the photo hashes and
    the report hash. `python -m thud verify thud.ledger.jsonl --anchor HASH` fails if anything was changed.
 
@@ -36,6 +37,9 @@ python -m thud serve
 Open http://127.0.0.1:8766 and press **Load a demo floor** to try it without a floor. Local TabPFN needs a one-time
 licence acceptance at https://ux.priorlabs.ai; set `TABPFN_TOKEN` to your key from there. With only
 `requirements.txt` installed, the same token uses the TabPFN API instead.
+
+Gemma 3 4B needs about 4 GB of free memory. On a machine with less, `THUD_GEMMA=gemma3:1b` runs the 1B model
+instead: text only, so photos are counted but not described.
 
 Phones only allow the microphone over https. Pass `--host 0.0.0.0 --cert cert.pem --key key.pem` to serve on
 your network, or record with the phone's own recorder and upload the file.

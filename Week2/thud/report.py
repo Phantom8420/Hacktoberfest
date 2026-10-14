@@ -8,12 +8,16 @@ import urllib.request
 OLLAMA = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 MODEL = os.environ.get("THUD_GEMMA", "gemma3:4b")
 
-SYSTEM = """You write floor inspection reports. You get a tile map from an acoustic tap test and
-optional photos. Rules: only state what the data or photos show; give tile positions as
-row-column (A1 is top-left); say how confident the tap test is for each flagged tile; describe
-visible defects in photos plainly (cracks, gaps, stains, lippage) and say when a photo shows nothing
-wrong. Sections: Summary, Flagged tiles, Photo findings, Recommended next steps. Plain markdown, no
-preamble, under 350 words."""
+# The tile list and photo count are written by code, never by the model: a small model will
+# happily invent flagged tiles or describe photos it was never sent.
+PROSE = """You write the summary of a floor inspection from an acoustic tap test. Use only the numbers
+and tile names in the facts; never mention photos. Give tile positions as row-column (A1 is
+top-left). Write exactly two markdown sections: "## Summary" (two or three sentences) and
+"## Recommended next steps" (two to four bullets). No preamble, under 150 words."""
+
+PHOTOS = """You describe photos of a tiled floor for an inspection report. For each photo, one bullet:
+"Photo N:" then the visible defects (cracks, gaps, stains, lippage, loose grout) or "nothing
+visibly wrong". Only describe what is in the photo. No preamble."""
 
 
 def tile_name(r, c):
@@ -38,32 +42,43 @@ def facts(insp):
     }
 
 
-def template(f, n_photos):
-    lines = [f"## Summary", f'{f["room"] or "Room"}: {f["tiles_tapped"]} tiles tapped on a {f["grid"]} grid. '
-             f'{len(f["flagged_hollow"])} flagged as likely hollow.', "", "## Flagged tiles"]
-    flagged = [f'- {t["tile"]}: {round(t["p_hollow"] * 100)}% likely hollow' for t in f["flagged_hollow"]]
+def tiles_md(f):
+    out = [f'- {t["tile"]}: {round(t["p_hollow"] * 100)}% likely hollow' for t in f["flagged_hollow"]]
     if f["confirmed_by_inspector"]["hollow"]:
-        flagged.append(f'- Confirmed hollow by the inspector: {", ".join(f["confirmed_by_inspector"]["hollow"])}')
-    lines += flagged or ["- None"]
-    lines += ["", "## Photo findings",
-              f"{n_photos} photo(s) attached. Not described: the local Gemma model was not running.",
-              "", "## Recommended next steps", "- Re-tap flagged tiles and confirm by pressing on the edges.",
-              "- Ask for flagged tiles to be lifted and re-bedded before signing off."]
-    return "\n".join(lines)
+        out.append(f'- Confirmed hollow by the inspector: {", ".join(f["confirmed_by_inspector"]["hollow"])}')
+    return ["## Flagged tiles"] + (out or ["- None"])
+
+
+def template(f, n_photos):
+    return "\n".join([
+        "## Summary", f'{f["room"] or "Room"}: {f["tiles_tapped"]} tiles tapped on a {f["grid"]} grid. '
+        f'{len(f["flagged_hollow"])} flagged as likely hollow.', "", *tiles_md(f), "",
+        "## Photo findings", f"{n_photos} photo(s) attached. Not described: the local Gemma model was not running.",
+        "", "## Recommended next steps", "- Re-tap flagged tiles and confirm by pressing on the edges.",
+        "- Ask for flagged tiles to be lifted and re-bedded before signing off."])
+
+
+def _chat(system, content, images, timeout):
+    msg = {"role": "user", "content": content}
+    if images:
+        msg["images"] = images
+    req = urllib.request.Request(f"{OLLAMA}/api/chat", data=json.dumps({
+        "model": MODEL, "stream": False, "options": {"temperature": 0.2},
+        "messages": [{"role": "system", "content": system}, msg]}).encode(),
+        headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=timeout) as r:
+        return json.loads(r.read())["message"]["content"].strip()
 
 
 def write(insp, photos_b64, timeout=600):
     """Returns (markdown, model_used). photos_b64: base64 JPEG/PNG strings."""
     f = facts(insp)
-    msg = {"role": "user", "content": f"Tile map facts:\n{json.dumps(f, indent=1)}\n\n{len(photos_b64)} photo(s) attached."}
-    if photos_b64:
-        msg["images"] = photos_b64
-    req = urllib.request.Request(f"{OLLAMA}/api/chat", data=json.dumps({
-        "model": MODEL, "stream": False, "options": {"temperature": 0.2},
-        "messages": [{"role": "system", "content": SYSTEM}, msg]}).encode(),
-        headers={"Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return json.loads(r.read())["message"]["content"].strip(), MODEL
+        prose = _chat(PROSE, f"Facts:\n{json.dumps(f, indent=1)}", None, timeout)
+        photos = (_chat(PHOTOS, f"{len(photos_b64)} photo(s), in order.", photos_b64, timeout)
+                  if photos_b64 else "No photos attached.")
     except Exception:
         return template(f, len(photos_b64)), "template (Ollama not reachable)"
+    head, sep, steps = prose.partition("## Recommended next steps")
+    return "\n".join([head.strip(), "", *tiles_md(f), "", "## Photo findings", photos, "",
+                      (sep + steps).strip()]).strip(), MODEL
