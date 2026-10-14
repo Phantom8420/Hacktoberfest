@@ -6,7 +6,17 @@ import sys
 from . import ledger as L
 
 
+def load_env(path=".env"):
+    """KEY=value lines; real environment variables win."""
+    if os.path.exists(path):
+        for line in open(path, encoding="utf8"):
+            k, sep, v = line.strip().partition("=")
+            if sep and not k.startswith("#"):
+                os.environ.setdefault(k.strip(), v.strip())
+
+
 def main(argv=None):
+    load_env()
     ap = argparse.ArgumentParser(prog="thud", description="Find hollow tiles by listening to coin taps.")
     sub = ap.add_subparsers(dest="cmd", required=True)
     s = sub.add_parser("serve", help="run the web app")

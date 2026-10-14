@@ -38,6 +38,9 @@ Open http://127.0.0.1:8766 and press **Load a demo floor** to try it without a f
 licence acceptance at https://ux.priorlabs.ai; set `TABPFN_TOKEN` to your key from there. With only
 `requirements.txt` installed, the same token uses the TabPFN API instead.
 
+Settings can go in a `.env` file next to the README (`TABPFN_TOKEN=...`, `THUD_GEMMA=...`, `THUD_TABPFN=api` to
+skip local weights); it is gitignored, and real environment variables override it.
+
 Gemma 3 4B needs about 4 GB of free memory. On a machine with less, `THUD_GEMMA=gemma3:1b` runs the 1B model
 instead: text only, so photos are counted but not described.
 
