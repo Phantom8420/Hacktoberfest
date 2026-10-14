@@ -1,0 +1,137 @@
+{
+ "gemma_model": "gemma3:1b",
+ "mb": 0.4,
+ "answers": {
+  "hotel": {
+   "answer": "That was the Hotel Mirador in Lisbon.",
+   "cited": null,
+   "hits": [
+    1
+   ]
+  },
+  "error": {
+   "answer": "You experienced a \u201cConnectionError\u201d while trying to fetch orders from the code, specifically within the `fetch_orders()` function.",
+   "cited": null,
+   "hits": [
+    4
+   ]
+  },
+  "flight gate": {
+   "answer": "Your flight gate is 14.",
+   "cited": null,
+   "hits": [
+    8
+   ]
+  },
+  "kickoff project": {
+   "answer": "The project kickoff is scheduled for Thursday at 10:30.",
+   "cited": null,
+   "hits": [
+    3
+   ]
+  },
+  "files logo new": {
+   "answer": "Lena: They are in Drive, under Brand, specifically in 2026.",
+   "cited": 7,
+   "hits": [
+    7
+   ]
+  },
+  "launch review": {
+   "answer": "The launch review is on Friday at 3 PM.",
+   "cited": null,
+   "hits": [
+    7
+   ]
+  }
+ },
+ "frames": [
+  {
+   "id": 1,
+   "ago": 93600.0,
+   "app": "chrome",
+   "title": "Hotel Mirador - Lisbon - Booking",
+   "image": "2026-10-13/120000_000.jpg",
+   "text": "Hotel Mirador\nAlfama, Lisbon - sea view from every room\n4 nights from 212 per night\nFree cancellation until 18 Oct\nBreakfast included - 9.1 Superb"
+  },
+  {
+   "id": 2,
+   "ago": 90000.0,
+   "app": "chrome",
+   "title": "Casa Lumen - Porto - Booking",
+   "image": "2026-10-13/130000_000.jpg",
+   "text": "Casa Lumen\nRibeira, Porto - river view\n4 nights from 164 per night\nNon-refundable\nRated 8.7 Excellent"
+  },
+  {
+   "id": 3,
+   "ago": 82800.0,
+   "app": "outlook",
+   "title": "Inbox - Project kickoff",
+   "image": "2026-10-13/150000_000.jpg",
+   "text": "Project kickoff moved to Thursday 10:30\nRoom 4021, bring the Q3 numbers\nFrom: Priya Shah"
+  },
+  {
+   "id": 4,
+   "ago": 18000.0,
+   "app": "code",
+   "title": "orders.py - shop - Visual Studio Code",
+   "image": "2026-10-14/090000_000.jpg",
+   "text": "def fetch_orders(session):\n    return session.get(ORDERS_URL, timeout=30)\n\nTraceback (most recent call last):\nConnectionError: timeout after 30s in fetch_orders()"
+  },
+  {
+   "id": 5,
+   "ago": 14400.0,
+   "app": "chrome",
+   "title": "Lemon olive oil cake - recipe",
+   "image": "2026-10-14/100000_000.jpg",
+   "text": "Lemon olive oil cake\n2 lemons, zested and juiced\n180 C for 45 minutes\nServes 8"
+  },
+  {
+   "id": 6,
+   "ago": 10800.0,
+   "app": "chrome",
+   "title": "Trail Runner 4 - running shoes",
+   "image": "2026-10-14/110000_000.jpg",
+   "text": "Trail Runner 4\nSize 43, colour slate\n89.00 with code AUTUMN15\nFree returns for 30 days"
+  },
+  {
+   "id": 7,
+   "ago": 7200.0,
+   "app": "slack",
+   "title": "design-team - Slack",
+   "image": "2026-10-14/120000_000.jpg",
+   "text": "Lena: the new logo files are in Drive > Brand > 2026\nOmar: launch review is Friday at 3\nLena: use the blue from the style guide, 1F5FBF"
+  },
+  {
+   "id": 8,
+   "ago": 3600.0,
+   "app": "chrome",
+   "title": "Flight LIS to AMS - check-in",
+   "image": "2026-10-14/130000_000.jpg",
+   "text": "Check-in is open\nFlight TP 662, Lisbon to Amsterdam\nDeparts 07:45 from gate 14\nBooking reference QX7KD2"
+  }
+ ],
+ "notes": [
+  {
+   "id": 1,
+   "text": "Call the dentist",
+   "kind": "reminder",
+   "done": 0,
+   "due_in": 86400.0
+  },
+  {
+   "id": 3,
+   "text": "The spare key is with Sam",
+   "kind": "note",
+   "done": 0,
+   "due_in": null
+  },
+  {
+   "id": 2,
+   "text": "Renew the passport",
+   "kind": "todo",
+   "done": 0,
+   "due_in": null
+  }
+ ]
+}

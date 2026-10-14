@@ -59,6 +59,7 @@ let status = {};
 async function loadStatus() {
   try { status = await api("/api/status"); } catch { $("#state-text").textContent = "Déjà isn't running"; return; }
   document.body.classList.toggle("demo", !!status.public);
+  document.body.classList.toggle("static", !!status.static);
   $("#demo-note").hidden = !status.public;
   const s = status.public ? "sample screens" : status.state || "";
   $("#state").classList.toggle("rec", s === "recording");
@@ -162,7 +163,8 @@ function render(d) {
     result.append(el("h2", "answer", d.answer));
   } else if (hits.length) {
     result.append(el("h2", "answer quiet", "Here's the closest match on your screen."),
-      el("p", "sub", status.gemma ? "I couldn't put it in one sentence I could check against the screen, so look for yourself."
+      el("p", "sub", status.static ? "One-line answers come from a small model on your own PC. This page only has them for the example questions; these are the screens that matched."
+        : status.gemma ? "I couldn't put it in one sentence I could check against the screen, so look for yourself."
         : "Start Ollama for one-line answers. The screens below are what matched."));
   } else {
     result.append(el("h2", "answer quiet", "Nothing on your screen matched that."),

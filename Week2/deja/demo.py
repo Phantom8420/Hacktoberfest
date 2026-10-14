@@ -46,11 +46,11 @@ def _render(title, bg, ink, lines):
     return np.asarray(im)[:, :, ::-1].copy()
 
 
-def seed(store):
+def seed(store, now=None):
     """Fill an empty store with the sample day. Returns how many screens were added."""
     if store.stats()["frames"]:
         return 0
-    now = time.time()
+    now = now or time.time()
     for hours, app, title, bg, ink, lines in SCREENS:
         t = now - hours * 3600
         rel = save_frame(_render(title, bg, ink, lines), store.home, t, [], [])

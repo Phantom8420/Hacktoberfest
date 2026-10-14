@@ -67,7 +67,7 @@ svg.i { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-widt
 
 main { max-width: 1320px; margin: 0 auto; padding: 0 24px 48px; display: grid; gap: 20px; }
 
-.demo #pause, .demo #forget, .demo #open-settings, .demo #viewer-forget, .demo #notes .del { display: none; }
+.static #mic, .demo #pause, .demo #forget, .demo #open-settings, .demo #viewer-forget, .demo #notes .del { display: none; }
 .demo-note { padding: 14px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--sheet); max-width: 90ch; }
 
 /* ask */

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Déjà</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='6' width='26' height='20' rx='2' fill='%23141D26'/%3E%3Cellipse cx='16' cy='16' rx='11' ry='8' fill='none' stroke='%23D3222A' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="bar">
+  <h1 class="brand">Déjà</h1>
+  <p class="state" id="state"><span class="dot" aria-hidden="true"></span><span id="state-text">Starting</span></p>
+  <p class="counts" id="counts"></p>
+  <div class="actions">
+    <button class="btn" id="pause" type="button" aria-pressed="false">Pause</button>
+    <button class="btn" id="forget" type="button">Forget last 5 min</button>
+    <button class="btn icon" id="open-settings" type="button" aria-label="Settings"></button>
+  </div>
+</header>
+
+<main>
+  <p class="demo-note" id="demo-note" hidden>This is a demo on a day of sample screens. The real app runs on your own Windows PC,
+    reads your screen as you work and keeps everything there. Ask it anything below.</p>
+  <section class="ask" aria-label="Ask or keep a note">
+    <form id="ask-form" class="ask-row">
+      <button class="mic" id="mic" type="button" aria-pressed="false" aria-label="Speak"></button>
+      <label class="sr" for="q">Ask about something you saw, or keep a note</label>
+      <input id="q" name="q" autocomplete="off" maxlength="500"
+             placeholder="What was that hotel I looked at yesterday?">
+      <button class="go" type="submit">Ask</button>
+    </form>
+    <p class="hint" id="hint"></p>
+  </section>
+
+  <div class="grid">
+    <section class="result" id="result" aria-live="polite"></section>
+    <aside class="notes" aria-labelledby="notes-title">
+      <h2 id="notes-title">Notes and reminders</h2>
+      <ul id="notes"></ul>
+    </aside>
+  </div>
+
+  <section class="day" aria-labelledby="day-title">
+    <div class="day-head">
+      <h2 id="day-title">Today</h2>
+      <div class="day-nav">
+        <button class="btn icon" id="day-prev" type="button" aria-label="Previous day"></button>
+        <label class="sr" for="day-pick">Day</label>
+        <input type="date" id="day-pick">
+        <button class="btn icon" id="day-next" type="button" aria-label="Next day"></button>
+      </div>
+    </div>
+    <div class="scrub">
+      <button class="preview" id="preview" type="button" aria-label="Open this screen">
+        <img id="preview-img" alt="" hidden>
+        <span class="preview-empty" id="preview-empty">Nothing recorded on this day.</span>
+      </button>
+      <p class="preview-cap" id="preview-cap"></p>
+      <div class="track">
+        <svg id="ticks" viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <label class="sr" for="scrub">Time of day</label>
+        <input type="range" id="scrub" min="0" max="1439" step="1">
+        <div class="hours" aria-hidden="true">
+          <span>00</span><span>03</span><span>06</span><span>09</span><span>12</span><span>15</span><span>18</span><span>21</span><span>24</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<p class="flash" id="flash" role="status"></p>
+
+<dialog id="viewer" aria-labelledby="viewer-title">
+  <div class="viewer">
+    <img id="viewer-img" alt="" hidden>
+    <div class="viewer-side">
+      <h2 id="viewer-title"></h2>
+      <p class="meta" id="viewer-meta"></p>
+      <pre id="viewer-text"></pre>
+      <div class="row">
+        <button class="btn danger" id="viewer-forget" type="button">Forget this screen</button>
+        <button class="btn" id="viewer-close" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="settings" aria-labelledby="settings-title">
+  <form id="settings-form" class="settings">
+    <h2 id="settings-title">Settings</h2>
+    <label for="excluded">Never record these apps, one per line</label>
+    <textarea id="excluded" rows="7" spellcheck="false"></textarea>
+    <div class="two">
+      <label>Look every <input type="number" id="interval" min="2" max="60"> seconds</label>
+      <label>Keep screens for <input type="number" id="keep" min="1" max="365"> days</label>
+    </div>
+    <p class="meta" id="models"></p>
+    <p class="meta">Windows that block screen capture, the lock screen, admin prompts and private browser windows are never recorded. Lines that look like passwords, keys, card numbers or codes are blacked out before a screen is saved.</p>
+    <div class="row">
+      <button class="go" type="submit">Save</button>
+      <button class="btn" id="settings-close" type="button">Close</button>
+      <button class="btn danger" id="forget-all" type="button">Forget everything</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="static.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
