@@ -290,6 +290,9 @@ async function loadDay(keep) {
   $("#day-title").textContent = key === today ? "Today" : key === dayKey(y) ? "Yesterday"
     : day.toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" });
   ({ frames } = await api(`/api/timeline?day=${key}&limit=400`));
+  if (key === today) $("#hero-shots").replaceChildren(...frames.slice(-3).reverse().map((f) => {
+    const i = el("img"); i.src = `/frames/${f.image}`; i.alt = ""; return i;
+  }));
   const svg = $("#ticks");
   svg.replaceChildren();
   for (const f of frames) {

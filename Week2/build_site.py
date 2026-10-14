@@ -72,6 +72,8 @@ def main():
         shutil.copy(web / name, OUT / name)
     html = (web / "index.html").read_text("utf8")
     html = html.replace("Ask it anything below, by typing or with the mic.", "Ask it anything below.")
+    # the local app stays offline and falls back to Bahnschrift; the hosted page can fetch Anton
+    html = html.replace("</head>", '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">\n</head>')
     html = html.replace('<script src="app.js"></script>', '<script src="static.js"></script>\n<script src="app.js"></script>')
     (OUT / "index.html").write_text(html, "utf8")
     (OUT / "data.json").write_text(json.dumps(data, indent=1), "utf8")

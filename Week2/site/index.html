@@ -6,32 +6,42 @@
 <title>Déjà</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='6' width='26' height='20' rx='2' fill='%23141D26'/%3E%3Cellipse cx='16' cy='16' rx='11' ry='8' fill='none' stroke='%23D3222A' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="app.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap">
 </head>
 <body>
-<header class="bar">
-  <h1 class="brand">Déjà</h1>
-  <p class="state" id="state"><span class="dot" aria-hidden="true"></span><span id="state-text">Starting</span></p>
-  <p class="counts" id="counts"></p>
-  <div class="actions">
-    <button class="btn" id="pause" type="button" aria-pressed="false">Pause</button>
-    <button class="btn" id="forget" type="button">Forget last 5 min</button>
-    <button class="btn icon" id="open-settings" type="button" aria-label="Settings"></button>
+<div class="shell">
+<header class="hero">
+  <nav class="bar">
+    <h1 class="brand">Déjà</h1>
+    <p class="state" id="state"><span class="dot" aria-hidden="true"></span><span id="state-text">Starting</span></p>
+    <p class="counts" id="counts"></p>
+    <div class="actions">
+      <button class="btn" id="pause" type="button" aria-pressed="false">Pause</button>
+      <button class="btn" id="forget" type="button">Forget last 5 min</button>
+      <button class="btn icon" id="open-settings" type="button" aria-label="Settings"></button>
+    </div>
+  </nav>
+  <div class="hero-body">
+    <div class="hero-text">
+      <h2 class="headline">Find anything you saw on your screen</h2>
+      <section class="ask" aria-label="Ask or keep a note">
+        <form id="ask-form" class="ask-row">
+          <button class="mic" id="mic" type="button" aria-pressed="false" aria-label="Speak"></button>
+          <label class="sr" for="q">Ask about something you saw, or keep a note</label>
+          <input id="q" name="q" autocomplete="off" maxlength="500"
+                 placeholder="What was that hotel I looked at yesterday?">
+          <button class="go" type="submit">Ask</button>
+        </form>
+        <p class="hint" id="hint"></p>
+      </section>
+    </div>
+    <div class="hero-shots" id="hero-shots" aria-hidden="true"></div>
   </div>
 </header>
 
 <main>
   <p class="demo-note" id="demo-note" hidden>This is a demo on a day of sample screens. The real app runs on your own Windows PC,
     reads your screen as you work and keeps everything there. Ask it anything below.</p>
-  <section class="ask" aria-label="Ask or keep a note">
-    <form id="ask-form" class="ask-row">
-      <button class="mic" id="mic" type="button" aria-pressed="false" aria-label="Speak"></button>
-      <label class="sr" for="q">Ask about something you saw, or keep a note</label>
-      <input id="q" name="q" autocomplete="off" maxlength="500"
-             placeholder="What was that hotel I looked at yesterday?">
-      <button class="go" type="submit">Ask</button>
-    </form>
-    <p class="hint" id="hint"></p>
-  </section>
 
   <div class="grid">
     <section class="result" id="result" aria-live="polite"></section>
@@ -68,6 +78,15 @@
     </div>
   </section>
 </main>
+</div>
+
+<footer class="foot">
+  <p class="wordmark" aria-hidden="true">Déjà</p>
+  <div class="foot-side">
+    <p>A memory of your own screen. Runs on your Windows PC and keeps everything there.</p>
+    <a href="https://github.com/Phantom8420/Hacktoberfest/tree/main/Week2">Source on GitHub</a>
+  </div>
+</footer>
 
 <p class="flash" id="flash" role="status"></p>
 
