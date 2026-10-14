@@ -1,6 +1,6 @@
 # Déjà
 
-A memory of your own screen that you can talk to. Windows, fully local.
+A memory of your own screen that you can talk to. Windows, fully local. [Try the demo](https://deja-mu.vercel.app) (sample screens).
 
 Every few seconds Déjà reads what is on your screen, keeps the text in a search index on your disk next to a small
 screenshot, and lets you ask about it later, by voice or by typing:
@@ -47,7 +47,7 @@ the sample screens itself for anything else. Notes and reminders are parsed but 
 
 ```bash
 .venv/Scripts/python build_site.py   # needs Ollama with gemma3:1b running
-npx vercel deploy site --prod
+cd site && npx vercel deploy --prod   # live at https://deja-mu.vercel.app
 ```
 
 Any static host works: it is plain files, no build step. On Vercel's dashboard, import the repo and set the
