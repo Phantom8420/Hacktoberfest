@@ -11,7 +11,7 @@ MODEL = os.environ.get("THUD_GEMMA", "gemma3:4b")
 # The tile list and photo count are written by code, never by the model: a small model will
 # happily invent flagged tiles or describe photos it was never sent.
 PROSE = """You write the summary of a floor inspection from an acoustic tap test. Use only the numbers
-and tile names in the facts; never mention photos. Give tile positions as row-column (A1 is
+and tile names in the facts, copied exactly; never count anything yourself; never mention photos. Give tile positions as row-column (A1 is
 top-left). Write exactly two markdown sections: "## Summary" (two or three sentences) and
 "## Recommended next steps" (two to four bullets). No preamble, under 150 words."""
 
@@ -37,6 +37,7 @@ def facts(insp):
             "solid": [tile_name(t["r"], t["c"]) for t in tiles if t.get("label") == "solid"],
             "hollow": [tile_name(t["r"], t["c"]) for t in tiles if t.get("label") == "hollow"],
         },
+        "number_flagged_hollow": len(flagged),  # small models miscount lists
         "flagged_hollow": [{"tile": tile_name(t["r"], t["c"]), "p_hollow": t["p_hollow"]} for t in flagged],
         "model": insp.get("backend", "none"),
     }
