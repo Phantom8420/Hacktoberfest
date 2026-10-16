@@ -35,10 +35,12 @@ def run(url, app, icon_path):
         items = [("Open Déjà", lambda: webbrowser.open(url)),
                  ("Resume" if app.settings.paused else "Pause", app.toggle_pause),
                  ("Forget the last 5 minutes", app.forget_recent),
+                 ("Start at sign-in", lambda: uninstall() if STARTUP.exists() else install()),
                  ("Quit", lambda: os._exit(0))]
         m = win32gui.CreatePopupMenu()
         for i, (label, _) in enumerate(items, 1):
-            win32gui.AppendMenu(m, win32con.MF_STRING, i, label)
+            checked = label == "Start at sign-in" and STARTUP.exists()
+            win32gui.AppendMenu(m, win32con.MF_STRING | (win32con.MF_CHECKED if checked else 0), i, label)
         win32gui.SetForegroundWindow(hwnd)  # without this the menu never closes on an outside click
         pick = win32gui.TrackPopupMenu(m, win32con.TPM_RIGHTBUTTON | win32con.TPM_RETURNCMD,
                                        *win32gui.GetCursorPos(), 0, hwnd, None)
@@ -72,9 +74,13 @@ def install():
     import win32com.client
     STARTUP.parent.mkdir(parents=True, exist_ok=True)
     link = win32com.client.Dispatch("WScript.Shell").CreateShortCut(str(STARTUP))
-    link.TargetPath = str(Path(sys.executable).with_name("pythonw.exe"))
-    link.Arguments = "-m deja --no-browser"
-    link.WorkingDirectory = str(Path(__file__).parent.parent)
+    if getattr(sys, "frozen", False):  # Deja.exe
+        link.TargetPath, link.Arguments = sys.executable, "--no-browser"
+        link.WorkingDirectory = str(Path(sys.executable).parent)
+    else:
+        link.TargetPath = str(Path(sys.executable).with_name("pythonw.exe"))
+        link.Arguments = "-m deja --no-browser"
+        link.WorkingDirectory = str(Path(__file__).parent.parent)
     link.Description = "Déjà, a memory of your screen"
     link.save()
     return STARTUP

@@ -19,9 +19,15 @@ Reminders pop up as a Windows notification when they are due.
 
 ## Run it
 
-On Windows 10/11 with Python 3.11 or newer installed, right-click `install.ps1` and choose *Run with PowerShell*. It
+On Windows 10/11, with nothing else installed: download `Deja-windows.zip` from the
+[latest release](https://github.com/Phantom8420/Hacktoberfest/releases/tag/deja-v0.1.0), unzip it anywhere and run
+`Deja\Deja.exe`. It opens the page and sits in the tray; tick *Start at sign-in* in the tray menu to keep it running.
+The exe isn't code-signed, so Windows may show "Windows protected your PC" the first time: *More info*, then *Run
+anyway*.
+
+From source, with Python 3.11 or newer installed, right-click `install.ps1` and choose *Run with PowerShell*. It
 sets everything up in `.venv` inside this folder, adds Déjà to sign-in, and starts it in the tray (click the eye to
-open it; right-click to pause, forget the last 5 minutes, or quit). Reminders fire whenever you're signed in, whether
+open it; right-click to pause, forget the last 5 minutes, turn start-at-sign-in on or off, or quit). Reminders fire whenever you're signed in, whether
 or not the page is open.
 
 By hand:

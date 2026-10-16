@@ -10,3 +10,5 @@ models/
 
 .vercel
 .env*
+Week2/build/
+Week2/dist/
