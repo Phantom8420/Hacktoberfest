@@ -311,7 +311,8 @@ const hourOf = (f) => new Date(f.t * 1000).getHours();
 $("#day-prev").innerHTML = icon("left");
 $("#day-next").innerHTML = icon("right");
 $("#open-settings").innerHTML = icon("gear");
-$("#forget").innerHTML = `${icon("erase")} Forget last 5 min`;
+$("#forget").innerHTML = `${icon("erase")}<span class="wide"> Forget last 5 min</span>`;
+$("#forget").setAttribute("aria-label", "Forget the last 5 minutes");
 for (const e of document.querySelectorAll("[data-i]")) e.innerHTML = icon(e.dataset.i);
 const AV = [["t-blue", "blue"], ["t-violet", "violet"], ["t-peach", "peach"], ["t-green", "green"]];
 
@@ -422,9 +423,17 @@ $("#day-pick").onchange = (e) => {
   day = new Date(yy, mm - 1, dd);
   loadDay();
 };
-for (const a of document.querySelectorAll(".tabs a, .rail a")) a.addEventListener("click", () => {
-  for (const b of document.querySelectorAll(".tabs a, .rail a")) b.classList.toggle("on", b.hash === a.hash);
-});
+// each tab is its own screen; the hash keeps it across reloads and the back button
+function showView() {
+  const name = $("#view-" + location.hash.slice(1)) ? location.hash.slice(1) : "ask";
+  for (const v of document.querySelectorAll(".view")) v.hidden = v.id !== "view-" + name;
+  for (const a of document.querySelectorAll(".tabs a, .rail a")) {
+    a.classList.toggle("on", a.hash === "#" + name);
+    if (a.hash === "#" + name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+  }
+}
+addEventListener("hashchange", showView);
+showView();
 
 /* frame viewer */
 const viewer = $("#viewer");

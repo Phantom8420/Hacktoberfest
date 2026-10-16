@@ -7,14 +7,14 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='2' width='28' height='28' rx='8' fill='%23111827'/%3E%3Cellipse cx='16' cy='16' rx='9' ry='6.5' fill='none' stroke='%232F7CF6' stroke-width='3'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="app.css">
 </head>
-<body>
+<body class="dash">
 <div class="app">
 <header class="top">
   <h1 class="brand"><a href="./">Déjà</a></h1>
   <nav class="tabs" aria-label="Sections">
     <a href="#ask" class="on">Ask</a>
-    <a href="#day">Timeline</a>
-    <a href="#notes-card">Notes</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#notes">Notes</a>
     <a href="#apps">Apps</a>
   </nav>
   <div class="top-end">
@@ -25,8 +25,8 @@
 
 <nav class="rail" aria-label="Sections">
   <a href="#ask" class="on" aria-label="Ask" data-i="home"></a>
-  <a href="#day" aria-label="Timeline" data-i="clock"></a>
-  <a href="#notes-card" aria-label="Notes" data-i="note"></a>
+  <a href="#timeline" aria-label="Timeline" data-i="clock"></a>
+  <a href="#notes" aria-label="Notes" data-i="note"></a>
   <a href="#apps" aria-label="Apps" data-i="grid"></a>
   <button class="rail-end" id="rail-settings" type="button" aria-label="Privacy settings" data-i="gear"></button>
 </nav>
@@ -50,8 +50,8 @@
     </div>
   </div>
 
-  <div class="bento">
-    <div class="stack main">
+  <!-- one view per tab, shown one at a time; the page never scrolls -->
+  <div class="view v-ask" id="view-ask">
       <section class="card ask" id="ask" aria-label="Ask or keep a note">
         <form id="ask-form" class="ask-row">
           <button class="mic" id="mic" type="button" aria-pressed="false" aria-label="Speak"></button>
@@ -63,14 +63,14 @@
         <p class="hint" id="hint"></p>
         <div class="result" id="result" aria-live="polite"></div>
       </section>
-
+  </div>
+  <div class="view v-timeline" id="view-timeline" hidden>
       <section class="card chart" id="day" aria-labelledby="day-title">
         <div class="card-head"><span class="chip" data-i="clock"></span><h2 id="day-title">Today</h2></div>
         <p class="big" id="day-count">0</p>
         <p class="muted"><span class="badge" id="day-apps">0 apps</span> screens on this day, by hour</p>
         <div class="bars" id="bars" role="group" aria-label="Screens by hour"></div>
       </section>
-
       <section class="card table" aria-labelledby="hour-title">
         <div class="card-head"><span class="chip" data-i="list"></span><div><h2 id="hour-title">Screens</h2>
           <p class="muted">Pick an hour on the chart to narrow it down. Open any screen to read it.</p></div></div>
@@ -79,9 +79,29 @@
           <tbody id="rows"></tbody>
         </table>
       </section>
-
-    </div>
-    <div class="stack side">
+      <section class="card shot" aria-labelledby="shot-title">
+        <div class="card-head"><span class="chip" data-i="home"></span><h2 id="shot-title">Selected screen</h2></div>
+        <button class="preview" id="preview" type="button" aria-label="Open this screen">
+          <img id="preview-img" alt="" hidden>
+          <span class="preview-empty" id="preview-empty">Nothing recorded on this day.</span>
+        </button>
+        <p class="preview-cap" id="preview-cap"></p>
+      </section>
+  </div>
+  <div class="view v-notes" id="view-notes" hidden>
+      <section class="card notes" id="notes-card" aria-labelledby="notes-title">
+        <div class="card-head"><span class="chip" data-i="note"></span><h2 id="notes-title">Notes and reminders</h2></div>
+        <ul id="notes"></ul>
+      </section>
+  </div>
+  <div class="view v-apps" id="view-apps" hidden>
+      <section class="card apps" id="apps" aria-labelledby="apps-title">
+        <div class="card-head"><span class="chip" data-i="grid"></span><div><h2 id="apps-title">Apps on this day</h2>
+          <p class="muted">Where your screens came from.</p></div></div>
+        <ul class="avatars" id="app-list"></ul>
+        <h3>Never recorded</h3>
+        <ul class="plain" id="excluded-list"></ul>
+      </section>
       <section class="card privacy" aria-labelledby="mem-title">
         <div class="card-head"><span class="chip" data-i="shield"></span><div><h2 id="mem-title">Private by design</h2>
           <p class="muted"><span id="total">0</span> screens, encrypted. Only your Windows account can open them.</p></div></div>
@@ -95,32 +115,7 @@
           <div><b id="mb">0 MB</b><span class="muted" id="keep-days">on this PC</span></div>
         </div>
       </section>
-
-      <section class="card notes" id="notes-card" aria-labelledby="notes-title">
-        <div class="card-head"><span class="chip" data-i="note"></span><h2 id="notes-title">Notes and reminders</h2></div>
-        <ul id="notes"></ul>
-      </section>
-
-      <section class="card apps" id="apps" aria-labelledby="apps-title">
-        <div class="card-head"><span class="chip" data-i="grid"></span><div><h2 id="apps-title">Apps on this day</h2>
-          <p class="muted">Where your screens came from.</p></div></div>
-        <ul class="avatars" id="app-list"></ul>
-        <h3>Never recorded</h3>
-        <ul class="plain" id="excluded-list"></ul>
-      </section>
-
-      <section class="card shot" aria-labelledby="shot-title">
-        <div class="card-head"><span class="chip" data-i="home"></span><h2 id="shot-title">Selected screen</h2></div>
-        <button class="preview" id="preview" type="button" aria-label="Open this screen">
-          <img id="preview-img" alt="" hidden>
-          <span class="preview-empty" id="preview-empty">Nothing recorded on this day.</span>
-        </button>
-        <p class="preview-cap" id="preview-cap"></p>
-      </section>
-    </div>
   </div>
-  <p class="foot">A memory of your own screen. Runs on your Windows PC and keeps everything there.
-    <a href="https://github.com/Phantom8420/Hacktoberfest/tree/main/Week2">Source on GitHub</a></p>
 </main>
 </div>
 

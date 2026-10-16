@@ -68,7 +68,7 @@ def main():
             (OUT / "frames" / f["image"]).write_bytes(store.image(f["image"]))
         store.db.close()  # Windows will not delete an open database
     web = HERE / "deja" / "web"
-    for name in ("app.css", "app.js", "static.js"):
+    for name in ("app.css", "app.js", "static.js", "demo.gif"):
         shutil.copy(web / name, OUT / name)
     # the local app stays offline and falls back to Segoe UI; the hosted pages can fetch Inter
     font = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">\n</head>'
@@ -77,15 +77,11 @@ def main():
     html = html.replace("</head>", font)
     html = html.replace('<script src="app.js"></script>', '<script src="static.js"></script>\n<script src="app.js"></script>')
     (OUT / "app.html").write_text(html, "utf8")
-    shutil.copy(HERE / "demo.gif", OUT / "demo.gif")
-    clip = ('<figure class="clip"><img src="demo.gif" width="832" height="420" alt="Typing a question into Déjà; '
-            'it answers in one line and circles the screenshot the answer came from">\n'
-            '  <figcaption>The real app, on a day of sample screens.</figcaption></figure>\n<p class="foot">')
-    get = ('<a class="get" href="https://github.com/Phantom8420/Hacktoberfest/releases/download/deja-v0.1.0/'
-           'Deja-windows.zip">Download for Windows</a>\n    <ul class="facts">')
-    index = (web / "index.html").read_text("utf8").replace("</head>", font).replace('<p class="foot">', clip)
-    index = index.replace('<ul class="facts">', get, 1)
-    (OUT / "index.html").write_text(index, "utf8")
+    get = ('<nav class="wnav"><a href="https://github.com/Phantom8420/Hacktoberfest/releases/download/deja-v0.1.0/'
+           'Deja-windows.zip">Download</a>')
+    for name in ("index.html", "how.html"):
+        page = (web / name).read_text("utf8").replace("</head>", font).replace('<nav class="wnav">', get)
+        (OUT / name).write_text(page, "utf8")
     (OUT / "data.json").write_text(json.dumps(data, indent=1), "utf8")
     print(f"{len(answers)}/{len(QUESTIONS)} answers kept, site written to {OUT}")
 

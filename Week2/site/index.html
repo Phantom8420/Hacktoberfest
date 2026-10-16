@@ -9,45 +9,43 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 </head>
 <body class="welcome">
+<header class="wtop">
+  <a class="wbrand" href="index.html"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#111827"/><ellipse cx="16" cy="16" rx="9" ry="6.5" fill="none" stroke="#2F7CF6" stroke-width="3"/></svg>Déjà</a>
+  <nav class="wnav"><a href="https://github.com/Phantom8420/Hacktoberfest/releases/download/deja-v0.1.0/Deja-windows.zip">Download</a><a href="how.html">How it works</a></nav>
+</header>
 <main class="hero">
-  <div class="hero-copy">
-    <p class="wbrand"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="2" width="28" height="28" rx="8" fill="#111827"/><ellipse cx="16" cy="16" rx="9" ry="6.5" fill="none" stroke="#2F7CF6" stroke-width="3"/></svg>Déjà</p>
-    <h1>Your screen, remembered.</h1>
-    <p class="lede">Déjà looks at your screen as you work and keeps it on your PC. Ask what you saw, and it answers with the screenshot it came from.</p>
-    <a class="open" href="app.html">Open dashboard
-      <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
-    <a class="get" href="https://github.com/Phantom8420/Hacktoberfest/releases/download/deja-v0.1.0/Deja-windows.zip">Download for Windows</a>
-    <ul class="facts">
-      <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8 7 10 4-2 7-5.5 7-10V6Z"/></svg>Encrypted, and it stays on this PC</li>
-      <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6v12M15 6v12"/></svg>Pause any time</li>
-      <li><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-12M9 7V4h6v3"/></svg>Forget the last 5 minutes</li>
-    </ul>
-  </div>
+  <h1>Your screen, remembered.</h1>
+  <p class="lede">Déjà keeps what you see on your PC. Ask what you saw, and it answers with the screenshot it came from.</p>
+  <a class="open" href="app.html">Open dashboard
+    <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a>
+</main>
+<div class="stage" aria-hidden="true">
+  <div class="scene">
+    <div class="win w-code">
+      <p class="wbar"><i></i><i></i><i></i>orders.py</p>
+      <pre><b>def</b> fetch_orders(session):
+    <b>return</b> session.get(ORDERS_URL, timeout=30)
 
-  <div class="hero-demo" aria-hidden="true">
-    <div class="d-card">
-      <div class="d-ask"><span>What was that hotel I looked at yesterday?</span><b>Ask</b></div>
-      <p class="d-ans">It was in your browser yesterday evening.<span>Here is the screen it came from.</span></p>
-      <div class="d-win">
-        <div class="d-bar"><i></i><i></i><i></i></div>
-        <div class="d-body">
-          <span class="ln" style="width: 46%"></span>
-          <span class="ln" style="width: 78%"></span>
-          <span class="ln hit" style="width: 58%"><svg viewBox="0 0 100 40" preserveAspectRatio="none"><path pathLength="1" d="M52 4C24 2 3 9 4 21c1 12 30 16 52 15 24-1 41-8 40-18C95 7 70 2 44 5"/></svg></span>
-          <span class="ln" style="width: 70%"></span>
-          <span class="ln" style="width: 34%"></span>
-        </div>
+Traceback (most recent call last):
+<em>ConnectionError: timeout after 30s</em></pre>
+    </div>
+    <div class="win w-chat">
+      <p class="wbar"><i></i><i></i><i></i>design-team</p>
+      <p><b>Lena</b>the new logo files are in Drive &gt; Brand &gt; 2026</p>
+      <p><b>Omar</b>launch review is Friday at 3</p>
+    </div>
+    <div class="win w-hotel">
+      <p class="wbar"><i></i><i></i><i></i>Hotel Mirador - Lisbon - Booking</p>
+      <div class="page">
+        <p class="h">Hotel Mirador<svg viewBox="0 0 100 40" preserveAspectRatio="none"><path pathLength="1" d="M52 4C24 2 3 9 4 21c1 12 30 16 52 15 24-1 41-8 40-18C95 7 70 2 44 5"/></svg></p>
+        <p>Alfama, Lisbon - sea view from every room</p>
+        <p>4 nights from 212 per night</p>
+        <p>Free cancellation until 18 Oct</p>
       </div>
     </div>
-    <div class="d-card d-day">
-      <p>Today</p>
-      <div class="d-bars"><i style="--h: 30%"></i><i style="--h: 55%"></i><i style="--h: 40%"></i><i style="--h: 80%"></i><i style="--h: 62%"></i><i style="--h: 45%"></i><i class="on" style="--h: 92%"></i><i style="--h: 25%"></i></div>
-    </div>
+    <div class="q"><span><b>What was that hotel I looked at yesterday?</b></span><i>Ask</i></div>
+    <div class="a">That was the Hotel Mirador in Lisbon.<small>Chrome, yesterday at 12:00</small></div>
   </div>
-</main>
-<figure class="clip"><img src="demo.gif" width="832" height="420" alt="Typing a question into Déjà; it answers in one line and circles the screenshot the answer came from">
-  <figcaption>The real app, on a day of sample screens.</figcaption></figure>
-<p class="foot">Runs on your Windows PC and keeps everything there.
-  <a href="https://github.com/Phantom8420/Hacktoberfest/tree/main/Week2">Source on GitHub</a></p>
+</div>
 </body>
 </html>
