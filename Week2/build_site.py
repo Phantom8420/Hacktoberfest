@@ -81,7 +81,10 @@ def main():
     clip = ('<figure class="clip"><img src="demo.gif" width="832" height="420" alt="Typing a question into Déjà; '
             'it answers in one line and circles the screenshot the answer came from">\n'
             '  <figcaption>The real app, on a day of sample screens.</figcaption></figure>\n<p class="foot">')
+    get = ('<a class="get" href="https://github.com/Phantom8420/Hacktoberfest/releases/download/deja-v0.1.0/'
+           'Deja-windows.zip">Download for Windows</a>\n    <ul class="facts">')
     index = (web / "index.html").read_text("utf8").replace("</head>", font).replace('<p class="foot">', clip)
+    index = index.replace('<ul class="facts">', get, 1)
     (OUT / "index.html").write_text(index, "utf8")
     (OUT / "data.json").write_text(json.dumps(data, indent=1), "utf8")
     print(f"{len(answers)}/{len(QUESTIONS)} answers kept, site written to {OUT}")
