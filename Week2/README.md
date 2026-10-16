@@ -27,7 +27,7 @@ or not the page is open.
 By hand:
 
 Needs Windows 10/11 and Python 3.11 or newer. [Ollama](https://ollama.com) with `gemma3:1b` is optional: without it
-you still get the matching screenshots, just no one-line answer.
+you still get the matching screenshots, with the line that best matches your question quoted as the answer.
 
 ```bash
 python -m venv .venv
@@ -105,11 +105,11 @@ checks the Host header and the browser's Sec-Fetch-Site, and only accepts JSON o
 | search by meaning | when your words match fewer than three screens, Gemma suggests words the screen may have used ("how expensive" → price, nights) and those are searched too |
 | hear you | faster-whisper `base.en`, int8 on CPU |
 | note or question, and when | code: `deja/voice.py` and `deja/when.py` ("tomorrow at 5", "last tuesday", "in 20 minutes") |
-| answer | Gemma 3 1B through Ollama, given only the top five matching screens |
+| answer | Gemma 3 1B through Ollama, given only the top five matching screens; without it, code quotes the best-matching line |
 
 The model never searches. Code finds the screens, Gemma only reads the few that matched and says which one answers
-you. If its answer contains a number that was not on any of those screens, the answer is dropped and you see the
-screenshots instead.
+you. If its answer contains a number that was not on any of those screens, the answer is dropped, and so is a refusal
+when the answer is in plain sight: you get the best-matching line quoted from the screen instead.
 
 Measured with `bench.py` on an i5-12500H laptop (16 threads, no GPU), recording the real 2880×1800 screen:
 
@@ -154,9 +154,9 @@ it matches three-letter pieces rather than whole words.
 .venv/Scripts/python -m pytest -q
 ```
 
-28 tests: secret scrubbing (both directions), nothing readable on disk, tamper detection, encrypting an old store,
+29 tests: secret scrubbing (both directions), nothing readable on disk, tamper detection, encrypting an old store,
 search by meaning, tidying padded answers, time parsing, note/question routing, search and forgetting, the
-number check on answers, OCR painting a key black in a real screenshot, reporting OCR that can't start, the server
+number check on answers, quoting the best line when there is no model or it refuses, OCR painting a key black in a real screenshot, reporting OCR that can't start, the server
 refusing other sites, the read-only hosted demo, and Whisper hearing a spoken reminder. The OCR and Whisper tests load
 real models and need about 1.5 GB of free memory.
 

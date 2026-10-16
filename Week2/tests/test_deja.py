@@ -134,6 +134,9 @@ def test_padding_and_refusals_are_tidied():
     assert ask.tidy("I understand you're asking about the hotel. It was Hotel Mirador.") == "It was Hotel Mirador."
     assert ask.tidy("I couldn't find that.") is None
     assert ask.tidy("Gate 14.") == "Gate 14."
+    long_opening = "I understand you’re asking about the ‘orders.py’ code. You got a ConnectionError."
+    assert ask.tidy(long_opening) == "You got a ConnectionError."  # the dot in orders.py is not a sentence end
+    assert ask.tidy("I couldn’t find that.") is None
     assert ask.tidy("Lena: They are in Drive, under Brand.") == "They are in Drive, under Brand."
 
 
@@ -142,11 +145,21 @@ def test_related_words_widen_the_search(store, monkeypatch):
         "price, nights, booking" if system == ask.EXPAND else "It was 212 per night [1]."))
     out = ask.ask(store, "how expensive was that place")
     assert out["hits"][0]["title"].startswith("Hotel Mirador") and out["answer"] == "It was 212 per night."
+    monkeypatch.setattr(ask, "_chat", lambda system, user, timeout: "Invalid syntax.")
+    assert ask.related("how expensive was that place") == []
 
 
-def test_ask_without_model_still_returns_evidence(store):
-    out = ask.ask(store, "what was that hotel", use_model=False)
-    assert out["hits"][0]["title"].startswith("Hotel Mirador") and out["answer"] is None
+def test_without_a_model_the_best_line_is_quoted(store):
+    out = ask.ask(store, "how much per night was the hotel", use_model=False)
+    assert out["answer"] == "On your screen: “4 nights from 212 per night”" and out["cited"] == out["hits"][0]["id"]
+    assert ask.ask(store, "what time is the dentist on monday", use_model=False)["answer"] is None
+    heading = [{"id": 1, "title": "Recipe", "text": "Lemon cake\n2 lemons\n180 C for 45 minutes\nServes 8"}]
+    assert ask.quote(heading, ["lemon", "cake"]) == ("Lemon cake / 2 lemons / 180 C for 45 minutes", 1)
+
+
+def test_a_refusing_model_falls_back_to_the_quote(store, monkeypatch):
+    monkeypatch.setattr(ask, "_chat", lambda system, user, timeout: "You can’t find that." if system == ask.PROMPT else "")
+    assert ask.ask(store, "what was the timeout error in orders.py")["answer"].startswith("On your screen: “ConnectionError")
 
 
 def test_ocr_paints_over_secret_lines(tmp_path):

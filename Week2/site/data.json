@@ -9,6 +9,13 @@
     1
    ]
   },
+  "error": {
+   "answer": "You received a \u201cConnectionError\u201d after trying to fetch orders, which indicates a problem with the connection to the server.",
+   "cited": null,
+   "hits": [
+    4
+   ]
+  },
   "flight gate": {
    "answer": "Your flight gate is 14.",
    "cited": null,
@@ -16,11 +23,12 @@
     8
    ]
   },
-  "bake cake lemon long": {
-   "answer": "The lemon cake bakes for 45 minutes at 180 degrees Celsius.",
+  "kickoff project": {
+   "answer": "The project kickoff is on Thursday at 10:30 AM.",
    "cited": null,
    "hits": [
-    5
+    3,
+    7
    ]
   },
   "files logo new": {

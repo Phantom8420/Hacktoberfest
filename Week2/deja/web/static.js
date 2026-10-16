@@ -1,7 +1,8 @@
 "use strict";
 // Stand-in for the local server on the static demo site: answers /api/* from data.json in the
 // browser. Search and time parsing are ports of deja/ask.py, deja/when.py and the note rule in
-// deja/voice.py; one-line answers exist only for the questions build_site.py asked Gemma.
+// deja/voice.py; one-line answers exist only for the questions build_site.py asked Gemma;
+// anything else gets the best-matching line quoted, as the app does without a model.
 (() => {
   const DATA = fetch("data.json").then((r) => r.json()).then((d) => {
     const now = Date.now() / 1000;
@@ -91,8 +92,24 @@ yesterday today tonight earlier ago last week morning afternoon evening night op
   const parts = (words) => [...new Set(words.flatMap((w) => w.toLowerCase().split(/[^\w]+/)).filter((p) => p.length >= 3))];
   function snippet(text, words, n) {
     const lines = (text || "").split("\n").filter((l) => l.trim());
-    const hits = lines.filter((l) => words.some((w) => l.toLowerCase().includes(w)));
-    return (hits.length ? hits : lines).slice(0, n).join("\n").slice(0, 700);
+    const near = new Set(lines.flatMap((l, i) => words.some((w) => l.toLowerCase().includes(w)) ? [i - 2, i - 1, i, i + 1, i + 2] : []));
+    const keep = lines.filter((_, i) => near.has(i));
+    return (keep.length ? keep : lines).slice(0, n).join("\n").slice(0, 700);
+  }
+  // port of ask.quote: the best-matching line on the top screens, when there is no model answer
+  function quote(hits, words) {
+    const need = Math.ceil(new Set(words).size / 2);
+    let best = null;
+    for (const f of hits.slice(0, 3)) {
+      const inTitle = words.filter((w) => (f.title || "").toLowerCase().includes(w));
+      const lines = (f.text || "").split("\n").map((l) => l.trim()).filter(Boolean);
+      lines.forEach((line, i) => {
+        const found = [...new Set(words.filter((w) => line.toLowerCase().includes(w)))];
+        if (found.length && new Set([...found, ...inTitle]).size >= need && (!best || found.length > best[0]))
+          best = [found.length, /\d/.test(line) ? line : lines.slice(i, i + 3).join(" / "), f.id];
+      });
+    }
+    return best && best.slice(1);
   }
   // shortcut: counts matching substrings instead of bm25 ranking; fine for a handful of sample screens
   function search(d, words, start, end) {
@@ -121,9 +138,10 @@ yesterday today tonight earlier ago last week morning afternoon evening night op
     // same keywords as a question build_site.py asked, so "flight gate?" finds "What was my flight gate?"
     const known = words.length ? d.answers[[...words].sort().join(" ")] : null;
     const hits = known ? known.hits.map(byId) : search(d, words, start, end);
-    const ps = parts(words);
+    const ps = parts(words), q = known ? null : quote(hits, words);
     return {
-      text, intent: "ask", answer: known ? known.answer : null, cited: known ? known.cited : null,
+      text, intent: "ask", answer: known ? known.answer : q && `On your screen: “${q[0]}”`,
+      cited: known ? known.cited : q && q[1],
       hits: hits.map((f) => ({ ...f, text: undefined, snippet: snippet(f.text, words, 4) })),
       notes: ps.length ? d.notes.filter((n) => ps.some((p) => n.text.toLowerCase().includes(p))) : [],
     };

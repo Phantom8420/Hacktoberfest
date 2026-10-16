@@ -21,10 +21,13 @@ looking me my of on one or please remember saw say see seen show some something 
 thing this those to up us was we were what what's when where which while who why will with you your deja
 yesterday today tonight earlier ago last week morning afternoon evening night open opened""".split())
 
+# a 1B model refuses too readily ("I couldn't find that" with the code right there), so the prompt leans the other
+# way; grounded() and the quote fallback below catch what that lets through
 PROMPT = """You help someone find something they saw on their own screen. Below are numbered screens: the
-time, the app, and the text read from each one. Answer the question in one or two short sentences using only
-those screens, speaking to them as "you", and cite the screen you used like [2]. If no screen answers it, say
-"I couldn't find that." Start with the answer itself. Never invent details that are not on the screens."""
+time, the app, and the text read from each one. The answer is usually written on one of them. Answer the question
+in one short sentence, speaking to them as "you", quoting the exact name, number or code from the screen, and cite
+the screen you used like [2]. Start with the answer itself. Never invent details that are not on the screens. Only
+if none of the screens mentions it at all, say "I couldn't find that." """
 
 
 def terms(question):
@@ -34,8 +37,9 @@ def terms(question):
 
 def snippet(text, words, n=8):
     lines = [l for l in (text or "").splitlines() if l.strip()]
-    hits = [l for l in lines if any(w in l.lower() for w in words)]
-    return "\n".join((hits or lines)[:n])[:700]
+    near = {j for i, l in enumerate(lines) if any(w in l.lower() for w in words) for j in range(i - 2, i + 3)}
+    keep = [l for i, l in enumerate(lines) if i in near]  # "Lemon cake" alone would hide "180 C for 45 minutes"
+    return "\n".join((keep or lines)[:n])[:700]
 
 
 EXPAND = """List up to 8 words that would likely be printed on a screen that answers this question: synonyms,
@@ -58,15 +62,32 @@ def related(question, timeout=10):
         reply = _chat(EXPAND, question, timeout)
     except Exception:
         return []
+    if "," not in reply:  # not the list it was asked for ("Invalid syntax.")
+        return []
     return [w for w in terms(reply.replace(",", " ")) if len(w) >= 3][:8]
 
 
 def tidy(answer):
     """Small models pad: drop an "I understand you're asking..." opening or a chat line's
     "Lena: " speaker label copied from the screen; a refusal is no answer."""
-    answer = re.sub(r"^(I understand|Okay|Sure|Based on the screens)[^.:]*[.:]\s*", "", answer.strip(), flags=re.I)
-    answer = re.sub(r"^[A-Z][a-z]+:\s+", "", answer)
-    return None if not answer or re.match(r"I (couldn|could not|can't|cannot|don't)", answer) else answer
+    answer = re.sub(r"^(I understand|Okay|Sure|Based on the screens).*?[.:](\s+|$)", "", answer.strip(), flags=re.I)
+    answer = re.sub(r"^[A-Z][a-z]+:\s+", "", answer).strip("\"“”")
+    return None if not answer or re.match(r"(I|You) (couldn|could not|can.t|cannot|don.t)", answer) else answer
+
+
+def quote(hits, words):
+    """No model, or it gave up: the line on the top screens that best matches the question, with its screen id.
+    Needs half the question's words between the line and its window title, so a lone common word is not enough."""
+    need, best = (len(set(words)) + 1) // 2, None
+    for h in hits[:3]:
+        in_title = {w for w in words if w in (h["title"] or "").lower()}
+        lines = [l.strip() for l in (h["text"] or "").splitlines() if l.strip()]
+        for i, line in enumerate(lines):
+            found = {w for w in words if w in line.lower()}
+            if found and len(found | in_title) >= need and (not best or len(found) > best[0]):
+                # a heading like "Lemon olive oil cake" holds no answer; the figures are on the lines below it
+                best = (len(found), line if re.search(r"\d", line) else " / ".join(lines[i:i + 3]), h["id"])
+    return best and best[1:]
 
 
 def _gemma(question, hits, words, timeout):
@@ -86,6 +107,7 @@ def ask(store, question, use_model=True, timeout=120, now=None):
     words = terms(rest)
     span = (start and start.timestamp(), end and end.timestamp())
     hits = store.search(words, *span, limit=8)
+    asked = words
     if use_model and words and len(hits) < 3:  # few exact matches: also look for what the screen may have said
         extra = [w for w in related(rest, min(timeout, 10)) if w not in words]
         if extra:
@@ -102,14 +124,15 @@ def ask(store, question, use_model=True, timeout=120, now=None):
         try:
             answer = _gemma(question, hits[:5], words, timeout)
         except Exception:
-            return out  # Ollama not running: the screenshots still answer it
+            answer = ""  # Ollama not running
         cited = [int(n) for n in re.findall(r"\[(\d+)\]", answer) if 1 <= int(n) <= min(5, len(hits))]
         answer = tidy(re.sub(r"\s*\[(\d+)\]", "", answer))
-        if not answer or not grounded(answer, hits[:5]):
-            return out  # a number that was never on screen: show the evidence, not the guess
-        out["answer"] = answer
-        out["cited"] = hits[cited[0] - 1]["id"] if cited else None
-        out["model"] = MODEL
+        if answer and grounded(answer, hits[:5]):  # a number never on screen means a guess: drop it
+            out.update(answer=answer, cited=hits[cited[0] - 1]["id"] if cited else None, model=MODEL)
+            return out
+    q = quote(hits, asked)
+    if q:
+        out["answer"], out["cited"] = f"On your screen: “{q[0]}”", q[1]
     return out
 
 
