@@ -6,4 +6,5 @@ pillow
 numpy
 psutil
 pywin32
+cryptography
 pytest

@@ -70,6 +70,7 @@ def run(url, app, icon_path):
 def install():
     """Start Déjà quietly at every sign-in, so reminders fire even if the page was never opened."""
     import win32com.client
+    STARTUP.parent.mkdir(parents=True, exist_ok=True)
     link = win32com.client.Dispatch("WScript.Shell").CreateShortCut(str(STARTUP))
     link.TargetPath = str(Path(sys.executable).with_name("pythonw.exe"))
     link.Arguments = "-m deja --no-browser"

@@ -77,7 +77,12 @@ def main():
     html = html.replace("</head>", font)
     html = html.replace('<script src="app.js"></script>', '<script src="static.js"></script>\n<script src="app.js"></script>')
     (OUT / "app.html").write_text(html, "utf8")
-    (OUT / "index.html").write_text((web / "index.html").read_text("utf8").replace("</head>", font), "utf8")
+    shutil.copy(HERE / "demo.gif", OUT / "demo.gif")
+    clip = ('<figure class="clip"><img src="demo.gif" width="832" height="420" alt="Typing a question into Déjà; '
+            'it answers in one line and circles the screenshot the answer came from">\n'
+            '  <figcaption>The real app, on a day of sample screens.</figcaption></figure>\n<p class="foot">')
+    index = (web / "index.html").read_text("utf8").replace("</head>", font).replace('<p class="foot">', clip)
+    (OUT / "index.html").write_text(index, "utf8")
     (OUT / "data.json").write_text(json.dumps(data, indent=1), "utf8")
     print(f"{len(answers)}/{len(QUESTIONS)} answers kept, site written to {OUT}")
 

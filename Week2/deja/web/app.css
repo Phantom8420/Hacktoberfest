@@ -357,6 +357,9 @@ dialog[open] { animation: rise .25s var(--ease); }
 .d-bars i { flex: 1; max-width: 30px; height: var(--h); border-radius: 999px; background: var(--bar); }
 .d-bars i.on { background: var(--blue); }
 .welcome .foot { margin: 0 0 28px; padding: 0 16px; }
+.clip { box-sizing: border-box; width: min(100%, 864px); margin: 0 auto 32px; padding: 0 16px; text-align: center; }
+.clip img { width: 100%; height: auto; border-radius: 16px; box-shadow: 0 1px 2px rgb(16 24 40 / .08), 0 12px 32px rgb(16 24 40 / .08); }
+.clip figcaption { margin-top: 10px; color: var(--ink-2); font-size: 14px; }
 
 @media (max-width: 1100px) {
   .hero { grid-template-columns: minmax(0, 1fr); gap: 40px; min-height: 0; }

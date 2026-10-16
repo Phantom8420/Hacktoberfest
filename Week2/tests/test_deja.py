@@ -94,7 +94,7 @@ def test_nothing_readable_on_disk(store):
     store.add_note("The spare key is with Sam", "note")
     store.put_image("x.jpg", b"\xff\xd8 Mirador jpeg")
     disk = b"".join(p.read_bytes() for p in store.home.rglob("*") if p.is_file())
-    for secret in (b"Mirador", b"ConnectionError", b"spare key", b"orders.py"):
+    for secret in (b"Mirador", b"ConnectionError", b"spare key", b"orders.py", b"chrome"):
         assert secret not in disk
     assert store.image("x.jpg") == b"\xff\xd8 Mirador jpeg"
     assert store.search(["nnectionErr"])[0]["app"] == "code"  # substring search still works
@@ -134,6 +134,7 @@ def test_padding_and_refusals_are_tidied():
     assert ask.tidy("I understand you're asking about the hotel. It was Hotel Mirador.") == "It was Hotel Mirador."
     assert ask.tidy("I couldn't find that.") is None
     assert ask.tidy("Gate 14.") == "Gate 14."
+    assert ask.tidy("Lena: They are in Drive, under Brand.") == "They are in Drive, under Brand."
 
 
 def test_related_words_widen_the_search(store, monkeypatch):
@@ -164,6 +165,15 @@ def test_ocr_paints_over_secret_lines(tmp_path):
     assert y0 > 120 and saved[y0:y1, x0:x1].max() < 30  # the key's line is solid black
     assert saved[40:80, 40:400].min() < 100              # the hotel line is still readable
 
+
+
+def test_ocr_that_cannot_start_is_reported(store, monkeypatch):
+    def fail():
+        raise MemoryError("bad allocation")
+    monkeypatch.setattr(capture, "ocr_engine", fail)
+    rec = capture.Recorder(store, capture.Settings(store.home / "settings.json"))
+    rec._ocr_loop()  # returns instead of dying silently
+    assert rec.state.startswith("error") and "bad allocation" in rec.ocr_error
 
 @pytest.fixture
 def api(store):

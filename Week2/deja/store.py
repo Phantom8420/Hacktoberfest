@@ -1,7 +1,6 @@
 """Everything Déjà remembers: one SQLite file with full-text search, plus the
 screenshots next to it. Window titles, screen text, notes and screenshots are all
-encrypted (see vault.py); only app names and times are kept in the clear, for the
-day chart. Nothing here ever leaves the machine.
+encrypted (see vault.py), app names too; only the times are kept in the clear. Nothing here ever leaves the machine.
 """
 import re
 import sqlite3
@@ -12,7 +11,7 @@ from pathlib import Path
 from .vault import Vault
 
 SCHEMA = """
-create table if not exists frames(id integer primary key, t real, app text, title blob, image text, text blob);
+create table if not exists frames(id integer primary key, t real, app blob, title blob, image text, text blob);
 create index if not exists frames_t on frames(t);
 create virtual table if not exists frames_fts using fts5(text, title, app, tokenize='ascii');
 create table if not exists notes(id integer primary key, t real, text blob, kind text, due real, done integer default 0, fired integer default 0);
@@ -46,7 +45,7 @@ class Store:
         with self.lock:
             rows = [dict(r) for r in self.db.execute(sql, args)]
         for r in rows:
-            for k in ("title", "text"):
+            for k in ("app", "title", "text"):
                 if isinstance(r.get(k), bytes):
                     r[k] = self.vault.open_text(r[k])
         return rows
@@ -67,7 +66,7 @@ class Store:
         v = self.vault
         with self.lock, self.db:
             cur = self.db.execute("insert into frames(t, app, title, image, text) values (?,?,?,?,?)",
-                                  (t, app, v.seal_text(title), image, v.seal_text(text)))
+                                  (t, v.seal_text(app), v.seal_text(title), image, v.seal_text(text)))
             self.db.execute("insert into frames_fts(rowid, text, title, app) values (?,?,?,?)",
                             (cur.lastrowid, v.tokens(text), v.tokens(title), v.tokens(app)))
             return cur.lastrowid

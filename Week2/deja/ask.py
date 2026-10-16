@@ -51,7 +51,7 @@ def _chat(system, user, timeout):
         return json.loads(r.read())["message"]["content"].strip()
 
 
-def related(question, timeout=30):
+def related(question, timeout=10):
     """Words the screen might use instead of yours ("cheap flight" -> fare, price): search by meaning,
     not only by the exact word, without storing anything but the hashed index."""
     try:
@@ -62,8 +62,10 @@ def related(question, timeout=30):
 
 
 def tidy(answer):
-    """Small models pad: drop an "I understand you're asking..." opening; a refusal is no answer."""
+    """Small models pad: drop an "I understand you're asking..." opening or a chat line's
+    "Lena: " speaker label copied from the screen; a refusal is no answer."""
     answer = re.sub(r"^(I understand|Okay|Sure|Based on the screens)[^.:]*[.:]\s*", "", answer.strip(), flags=re.I)
+    answer = re.sub(r"^[A-Z][a-z]+:\s+", "", answer)
     return None if not answer or re.match(r"I (couldn|could not|can't|cannot|don't)", answer) else answer
 
 
@@ -85,7 +87,7 @@ def ask(store, question, use_model=True, timeout=120, now=None):
     span = (start and start.timestamp(), end and end.timestamp())
     hits = store.search(words, *span, limit=8)
     if use_model and words and len(hits) < 3:  # few exact matches: also look for what the screen may have said
-        extra = [w for w in related(rest, min(timeout, 30)) if w not in words]
+        extra = [w for w in related(rest, min(timeout, 10)) if w not in words]
         if extra:
             seen = {h["id"] for h in hits}
             hits += [h for h in store.search(extra, *span, limit=8) if h["id"] not in seen][:8 - len(hits)]

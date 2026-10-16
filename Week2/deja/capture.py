@@ -127,6 +127,7 @@ class Recorder:
     def __init__(self, store, settings):
         self.store, self.settings = store, settings
         self.state, self.last = "starting", None  # state is shown on the page
+        self.ocr_error = None  # kept apart so the grab loop can't paper over it
         self.backlog = queue.Queue(maxsize=1)
         self._last_thumb, self._last_title, self._pruned = None, None, 0
 
@@ -160,7 +161,7 @@ class Recorder:
         th = thumb(bgr)
         changed = (self._last_thumb is None or title != self._last_title
                    or np.abs(th - self._last_thumb).mean() > 3)
-        self.state = "recording"
+        self.state = self.ocr_error or "recording"
         if not changed:
             return None
         self._last_thumb, self._last_title = th, title
@@ -187,7 +188,11 @@ class Recorder:
             time.sleep(self.settings.interval)
 
     def _ocr_loop(self):
-        engine = ocr_engine()
+        try:
+            engine = ocr_engine()
+        except Exception as e:  # usually too little free memory to load the models
+            self.state = self.ocr_error = f"error: can't start reading the screen ({e})"
+            return
         while True:
             t, exe, title, bgr = self.backlog.get()
             try:
@@ -196,9 +201,9 @@ class Recorder:
                 text, boxes, secret = read(engine, bgr)
                 rel = save_frame(bgr, self.store, t, boxes, secret)
                 self.store.add_frame(t, exe.removesuffix(".exe"), scrub(title)[0], rel, text)
-                self.last = t
+                self.last, self.ocr_error = t, None
             except Exception as e:
-                self.state = f"error: {e}"
+                self.state = self.ocr_error = f"error: {e}"
 
 
 def lower_priority():
