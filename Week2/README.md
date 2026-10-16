@@ -1,6 +1,6 @@
 # Déjà
 
-A memory of your own screen that you can talk to. Windows, fully local. [Try the demo](https://deja-mu.vercel.app) (sample screens).
+A memory of your own screen that you can talk to. Windows, fully local. [Try the demo](https://deja-hacktoberfest.vercel.app) (sample screens).
 
 ![Asking Déjà about a hotel: it answers in one line and circles the screenshot it came from](demo.gif)
 
@@ -62,7 +62,7 @@ the sample screens itself for anything else. Notes and reminders are parsed but 
 
 ```bash
 .venv/Scripts/python build_site.py   # needs Ollama with gemma3:1b running
-cd site && npx vercel deploy --prod   # live at https://deja-mu.vercel.app
+cd site && npx vercel deploy --prod   # live at https://deja-hacktoberfest.vercel.app
 ```
 
 Any static host works: it is plain files, no build step. On Vercel's dashboard, import the repo and set the

@@ -5,7 +5,7 @@ My work for the DEV Hacktoberfest Open-Source AI Challenge, one folder per week.
 | week | theme | project |
 |---|---|---|
 | 1 | Touch Grass | [Proof of Grass](Week1/) |
-| 2 | Side Hustle | [Déjà](Week2/) ([demo](https://deja-mu.vercel.app)) |
+| 2 | Side Hustle | [Déjà](Week2/) ([demo](https://deja-hacktoberfest.vercel.app)) |
 
 ## Week 1: Touch Grass
 
