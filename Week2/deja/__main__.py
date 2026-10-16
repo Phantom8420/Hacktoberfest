@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+import threading
 import webbrowser
 from pathlib import Path
 
@@ -24,7 +25,13 @@ def main(argv=None):
     ap.add_argument("--no-browser", action="store_true")
     ap.add_argument("--public", action="store_true", default=bool(os.environ.get("DEJA_PUBLIC")),
                     help="hosted demo: sample screens, no recording, read-only, listens on all interfaces")
+    ap.add_argument("--install", action="store_true", help="start Déjà at every sign-in, in the tray")
+    ap.add_argument("--uninstall", action="store_true", help="stop starting Déjà at sign-in")
     a = ap.parse_args(argv)
+    if a.install or a.uninstall:
+        from . import tray
+        print(("Added " if a.install else "Removed ") + str(tray.install() if a.install else tray.uninstall()))
+        return
 
     from .capture import Recorder, Settings, lower_priority
     from .server import App, run
@@ -44,8 +51,11 @@ def main(argv=None):
     from .hotkeys import listen  # Windows only
     app = App(store, settings, recorder)
     app.hotkeys = listen({"P": app.toggle_pause, "F": app.forget_recent})
+    url = f"http://127.0.0.1:{a.port}"
+    from . import tray
+    threading.Thread(target=tray.run, args=(url, app, Path(a.home) / "deja.ico"), daemon=True, name="tray").start()
     if not a.no_browser:
-        webbrowser.open(f"http://127.0.0.1:{a.port}")
+        webbrowser.open(url)
     run(app, a.port)
 
 

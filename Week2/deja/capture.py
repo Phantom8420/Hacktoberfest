@@ -8,6 +8,7 @@ What never gets recorded:
 - anything while paused.
 """
 import ctypes
+import io
 import json
 import os
 import queue
@@ -86,8 +87,8 @@ def thumb(bgr):
     return np.asarray(Image.fromarray(bgr[:, :, ::-1]).convert("L").resize((64, 40)), dtype=np.int16)
 
 
-def save_frame(bgr, home, t, boxes, secret_lines):
-    """JPEG at most 1600 px wide, with every line that held a secret painted over."""
+def save_frame(bgr, store, t, boxes, secret_lines):
+    """Encrypted JPEG at most 1600 px wide, with every line that held a secret painted over."""
     im = Image.fromarray(np.ascontiguousarray(bgr[:, :, ::-1]))
     draw = ImageDraw.Draw(im)
     for i in secret_lines:  # whole padded rectangle: OCR boxes are slanted and can clip a glyph's edge
@@ -97,8 +98,9 @@ def save_frame(bgr, home, t, boxes, secret_lines):
         im = im.resize((1600, round(im.height * 1600 / im.width)), Image.LANCZOS)
     stamp = time.localtime(t)
     rel = f"{time.strftime('%Y-%m-%d', stamp)}/{time.strftime('%H%M%S', stamp)}_{int(t * 1000) % 1000:03d}.jpg"
-    (Path(home) / "frames" / rel).parent.mkdir(parents=True, exist_ok=True)
-    im.save(Path(home) / "frames" / rel, quality=70)
+    buf = io.BytesIO()
+    im.save(buf, "JPEG", quality=70)
+    store.put_image(rel, buf.getvalue())
     return rel
 
 
@@ -192,7 +194,7 @@ class Recorder:
                 if self.settings.paused:
                     continue  # paused while this frame waited
                 text, boxes, secret = read(engine, bgr)
-                rel = save_frame(bgr, self.store.home, t, boxes, secret)
+                rel = save_frame(bgr, self.store, t, boxes, secret)
                 self.store.add_frame(t, exe.removesuffix(".exe"), scrub(title)[0], rel, text)
                 self.last = t
             except Exception as e:

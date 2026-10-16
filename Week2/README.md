@@ -15,6 +15,13 @@ Reminders pop up as a Windows notification when they are due.
 
 ## Run it
 
+On Windows 10/11 with Python 3.11 or newer installed, right-click `install.ps1` and choose *Run with PowerShell*. It
+sets everything up in `.venv` inside this folder, adds Déjà to sign-in, and starts it in the tray (click the eye to
+open it; right-click to pause, forget the last 5 minutes, or quit). Reminders fire whenever you're signed in, whether
+or not the page is open.
+
+By hand:
+
 Needs Windows 10/11 and Python 3.11 or newer. [Ollama](https://ollama.com) with `gemma3:1b` is optional: without it
 you still get the matching screenshots, just no one-line answer.
 
@@ -35,6 +42,10 @@ It opens `http://127.0.0.1:8777` in your browser and starts recording. The first
 | `--no-record` | open the app without recording |
 | `--no-browser` | don't open the page |
 | `--public` | serve the sample screens to other machines, read-only, no recording |
+| `--install` / `--uninstall` | start Déjà in the tray at every sign-in, or stop doing that |
+
+Answers come from `gemma3:1b` by default, which fits on any PC. With 16 GB of RAM or more, `ollama pull gemma3:4b`
+and set `DEJA_GEMMA=gemma3:4b` in `.env` for noticeably better sentences.
 
 Hotkeys, anywhere in Windows: **Ctrl Alt P** pauses or resumes, **Ctrl Alt F** forgets the last 5 minutes.
 
@@ -67,6 +78,12 @@ Before a screen is saved, every line that looks like a secret is replaced in the
 screenshot: API keys and tokens, `password = ...` lines, card numbers that pass the Luhn check, one-time codes, and
 long random-looking strings.
 
+Everything kept on disk is encrypted: screenshots, the text read from them, window titles and your notes. The key
+is created on first run and locked with Windows DPAPI, so only your Windows account on this PC can open it; copy the
+folder anywhere else and it is noise. The search index holds keyed hashes of three-letter pieces of text, not the text
+itself. Only app names and times are stored readable, for the day chart. A store from before encryption is encrypted
+on first start and the readable copy deleted.
+
 Nothing leaves the computer. The web page listens on 127.0.0.1 only and refuses requests from other websites (it
 checks the Host header and the browser's Sec-Fetch-Site, and only accepts JSON or audio bodies). Screens older than
 30 days are deleted (change it in Settings). You can forget one screen, the last 5 minutes, or everything.
@@ -78,7 +95,9 @@ checks the Host header and the browser's Sec-Fetch-Site, and only accepts JSON o
 | capture the foreground window's monitor when it changes | `mss`, a 64×40 thumbnail diff |
 | read the text | RapidOCR (PP-OCR, ONNX Runtime, CPU) |
 | hide secrets | regular expressions in `deja/scrub.py` |
-| store and search | SQLite FTS5 with a trigram index, so "error" finds "ConnectionError" |
+| store | encrypted with a DPAPI-locked key (`deja/vault.py`) |
+| search | SQLite FTS5 over hashed three-letter pieces, so "error" finds "ConnectionError" |
+| search by meaning | when your words match fewer than three screens, Gemma suggests words the screen may have used ("how expensive" → price, nights) and those are searched too |
 | hear you | faster-whisper `base.en`, int8 on CPU |
 | note or question, and when | code: `deja/voice.py` and `deja/when.py` ("tomorrow at 5", "last tuesday", "in 20 minutes") |
 | answer | Gemma 3 1B through Ollama, given only the top five matching screens |
@@ -89,13 +108,17 @@ screenshots instead.
 
 Measured on an i5-12500H laptop with no GPU: OCR takes about 5 s for a full 2880×1800 screen (it runs at below-normal
 priority, and when it falls behind it skips to the newest screen); Whisper turns a short spoken question into text in
-under a second.
+under a second. To measure your own PC, `python bench.py 300` records your real screen for five minutes into a
+throwaway folder, prints CPU, memory, time per screen and disk per screen, and deletes what it recorded.
 
 ## Limits
 
-- Windows only (capture, secure-desktop check, hotkeys, notifications).
+- Windows only (capture, secure-desktop check, hotkeys, notifications, DPAPI).
+- Encryption protects the files from other accounts, other PCs and a stolen disk. It can't protect them from
+  malware already running as you, which could also just watch your screen.
 - Text, not pictures: it finds what was written on screen, not what an image showed.
-- A 1B model sometimes gives a clumsy or partial sentence. The screenshots underneath are always the real evidence.
+- A 1B model sometimes gives a clumsy or partial sentence (see `gemma3:4b` above). The screenshots underneath are
+  always the real evidence.
 - The secret filter is pattern-based. It will miss a password typed somewhere that does not look like one, so keep
   password managers excluded and pause for anything sensitive.
 - Times are read in English only.
@@ -106,7 +129,8 @@ under a second.
 .venv/Scripts/python -m pytest -q
 ```
 
-22 tests: secret scrubbing (both directions), time parsing, note/question routing, search and forgetting, the
+27 tests: secret scrubbing (both directions), nothing readable on disk, tamper detection, encrypting an old store,
+search by meaning, tidying padded answers, time parsing, note/question routing, search and forgetting, the
 number check on answers, OCR painting a key black in a real screenshot, the server refusing other sites, the
 read-only hosted demo, and Whisper hearing a spoken reminder.
 

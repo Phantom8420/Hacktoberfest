@@ -129,8 +129,8 @@ class Handler(BaseHTTPRequestHandler):
             return self._send(200, {"notes": a.store.notes(q.get("all") == "1")})
         m = FRAME.match(url.path)
         if m:
-            p = a.store.home / "frames" / m.group(1)
-            return self._send(200, p.read_bytes(), "image/jpeg", "private, max-age=86400") if p.exists() \
+            jpeg = a.store.image(m.group(1))
+            return self._send(200, jpeg, "image/jpeg", "private, max-age=86400") if jpeg \
                 else self._send(404, {"error": "gone"})
         name = "index.html" if url.path in ("/", "") else url.path.lstrip("/")
         p = (WEB / name).resolve()

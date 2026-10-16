@@ -45,9 +45,7 @@ def main():
             # a 1B model sometimes gives up or pads; try the same keywords worded a little differently
             for asked in (q, q.lower().rstrip("?"), q.rstrip("?") + ", please?"):
                 r = ask.ask(store, asked, now=now)
-                if (r["answer"] or "").startswith("I understand"):  # "I understand you're asking..." preamble
-                    r["answer"] = r["answer"].split(". ", 1)[-1]
-                if r["answer"] and not r["answer"].startswith(("I couldn", "I understand")):
+                if r["answer"]:
                     break
             else:
                 r["answer"] = None  # the page shows the matching screens instead
@@ -65,7 +63,9 @@ def main():
                        "due_in": n["due"] and n["due"] - t0} for n in store.notes()],
         }
         shutil.rmtree(OUT, ignore_errors=True)
-        shutil.copytree(store.home / "frames", OUT / "frames")
+        for f in data["frames"]:  # the sample screens are public, so the site gets them decrypted
+            (OUT / "frames" / f["image"]).parent.mkdir(parents=True, exist_ok=True)
+            (OUT / "frames" / f["image"]).write_bytes(store.image(f["image"]))
         store.db.close()  # Windows will not delete an open database
     web = HERE / "deja" / "web"
     for name in ("app.css", "app.js", "static.js"):

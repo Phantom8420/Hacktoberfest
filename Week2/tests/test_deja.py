@@ -1,5 +1,7 @@
 import http.client
+import io
 import json
+import sqlite3
 import threading
 import time
 from datetime import datetime
@@ -88,10 +90,57 @@ def test_search_and_forget(store):
     assert store.search(["timeout"]) == []
 
 
+def test_nothing_readable_on_disk(store):
+    store.add_note("The spare key is with Sam", "note")
+    store.put_image("x.jpg", b"\xff\xd8 Mirador jpeg")
+    disk = b"".join(p.read_bytes() for p in store.home.rglob("*") if p.is_file())
+    for secret in (b"Mirador", b"ConnectionError", b"spare key", b"orders.py"):
+        assert secret not in disk
+    assert store.image("x.jpg") == b"\xff\xd8 Mirador jpeg"
+    assert store.search(["nnectionErr"])[0]["app"] == "code"  # substring search still works
+
+
+def test_tampered_image_is_refused(store):
+    store.put_image("y.jpg", b"jpeg")
+    p = store._img("y.jpg")
+    p.write_bytes(p.read_bytes()[:-1] + b"\0")
+    with pytest.raises(ValueError):
+        store.image("y.jpg")
+
+
+def test_old_plaintext_store_is_encrypted_and_removed(tmp_path):
+    old = sqlite3.connect(tmp_path / "deja.db")
+    old.executescript("create table frames(id integer primary key, t real, app text, title text, image text, text text);"
+                      "create table notes(id integer primary key, t real, text text, kind text, due real, done integer, fired integer);")
+    old.execute("insert into frames values (1, 1.0, 'chrome', 'Hotel Mirador', 'd/a.jpg', 'sea view')")
+    old.execute("insert into notes values (1, 1.0, 'Call the dentist', 'todo', null, 0, 0)")
+    old.commit()
+    old.close()
+    (tmp_path / "frames" / "d").mkdir(parents=True)
+    (tmp_path / "frames" / "d" / "a.jpg").write_bytes(b"jpeg")
+    s = Store(tmp_path)
+    assert not (tmp_path / "deja.db").exists() and not (tmp_path / "frames" / "d" / "a.jpg").exists()
+    assert s.search(["sea view"])[0]["title"] == "Hotel Mirador" and s.image("d/a.jpg") == b"jpeg"
+    assert s.notes()[0]["text"] == "Call the dentist"
+
+
 def test_answer_with_an_invented_number_is_dropped():
     hits = [{"title": "Casa Lumen", "text": "4 nights from 164 per night"}]
     assert ask.grounded("Casa Lumen was 164 per night.", hits)
     assert not ask.grounded("Casa Lumen cost $404 per night.", hits)
+
+
+def test_padding_and_refusals_are_tidied():
+    assert ask.tidy("I understand you're asking about the hotel. It was Hotel Mirador.") == "It was Hotel Mirador."
+    assert ask.tidy("I couldn't find that.") is None
+    assert ask.tidy("Gate 14.") == "Gate 14."
+
+
+def test_related_words_widen_the_search(store, monkeypatch):
+    monkeypatch.setattr(ask, "_chat", lambda system, user, timeout: (
+        "price, nights, booking" if system == ask.EXPAND else "It was 212 per night [1]."))
+    out = ask.ask(store, "how expensive was that place")
+    assert out["hits"][0]["title"].startswith("Hotel Mirador") and out["answer"] == "It was 212 per night."
 
 
 def test_ask_without_model_still_returns_evidence(store):
@@ -108,7 +157,8 @@ def test_ocr_paints_over_secret_lines(tmp_path):
     bgr = np.asarray(im)[:, :, ::-1].copy()
     text, boxes, secret = capture.read(capture.ocr_engine(), bgr)
     assert "Mirador" in text and "sk-proj" not in text and secret
-    saved = np.asarray(Image.open(tmp_path / "frames" / capture.save_frame(bgr, tmp_path, time.time(), boxes, secret)))
+    s = Store(tmp_path)
+    saved = np.asarray(Image.open(io.BytesIO(s.image(capture.save_frame(bgr, s, time.time(), boxes, secret)))))
     box = np.asarray(boxes[secret[0]])
     (x0, y0), (x1, y1) = box.min(0).astype(int) + 2, box.max(0).astype(int) - 2
     assert y0 > 120 and saved[y0:y1, x0:x1].max() < 30  # the key's line is solid black

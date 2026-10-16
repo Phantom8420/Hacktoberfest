@@ -183,7 +183,7 @@ kbd { font: 600 12px/1 var(--ui); padding: 3px 6px; border: 1px solid var(--line
 .cited .when { color: var(--mark-ink); }
 .kept-list { margin: 10px 0 0; padding-left: 18px; }
 
-/* memory (wallet) */
+/* privacy */
 .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
 .tile {
   border: 0; padding: 16px 6px 12px; border-radius: 16px; display: grid; justify-items: center; gap: 8px; font-size: 14px;

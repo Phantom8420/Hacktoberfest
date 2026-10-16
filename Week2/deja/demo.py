@@ -53,7 +53,7 @@ def seed(store, now=None):
     now = now or time.time()
     for hours, app, title, bg, ink, lines in SCREENS:
         t = now - hours * 3600
-        rel = save_frame(_render(title, bg, ink, lines), store.home, t, [], [])
+        rel = save_frame(_render(title, bg, ink, lines), store, t, [], [])
         store.add_frame(t, app, title, rel, "\n".join(lines))
     store.add_note("Call the dentist", "reminder", now + 86400)
     store.add_note("Renew the passport", "todo")

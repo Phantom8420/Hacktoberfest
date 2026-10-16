@@ -75,7 +75,7 @@ async function loadStatus() {
   document.body.classList.toggle("demo", !!status.public);
   document.body.classList.toggle("static", !!status.static);
   $("#demo-note").hidden = !status.public;
-  const s = status.public ? "sample screens" : status.state || "";
+  const s = status.settings.paused ? "paused" : status.public ? "sample screens" : status.state || "";
   $("#state").classList.toggle("rec", s === "recording");
   $("#state-text").textContent = {
     recording: "Recording", paused: "Paused", locked: "Screen locked", idle: "Idle", starting: "Starting",
@@ -89,10 +89,11 @@ async function loadStatus() {
   const paused = status.settings.paused;
   $("#pause").innerHTML = `<span>${icon(paused ? "play" : "pause")}</span><b>${paused ? "Resume" : "Pause"}</b>`;
   $("#pause").setAttribute("aria-pressed", String(paused));
-  // the demo can't change anything, so its controls stay visible but inert
+  // a shared --public server can't let one visitor change things for the next; the static site plays along in memory
+  const inert = !!status.public && !status.static;
   for (const b of document.querySelectorAll("#pause, #forget, #forget-tile, #settings-tile, #open-settings, #rail-settings")) {
-    b.disabled = !!status.public;
-    b.title = status.public ? "Works in the app on your own PC" : "";
+    b.disabled = inert;
+    b.title = inert ? "Works in the app on your own PC" : "";
   }
   const ex = status.settings.excluded;
   $("#excluded-list").replaceChildren(...(ex.length ? ex.slice(0, 4).map((a) => {
@@ -180,7 +181,7 @@ function render(d) {
     const head = n.kind === "reminder" ? `Reminder set for ${when(n.due)}.`
       : n.kind === "todo" ? "Added to your to-dos." : "Noted.";
     result.append(el("h2", "answer", head), el("p", "sub", n.text));
-    if (status.public) result.append(el("p", "sub", "In this demo nothing is saved. On your own PC it would be."));
+    if (status.public) result.append(el("p", "sub", status.static ? "In this demo it lasts until you reload the page." : "In this demo nothing is saved. On your own PC it would be."));
     loadNotes();
     return;
   }
@@ -282,7 +283,7 @@ async function loadNotes() {
     const box = el("input");
     box.type = "checkbox";
     box.id = `n${n.id}`;
-    box.disabled = !!status.public;
+    box.disabled = !!status.public && !status.static;
     box.checked = !!n.done;
     box.setAttribute("aria-label", `Done: ${n.text}`);
     box.onchange = async () => { await api("/api/notes/done", { id: n.id, done: box.checked }); li.classList.toggle("done", box.checked); };

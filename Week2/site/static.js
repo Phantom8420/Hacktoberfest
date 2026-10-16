@@ -7,6 +7,7 @@
     const now = Date.now() / 1000;
     for (const f of d.frames) f.t = now - f.ago;
     for (const n of d.notes) n.due = n.due_in == null ? null : now + n.due_in;
+    d.settings = { paused: false, excluded: ["1password.exe", "bitwarden.exe", "keepass.exe"], interval: 5, keep_days: 30 };
     return d;
   });
 
@@ -133,9 +134,8 @@ yesterday today tonight earlier ago last week morning afternoon evening night op
     if (url.pathname === "/api/status") {
       const today = midnight(Date.now() / 1000);
       return { frames: d.frames.length, today: d.frames.filter((f) => f.t >= today).length, mb: d.mb,
-        state: "sample screens", public: true, static: true, gemma: true, hotkeys: [],
-        gemma_model: d.gemma_model, whisper_model: "base.en",
-        settings: { paused: false, excluded: [], interval: 5, keep_days: 30 } };
+        state: d.settings.paused ? "paused" : "sample screens", public: true, static: true, gemma: true, hotkeys: [],
+        gemma_model: d.gemma_model, whisper_model: "base.en", settings: d.settings };
     }
     if (url.pathname === "/api/timeline") {
       const [y, mo, dd] = q.get("day").split("-").map(Number), start = new Date(y, mo - 1, dd) / 1000;
@@ -155,7 +155,36 @@ yesterday today tonight earlier ago last week morning afternoon evening night op
       const body = get(d, url);
       return body ? json(200, body) : json(404, { error: "not found" });
     }
-    if (url.pathname === "/api/ask") return json(200, handle(d, String(JSON.parse(opt.body).text).trim().slice(0, 500)));
-    return json(403, { error: "this is a read-only demo" });
+    const b = JSON.parse(opt.body || "{}"), now = Date.now() / 1000;
+    if (url.pathname === "/api/ask") {
+      const r = handle(d, String(b.text).trim().slice(0, 500));
+      if (r.note) d.notes.push({ ...r.note, id: (r.note.id = Date.now()), done: 0 }); // kept until reload
+      return json(200, r);
+    }
+    // everything below changes this visitor's copy only, and a reload brings the sample day back
+    if (url.pathname === "/api/settings") {
+      if (b.excluded) b.excluded = [...new Set(b.excluded.map((x) => x.trim().toLowerCase()).filter(Boolean))].sort();
+      return json(200, Object.assign(d.settings, b));
+    }
+    if (url.pathname === "/api/forget") {
+      const keep = b.all ? [] : d.frames.filter((f) => f.t < now - (b.minutes || 5) * 60);
+      const deleted = d.frames.length - keep.length;
+      d.frames = keep;
+      return json(200, { deleted });
+    }
+    if (url.pathname === "/api/forget/frame") {
+      d.frames = d.frames.filter((f) => f.id !== b.id);
+      return json(200, { deleted: 1 });
+    }
+    if (url.pathname === "/api/notes/done") {
+      const n = d.notes.find((x) => x.id === b.id);
+      if (n) n.done = b.done ? 1 : 0;
+      return json(200, { ok: true });
+    }
+    if (url.pathname === "/api/notes/delete") {
+      d.notes = d.notes.filter((x) => x.id !== b.id);
+      return json(200, { ok: true });
+    }
+    return json(404, { error: "not found" });
   };
 })();
