@@ -384,7 +384,7 @@ dialog[open] { animation: rise .25s var(--ease); }
 .page .h path { fill: none; stroke: var(--mark); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw .9s var(--ease) 3s forwards; }
 .q {
   position: absolute; left: 50%; top: 0; z-index: 2; display: flex; align-items: center; gap: 12px; width: 470px; margin-left: -235px; padding: 7px 7px 7px 18px;
-  border-radius: 16px; background: var(--white); box-shadow: 0 20px 40px -12px rgb(0 0 0 / .55), 0 0 0 4px rgb(47 124 246 / .35); font-size: 15px;
+  border-radius: 16px; background: var(--white); box-shadow: 0 20px 40px -12px rgb(0 0 0 / .55), 0 0 0 1px rgb(255 255 255 / .14); font-size: 15px;
   animation: rise .5s var(--ease) .7s both;
 }
 .q span { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-align: left; }
