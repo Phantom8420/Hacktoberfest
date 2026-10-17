@@ -133,6 +133,48 @@
    "kind": "todo",
    "done": 0,
    "due_in": null
+  },
+  {
+   "id": 4,
+   "text": "Check in for the Amsterdam flight",
+   "kind": "reminder",
+   "done": 0,
+   "due_in": 18000.0
+  },
+  {
+   "id": 5,
+   "text": "Pay the electricity bill",
+   "kind": "reminder",
+   "done": 0,
+   "due_in": 259200.0
+  },
+  {
+   "id": 6,
+   "text": "Buy lemons and olive oil for the cake",
+   "kind": "todo",
+   "done": 0,
+   "due_in": null
+  },
+  {
+   "id": 7,
+   "text": "Fix the retry loop in orders.py",
+   "kind": "todo",
+   "done": 0,
+   "due_in": null
+  },
+  {
+   "id": 8,
+   "text": "Flight booking reference is QX7KD2",
+   "kind": "note",
+   "done": 0,
+   "due_in": null
+  },
+  {
+   "id": 9,
+   "text": "Bake the cake at 180 for 40 minutes",
+   "kind": "note",
+   "done": 0,
+   "due_in": null
   }
  ]
 }

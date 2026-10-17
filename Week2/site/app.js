@@ -82,16 +82,15 @@ async function loadStatus() {
     "screen hidden": "A protected window is in front", "not recording": "Not recording",
     "sample screens": "Demo",
   }[s] || s.charAt(0).toUpperCase() + s.slice(1);
-  $("#counts").textContent = `Déjà kept ${status.today} screen${status.today === 1 ? "" : "s"} today.`;
   $("#total").textContent = status.frames.toLocaleString();
-  $("#mb").textContent = `${status.mb} MB on this PC`;
-  $("#keep-days").textContent = `Each screen is kept ${status.settings.keep_days} days`;
+  $("#mb").textContent = `${status.mb} MB`;
+  $("#keep-days").textContent = `${status.settings.keep_days} days`;
   const paused = status.settings.paused;
-  $("#pause").innerHTML = `<span>${icon(paused ? "play" : "pause")}</span><b>${paused ? "Resume" : "Pause"}</b>`;
+  $("#pause").innerHTML = `${icon(paused ? "play" : "pause")}${paused ? "Resume" : "Pause"}`;
   $("#pause").setAttribute("aria-pressed", String(paused));
   // a shared --public server can't let one visitor change things for the next; the static site plays along in memory
   const inert = !!status.public && !status.static;
-  for (const b of document.querySelectorAll("#pause, #forget, #forget-tile, #settings-tile, #open-settings, #rail-settings")) {
+  for (const b of document.querySelectorAll("#pause, #forget, #forget-tile, #settings-tile, #open-settings")) {
     b.disabled = inert;
     b.title = inert ? "Works in the app on your own PC" : "";
   }
@@ -131,8 +130,8 @@ const EXAMPLES = [
 
 function intro() {
   result.replaceChildren();
-  result.append(el("h2", "answer quiet", "Ask about anything that was on your screen, or tell me something to keep."),
-    el("p", "sub", "Answers come from screenshots on this computer and point to the one they came from. Say “remind me to…” or “note that…” to keep a reminder or a note."));
+  result.append(el("p", "sub", "Answers come from screenshots on this computer and circle the one they came from. Start with “remind me to…” or “note that…” to keep something instead."),
+    el("h3", null, "Try"));
   const ex = el("div", "examples");
   for (const q of EXAMPLES) {
     const b = el("button", null, q);
@@ -226,6 +225,19 @@ async function submit(text) {
   }
 }
 $("#ask-form").onsubmit = (e) => { e.preventDefault(); submit($("#q").value); };
+$("#keep-form").onsubmit = async (e) => {
+  e.preventDefault();
+  const q = $("#keep-q"), text = q.value.trim();
+  if (!text) return;
+  let d;
+  try { d = await api("/api/ask", { text }); } catch (err) { flash(`That didn't go through. ${err.message}.`); return; }
+  q.value = "";
+  if (d.intent === "note") { loadNotes(); flash(d.note.kind === "reminder" ? `Reminder set for ${when(d.note.due)}.` : "Kept."); return; }
+  // it read as a question, so answer it where answers live
+  $("#q").value = text;
+  render(d);
+  location.hash = "#ask";
+};
 
 /* voice */
 const mic = $("#mic");
@@ -271,14 +283,17 @@ mic.onclick = async () => {
 /* notes */
 async function loadNotes() {
   const { notes } = await api("/api/notes");
-  const ul = $("#notes");
-  ul.replaceChildren();
-  if (!notes.length) {
-    ul.append(el("li", "empty", "Say “remind me to…” or “note that…” and it lands here."));
-    return;
+  const EMPTY = { reminder: "Ask “remind me to… at 5” and it shows up here.",
+    todo: "Ask “remind me to…” with no time and it shows up here.", note: "Ask “note that…” and it shows up here." };
+  for (const k in EMPTY) {
+    const n = notes.filter((x) => x.kind === k).length;
+    $(`#notes-${k}`).replaceChildren(...(n ? [] : [el("li", "empty", EMPTY[k])]));
+    $(`#n-${k}`).textContent = n || "";
   }
   const now = Date.now() / 1000;
+  notes.sort((a, b) => (a.due ?? Infinity) - (b.due ?? Infinity));
   for (const n of notes) {
+    const ul = $(`#notes-${n.kind}`) || $("#notes-note");
     const li = el("li", `k-${n.kind}` + (n.due && n.due <= now ? " late" : "") + (n.done ? " done" : ""));
     const box = el("input");
     box.type = "checkbox";
@@ -288,12 +303,12 @@ async function loadNotes() {
     box.setAttribute("aria-label", `Done: ${n.text}`);
     box.onchange = async () => { await api("/api/notes/done", { id: n.id, done: box.checked }); li.classList.toggle("done", box.checked); };
     const ico = el("span", "ico");
-    ico.innerHTML = icon(n.kind === "reminder" ? "bell" : n.kind === "todo" ? "check" : "note");
+    ico.innerHTML = icon("check");
     ico.append(box);
     const label = el("label");
     label.htmlFor = box.id;
-    const kind = n.kind === "reminder" ? (n.due <= now ? `Due ${when(n.due)}` : when(n.due)) : n.kind === "todo" ? "To-do" : "Note";
-    label.append(el("span", "txt", n.text), el("span", "due", kind));
+    label.append(el("span", "txt", n.text));
+    if (n.kind === "reminder") label.append(el("span", "due", n.due <= now ? `Due ${when(n.due)}` : when(n.due)));
     const del = el("button", "del");
     del.type = "button";
     del.setAttribute("aria-label", `Delete “${n.text}”`);
@@ -313,8 +328,7 @@ $("#day-next").innerHTML = icon("right");
 $("#open-settings").innerHTML = icon("gear");
 $("#forget").innerHTML = `${icon("erase")}<span class="wide"> Forget last 5 min</span>`;
 $("#forget").setAttribute("aria-label", "Forget the last 5 minutes");
-for (const e of document.querySelectorAll("[data-i]")) e.innerHTML = icon(e.dataset.i);
-const AV = [["t-blue", "blue"], ["t-violet", "violet"], ["t-peach", "peach"], ["t-green", "green"]];
+for (const e of document.querySelectorAll("[data-i]")) e.outerHTML = icon(e.dataset.i);
 
 async function loadDay(keep) {
   const key = dayKey(day), today = dayKey(new Date());
@@ -322,10 +336,22 @@ async function loadDay(keep) {
   $("#day-pick").max = today;
   $("#day-next").disabled = key >= today;
   const y = new Date(); y.setDate(y.getDate() - 1);
-  $("#day-title").textContent = key === today ? "Today" : key === dayKey(y) ? "Yesterday"
+  $("#day-title").textContent = $("#strip-title").textContent = key === today ? "Today" : key === dayKey(y) ? "Yesterday"
     : day.toLocaleDateString([], { weekday: "long", day: "numeric", month: "long" });
   ({ frames } = await api(`/api/timeline?day=${key}&limit=400`));
   $("#day-count").textContent = frames.length;
+  $("#counts").textContent = `${frames.length} screen${frames.length === 1 ? "" : "s"}`;
+  $("#strip").replaceChildren(...(frames.length ? [...frames].reverse().map((f) => {
+    const li = el("li"), b = el("button"), img = el("img");
+    b.type = "button";
+    img.src = `/frames/${f.image}`;
+    img.loading = "lazy";
+    img.alt = "";
+    b.append(img, el("span", "when", clock(new Date(f.t * 1000))), el("b", null, f.title || f.app), el("span", "where", f.app));
+    b.onclick = () => openFrame(f.id);
+    li.append(b);
+    return li;
+  }) : [el("li", "empty", "Nothing recorded on this day.")]));
 
   const counts = Array(24).fill(0);
   for (const f of frames) counts[hourOf(f)]++;
@@ -357,12 +383,29 @@ async function loadDay(keep) {
   const byApp = new Map();
   for (const f of frames) byApp.set(f.app, (byApp.get(f.app) || 0) + 1);
   $("#day-apps").textContent = `${byApp.size} app${byApp.size === 1 ? "" : "s"}`;
-  const top = [...byApp].sort((a, b) => b[1] - a[1]).slice(0, 5);
-  $("#app-list").replaceChildren(...(top.length ? top.map(([app, n], i) => {
-    const li = el("li"), av = el("span", "av", (app || "?").charAt(0).toUpperCase());
-    av.style.background = `var(--${AV[i % 4][0]})`;
-    av.style.color = `var(--${AV[i % 4][1]})`;
-    li.append(av, el("span", "nm", app), el("span", "ct", `${n} screen${n === 1 ? "" : "s"}`));
+  const top = [...byApp].sort((a, b) => b[1] - a[1]).slice(0, 8);
+  $("#app-list").replaceChildren(...(top.length ? top.map(([app, n]) => {
+    const li = el("li"), bar = el("span", "fill");
+    bar.style.width = `${(n / frames.length) * 100}%`;
+    const mine = frames.filter((f) => f.app === app);
+    const ts = mine.map((f) => f.t * 1000);
+    const titles = [...new Set(mine.map((f) => f.title).filter(Boolean))];
+    li.append(el("span", "nm", app), el("span", "ct", `${n} screen${n === 1 ? "" : "s"}`), bar,
+      el("span", "seen", n > 1 ? `${clock(new Date(Math.min(...ts)))} to ${clock(new Date(Math.max(...ts)))}` : `At ${clock(new Date(ts[0]))}`),
+      el("span", "titles", titles.slice(0, 4).join(", ") + (titles.length > 4 ? ` and ${titles.length - 4} more` : "")));
+    const shots = el("span", "shots");
+    for (const f of mine.slice(-4).reverse()) {
+      const b = el("button"), img = el("img");
+      b.type = "button";
+      b.setAttribute("aria-label", `Open ${f.title || f.app} at ${clock(new Date(f.t * 1000))}`);
+      img.src = `/frames/${f.image}`;
+      img.alt = "";
+      img.loading = "lazy";
+      b.append(img);
+      b.onclick = () => openFrame(f.id);
+      shots.append(b);
+    }
+    li.append(shots);
     return li;
   }) : [el("li", "muted", "Nothing recorded on this day.")]));
   pickHour(hour);
@@ -408,7 +451,11 @@ function show(f) {
   $("#preview-empty").hidden = !!f;
   $("#preview").disabled = !f;
   $("#preview-cap").replaceChildren();
+  $("#preview-text").textContent = "";
   if (!f) return;
+  // the timeline only carries a snippet; fetch the whole text for this screen
+  $("#preview-text").textContent = f.text || "";
+  api(`/api/frame?id=${f.id}`).then((full) => { if (shown === f && full.text) $("#preview-text").textContent = full.text; }).catch(() => {});
   img.src = `/frames/${f.image}`;
   img.alt = `Your screen at ${clock(new Date(f.t * 1000))}, ${f.app}`;
   $("#preview-cap").append(el("b", null, f.title || f.app), el("span", null, `${f.app}, ${clock(new Date(f.t * 1000))}`));
@@ -427,7 +474,7 @@ $("#day-pick").onchange = (e) => {
 function showView() {
   const name = $("#view-" + location.hash.slice(1)) ? location.hash.slice(1) : "ask";
   for (const v of document.querySelectorAll(".view")) v.hidden = v.id !== "view-" + name;
-  for (const a of document.querySelectorAll(".tabs a, .rail a")) {
+  for (const a of document.querySelectorAll(".tabs a")) {
     a.classList.toggle("on", a.hash === "#" + name);
     if (a.hash === "#" + name) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
   }
@@ -463,7 +510,7 @@ viewer.onclick = (e) => { if (e.target === viewer) viewer.close(); };
 
 /* settings */
 const settings = $("#settings");
-$("#open-settings").onclick = $("#settings-tile").onclick = $("#rail-settings").onclick = async () => {
+$("#open-settings").onclick = $("#settings-tile").onclick = async () => {
   await loadStatus();
   const s = status.settings;
   $("#excluded").value = s.excluded.join("\n");

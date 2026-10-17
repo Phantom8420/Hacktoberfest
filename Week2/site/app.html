@@ -9,49 +9,28 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
 </head>
 <body class="dash">
-<div class="app">
 <header class="top">
-  <h1 class="brand"><a href="./">Déjà</a></h1>
+  <a class="brand" href="./"><svg class="logo" viewBox="0 0 32 32" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="8.5" fill="#111827"/><path d="M8 8.6h13M8 23.4h10" stroke="#4B5563" stroke-width="2.2" stroke-linecap="round"/><path d="M10 16h11.5" stroke="#2F7CF6" stroke-width="3.2" stroke-linecap="round"/><path d="M5.6 15.2C6.4 11.6 12.4 10 18.4 10.4 24 10.8 27.4 13.4 26.2 17 25 20.6 18.8 22.2 13 21.8 7.4 21.4 4.8 18.6 6.4 15.6 7.6 13.2 10.8 12 14 11.4" fill="none" stroke="#E5322D" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>Déjà</a>
   <nav class="tabs" aria-label="Sections">
     <a href="#ask" class="on">Ask</a>
     <a href="#timeline">Timeline</a>
     <a href="#notes">Notes</a>
     <a href="#apps">Apps</a>
   </nav>
-  <div class="top-end">
-    <p class="state" id="state"><span class="dot" aria-hidden="true"></span><span id="state-text">Starting</span></p>
-    <button class="round" id="open-settings" type="button" aria-label="Settings"></button>
+  <p class="state" id="state"><span class="dot" aria-hidden="true"></span><span id="state-text">Starting</span></p>
+  <div class="date">
+    <button class="ghost" id="day-prev" type="button" aria-label="Previous day"></button>
+    <label class="sr" for="day-pick">Day</label>
+    <input type="date" id="day-pick">
+    <button class="ghost" id="day-next" type="button" aria-label="Next day"></button>
   </div>
+  <button class="btn" id="forget" type="button"></button>
+  <button class="btn sq" id="open-settings" type="button" aria-label="Settings"></button>
 </header>
+<p class="demo-note" id="demo-note" hidden>This is a demo on a day of sample screens. The real app runs on your own Windows PC, reads your screen as you work and keeps everything there.</p>
 
-<nav class="rail" aria-label="Sections">
-  <a href="#ask" class="on" aria-label="Ask" data-i="home"></a>
-  <a href="#timeline" aria-label="Timeline" data-i="clock"></a>
-  <a href="#notes" aria-label="Notes" data-i="note"></a>
-  <a href="#apps" aria-label="Apps" data-i="grid"></a>
-  <button class="rail-end" id="rail-settings" type="button" aria-label="Privacy settings" data-i="gear"></button>
-</nav>
-
-<main class="panel">
-  <div class="hello">
-    <div>
-      <h2 class="greet">Your screen, remembered</h2>
-      <p class="muted" id="counts">Here's what Déjà kept today.</p>
-      <p class="demo-note" id="demo-note" hidden>This is a demo on a day of sample screens. The real app runs on your own Windows PC,
-        reads your screen as you work and keeps everything there. Ask it anything below.</p>
-    </div>
-    <div class="hello-end">
-      <div class="pill date">
-        <button class="ghost" id="day-prev" type="button" aria-label="Previous day"></button>
-        <label class="sr" for="day-pick">Day</label>
-        <input type="date" id="day-pick">
-        <button class="ghost" id="day-next" type="button" aria-label="Next day"></button>
-      </div>
-      <button class="pill act" id="forget" type="button"></button>
-    </div>
-  </div>
-
-  <!-- one view per tab, shown one at a time; the page never scrolls -->
+<!-- one view per tab, shown one at a time; the page never scrolls -->
+<main class="views">
   <div class="view v-ask" id="view-ask">
       <section class="card ask" id="ask" aria-label="Ask or keep a note">
         <form id="ask-form" class="ask-row">
@@ -64,61 +43,80 @@
         <p class="hint" id="hint"></p>
         <div class="result" id="result" aria-live="polite"></div>
       </section>
+      <section class="card strip" aria-labelledby="strip-title">
+        <div class="head"><h2 id="strip-title">Today</h2><span class="muted" id="counts"></span></div>
+        <ol id="strip"></ol>
+      </section>
   </div>
   <div class="view v-timeline" id="view-timeline" hidden>
       <section class="card chart" id="day" aria-labelledby="day-title">
-        <div class="card-head"><span class="chip" data-i="clock"></span><h2 id="day-title">Today</h2></div>
-        <p class="big" id="day-count">0</p>
-        <p class="muted"><span class="badge" id="day-apps">0 apps</span> screens on this day, by hour</p>
+        <div class="head"><h2 id="day-title">Today</h2></div>
+        <p class="big"><span id="day-count">0</span> screens</p>
+        <p class="muted">from <span id="day-apps">0 apps</span>, by hour</p>
         <div class="bars" id="bars" role="group" aria-label="Screens by hour"></div>
       </section>
       <section class="card table" aria-labelledby="hour-title">
-        <div class="card-head"><span class="chip" data-i="list"></span><div><h2 id="hour-title">Screens</h2>
-          <p class="muted">Pick an hour on the chart to narrow it down. Open any screen to read it.</p></div></div>
+        <div class="head"><h2 id="hour-title">Screens</h2><span class="muted">Pick an hour to narrow it down</span></div>
         <table>
           <thead><tr><th>Screen</th><th>App</th><th>Time</th><th><span class="sr">Open</span></th></tr></thead>
           <tbody id="rows"></tbody>
         </table>
       </section>
       <section class="card shot" aria-labelledby="shot-title">
-        <div class="card-head"><span class="chip" data-i="home"></span><h2 id="shot-title">Selected screen</h2></div>
+        <div class="head"><h2 id="shot-title">Selected screen</h2></div>
         <button class="preview" id="preview" type="button" aria-label="Open this screen">
           <img id="preview-img" alt="" hidden>
           <span class="preview-empty" id="preview-empty">Nothing recorded on this day.</span>
         </button>
         <p class="preview-cap" id="preview-cap"></p>
+        <pre class="preview-text" id="preview-text" aria-label="Text read from this screen"></pre>
       </section>
   </div>
   <div class="view v-notes" id="view-notes" hidden>
-      <section class="card notes" id="notes-card" aria-labelledby="notes-title">
-        <div class="card-head"><span class="chip" data-i="note"></span><h2 id="notes-title">Notes and reminders</h2></div>
-        <ul id="notes"></ul>
+      <form class="card keep" id="keep-form">
+        <div class="ask-row">
+          <label class="sr" for="keep-q">Keep a note or reminder</label>
+          <input id="keep-q" autocomplete="off" maxlength="500" placeholder="Remind me to call the landlord at 5">
+          <button class="go" type="submit">Keep</button>
+        </div>
+        <p>Start with “remind me to…” or “note that…”. Leave out the time for a to-do.</p>
+      </form>
+      <section class="card notes" aria-labelledby="nr-title">
+        <div class="head"><h2 id="nr-title">Reminders</h2><span class="muted" id="n-reminder"></span></div>
+        <ul id="notes-reminder"></ul>
+      </section>
+      <section class="card notes" aria-labelledby="nt-title">
+        <div class="head"><h2 id="nt-title">To-dos</h2><span class="muted" id="n-todo"></span></div>
+        <ul id="notes-todo"></ul>
+      </section>
+      <section class="card notes" aria-labelledby="nn-title">
+        <div class="head"><h2 id="nn-title">Notes</h2><span class="muted" id="n-note"></span></div>
+        <ul id="notes-note"></ul>
       </section>
   </div>
   <div class="view v-apps" id="view-apps" hidden>
       <section class="card apps" id="apps" aria-labelledby="apps-title">
-        <div class="card-head"><span class="chip" data-i="grid"></span><div><h2 id="apps-title">Apps on this day</h2>
-          <p class="muted">Where your screens came from.</p></div></div>
-        <ul class="avatars" id="app-list"></ul>
-        <h3>Never recorded</h3>
-        <ul class="plain" id="excluded-list"></ul>
+        <div class="head"><h2 id="apps-title">Apps on this day</h2><span class="muted">Where your screens came from</span></div>
+        <ul class="share" id="app-list"></ul>
       </section>
       <section class="card privacy" aria-labelledby="mem-title">
-        <div class="card-head"><span class="chip" data-i="shield"></span><div><h2 id="mem-title">Private by design</h2>
-          <p class="muted"><span id="total">0</span> screens, encrypted. Only your Windows account can open them.</p></div></div>
-        <div class="tiles">
-          <button type="button" id="pause" class="tile t-blue" aria-pressed="false"><span data-i="pause"></span><b>Pause</b></button>
-          <button type="button" id="forget-tile" class="tile t-violet"><span data-i="erase"></span><b>Forget 5 min</b></button>
-          <button type="button" id="settings-tile" class="tile t-peach"><span data-i="gear"></span><b>Settings</b></button>
-        </div>
-        <div class="saved">
-          <span class="chip t-green" data-i="disk"></span>
-          <div><b id="mb">0 MB</b><span class="muted" id="keep-days">on this PC</span></div>
+        <div class="head"><h2 id="mem-title">Privacy</h2></div>
+        <ul class="plain facts">
+          <li><span>Screens kept, encrypted</span><b id="total">0</b></li>
+          <li><span>Space on this PC</span><b id="mb">0 MB</b></li>
+          <li><span>Each screen is kept</span><b id="keep-days">30 days</b></li>
+        </ul>
+        <p class="muted small">Only your Windows account can open them.</p>
+        <h3>Never recorded</h3>
+        <ul class="plain" id="excluded-list"></ul>
+        <div class="row">
+          <button type="button" id="pause" class="btn" aria-pressed="false"></button>
+          <button type="button" id="forget-tile" class="btn"><span data-i="erase"></span>Forget 5 min</button>
+          <button type="button" id="settings-tile" class="btn"><span data-i="gear"></span>Settings</button>
         </div>
       </section>
   </div>
 </main>
-</div>
 
 <p class="flash" id="flash" role="status"></p>
 
