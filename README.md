@@ -36,5 +36,6 @@ looked at yesterday?" with the screenshot it came from. Say "remind me to..." an
 is Whisper, answers are Gemma 3 1B through Ollama, all on the laptop. Details, privacy model and limits are in
 [Week2/README.md](Week2/README.md).
 
-**AI disclosure.** Heavy, same as Week 1: Claude (Anthropic) wrote most of the code and write-up under my
-direction. I chose the idea and reviewed what was published.
+**AI disclosure.** AI assistance was used for this project. I did the planning and laid the base foundations; the
+rest of the coding was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that
+I am accountable for the code.
