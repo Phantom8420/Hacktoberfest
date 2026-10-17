@@ -172,4 +172,5 @@ RapidOCR and PaddleOCR (Apache-2.0), faster-whisper (MIT) and OpenAI Whisper (MI
 Ollama (MIT), python-mss (MIT).
 
 AI assistance was used for this project. I did the planning and laid the base foundations; the rest of the
-coding was done by a team of AI agents led by Claude (Anthropic).
+coding was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that I am
+accountable for the code.
