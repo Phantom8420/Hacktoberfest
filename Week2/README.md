@@ -171,5 +171,5 @@ real models and need about 1.5 GB of free memory.
 RapidOCR and PaddleOCR (Apache-2.0), faster-whisper (MIT) and OpenAI Whisper (MIT), Gemma 3 (Gemma Terms of Use),
 Ollama (MIT), python-mss (MIT).
 
-AI assistance was used for this project: Claude (Anthropic) wrote most of the code and this README under my
-direction.
+AI assistance was used for this project. I did the planning and laid the base foundations; the rest of the
+coding was done by a team of AI agents led by Claude (Anthropic).
