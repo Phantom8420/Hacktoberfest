@@ -19,7 +19,10 @@ def _icon(path):
     im = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
     d.rounded_rectangle([2, 2, 61, 61], 16, fill="#111827")
-    d.ellipse([12, 19, 51, 44], outline="#2F7CF6", width=6)
+    d.line([16, 17, 42, 17], fill="#4B5563", width=4)  # the logo: a line on screen, circled in red
+    d.line([16, 47, 36, 47], fill="#4B5563", width=4)
+    d.line([20, 32, 43, 32], fill="#2F7CF6", width=7)
+    d.ellipse([10, 20, 54, 44], outline="#E5322D", width=4)
     im.save(path, sizes=[(16, 16), (32, 32), (64, 64)])
     return win32gui.LoadImage(0, str(path), win32con.IMAGE_ICON, 0, 0,
                               win32con.LR_LOADFROMFILE | win32con.LR_DEFAULTSIZE)
