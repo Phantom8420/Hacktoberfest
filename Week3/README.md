@@ -105,8 +105,11 @@ in ways a person wouldn't notice. Rooms with 16 items or fewer, which is all of 
 by trying every subset (0.2 s at 16 items). Above that, cost-benefit greedy with a "single best item" fallback is
 guaranteed at least (1 - 1/e)/2 of the best.
 
-How much does that matter in practice? Less than the maths suggests, and here's the honest version. On the six real
-REAL_ROOMS
+How much does that matter in practice? On real rooms: Gemma's 27 item lists from the stability test below (9 photos,
+3 looks each), planned at 30 s, 90 s and 5 minutes, biggest-mess-first got less tidiness than the exact plan in 28 of
+the 81 cases (35%). On average it reached 94% of the best, at worst 62%. Those lists are short, 1 to 13 items, and
+the gap is at 30 and 90 seconds (92% on average, against 98% at 5 minutes): the budgets people pick when tired.
+
 The planner earns its place in bigger, messier rooms, which `python eval/solver_vs_exact.py` simulates with 1,000
 random rooms of 3 to 14 items:
 
@@ -125,7 +128,21 @@ side by side, then again with the sides swapped, and only an answer that survive
 "unclear". As a second check, Gemma lists the items again on the after photo and whatever is gone counts as removed.
 When the two checks disagree, no percentage is shown.
 
-STABILITY
+**How steady is Gemma?** `python eval/stability.py` shows Gemma each of the 9 Commons photos three times: as is,
+slightly cropped, and slightly darker and turned 2°. Real retakes from a phone would be a harder test. These numbers
+are from synthetic ones:
+
+![Overlap of items between retakes, per photo](eval/charts/stability.png)
+
+- Item lists overlap by 61% between takes (Jaccard, matching names), 37% if the zone has to match too. Gemma sees
+  roughly the same stuff and files it under different zones.
+- The one move is the same in all three takes for 2 to 4 of the 9 photos, depending on the budget. That's the
+  real cost of a small model, and why the item list is shown for you to fix before anything is planned.
+- The judge, shown take 1 against take 2 where nothing changed: "same" for 7 of 9, "unclear" for the other 2 (in one
+  it preferred whichever photo came second both times, and the swap caught it). It never claimed a change that
+  wasn't there.
+- One photo (an old table) got a single item on every look. Gemma reads it as furniture, not mess.
+- 133 seconds per look on average.
 
 ## Limits
 

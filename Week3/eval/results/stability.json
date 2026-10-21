@@ -1206,6 +1206,735 @@
     ]
    },
    "judge_seconds": 112.1
+  },
+  {
+   "scene": "messy_room",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 174.9,
+     "items": [
+      {
+       "id": 1,
+       "what": "jacket",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "grey jacket",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 20,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "black book",
+       "zone": "floor",
+       "move_to": "shelf",
+       "est_seconds": 15,
+       "mess": 4
+      },
+      {
+       "id": 4,
+       "what": "blue shirt",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 10,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "grey pants",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 25,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "pink shirt",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 7,
+       "what": "white shirt",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 8,
+       "what": "black bag",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 3
+      },
+      {
+       "id": 9,
+       "what": "red toy",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 10,
+       "what": "black toy",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 11,
+       "what": "pink toy",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 12,
+       "what": "white toy",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 167.1,
+     "items": [
+      {
+       "id": 1,
+       "what": "snowboard box",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "grey jacket",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "red sweater",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 20,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "blue shirt",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 5,
+       "what": "black trousers",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "white sweater",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 10,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 189.4,
+     "items": [
+      {
+       "id": 1,
+       "what": "box of cds",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "beige jacket",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "red blanket",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 45,
+       "mess": 4
+      },
+      {
+       "id": 4,
+       "what": "pile of shirts",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 5,
+       "what": "black boots",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "pink bag",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 7,
+       "what": "grey hoodie",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 8,
+       "what": "small toy",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 9,
+       "what": "black box",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.286,
+    0.4,
+    0.25
+   ],
+   "jaccard_loose": [
+    0.8,
+    0.75,
+    0.25
+   ],
+   "judge_same_scene": {
+    "verdict": "same",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "same",
+      "margin": 1
+     }
+    ]
+   },
+   "judge_seconds": 151.2
+  },
+  {
+   "scene": "messy_uva_dorm",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 127.2,
+     "items": [
+      {
+       "id": 1,
+       "what": "plastic bottles",
+       "zone": "green recycling bin",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "folded blanket",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 3,
+       "what": "paper towels",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 20,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "black umbrella",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "plastic containers",
+       "zone": "shelving unit",
+       "move_to": "shelf",
+       "est_seconds": 15,
+       "mess": 3
+      },
+      {
+       "id": 6,
+       "what": "cleaning bottles",
+       "zone": "shelving unit",
+       "move_to": "shelf",
+       "est_seconds": 10,
+       "mess": 2
+      },
+      {
+       "id": 7,
+       "what": "small toys",
+       "zone": "shelving unit",
+       "move_to": "shelf",
+       "est_seconds": 25,
+       "mess": 3
+      }
+     ]
+    },
+    {
+     "seconds": 193.1,
+     "items": [
+      {
+       "id": 1,
+       "what": "plastic bottles",
+       "zone": "cardboard box",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "black umbrella",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "bubble wrap",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 20,
+       "mess": 3
+      },
+      {
+       "id": 4,
+       "what": "grey shopping bag",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "plastic containers",
+       "zone": "shelves",
+       "move_to": "shelf",
+       "est_seconds": 15,
+       "mess": 3
+      },
+      {
+       "id": 6,
+       "what": "cleaning bottles",
+       "zone": "shelves",
+       "move_to": "shelf",
+       "est_seconds": 20,
+       "mess": 3
+      },
+      {
+       "id": 7,
+       "what": "plastic waste",
+       "zone": "shelves",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 2
+      }
+     ]
+    },
+    {
+     "seconds": 155.0,
+     "items": [
+      {
+       "id": 1,
+       "what": "plastic bottles",
+       "zone": "recycling bin",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "large sleeping bag",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 3,
+       "what": "bubble wrap",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "black umbrella",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 5,
+       "what": "cardboard box",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.077,
+    0.091,
+    0.333
+   ],
+   "jaccard_loose": [
+    0.4,
+    0.333,
+    1.0
+   ],
+   "judge_same_scene": {
+    "verdict": "same",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "same",
+      "margin": 1
+     }
+    ]
+   },
+   "judge_seconds": 144.6
+  },
+  {
+   "scene": "my_messy_room_16200326361",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 138.2,
+     "items": [
+      {
+       "id": 1,
+       "what": "guitar case",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "speaker box",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "guitar cables",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "microphone stand",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 1
+      },
+      {
+       "id": 5,
+       "what": "guitar",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 90,
+       "mess": 4
+      },
+      {
+       "id": 6,
+       "what": "speaker",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 7,
+       "what": "yamaha hs7 speaker box",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 60,
+       "mess": 3
+      }
+     ]
+    },
+    {
+     "seconds": 120.8,
+     "items": [
+      {
+       "id": 1,
+       "what": "guitar case",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "camera tripod",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "speaker box",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 45,
+       "mess": 4
+      },
+      {
+       "id": 4,
+       "what": "guitar",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 90,
+       "mess": 5
+      }
+     ]
+    },
+    {
+     "seconds": 121.0,
+     "items": [
+      {
+       "id": 1,
+       "what": "guitar case",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "microphone stand",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "camera tripod",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 45,
+       "mess": 1
+      },
+      {
+       "id": 4,
+       "what": "guitar cables",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 4
+      },
+      {
+       "id": 5,
+       "what": "speaker box",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "guitar",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 90,
+       "mess": 4
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    1.2,
+    1.167,
+    0.667
+   ],
+   "jaccard_loose": [
+    1.2,
+    1.167,
+    0.667
+   ],
+   "judge_same_scene": {
+    "verdict": "unclear",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "B",
+      "margin": 2
+     }
+    ]
+   },
+   "judge_seconds": 136.7
+  },
+  {
+   "scene": "old_table_in_a_messy_room_unsplash",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 89.3,
+     "items": [
+      {
+       "id": 1,
+       "what": "newspaper",
+       "zone": "table top",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 4
+      }
+     ]
+    },
+    {
+     "seconds": 88.9,
+     "items": [
+      {
+       "id": 1,
+       "what": "newspaper",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 4
+      }
+     ]
+    },
+    {
+     "seconds": 91.5,
+     "items": [
+      {
+       "id": 1,
+       "what": "newspaper",
+       "zone": "tabletop",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 4
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "jaccard_loose": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "judge_same_scene": {
+    "verdict": "unclear",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "B",
+      "margin": 2
+     },
+     {
+      "tidier": "B",
+      "margin": 2
+     }
+    ]
+   },
+   "judge_seconds": 132.1
   }
- ]
+ ],
+ "summary": {
+  "scenes": 9,
+  "judge_said_same": 7,
+  "seconds_per_look": 132.93,
+  "raw_loose": 0.606,
+  "raw_strict": 0.372,
+  "raw_items_per_look": 6.963,
+  "raw_same_one_move_30s": 0.222,
+  "raw_same_one_move_90s": 0.222,
+  "raw_same_one_move_300s": 0.444,
+  "filtered_loose": 0.614,
+  "filtered_strict": 0.378,
+  "filtered_items_per_look": 6.37,
+  "filtered_same_one_move_30s": 0.222,
+  "filtered_same_one_move_90s": 0.333,
+  "filtered_same_one_move_300s": 0.444
+ }
 }

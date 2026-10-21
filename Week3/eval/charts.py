@@ -62,7 +62,7 @@ def stability():
     ax.set_xlim(0, 1)
     ax.set_xlabel("overlap of items between retakes (Jaccard)")
     ax.invert_yaxis()
-    ax.legend(frameon=False, loc="lower right")
+    ax.legend(frameon=False, loc="lower center", bbox_to_anchor=(0.5, 1), ncol=2)
     save(fig, "stability")
 
 
