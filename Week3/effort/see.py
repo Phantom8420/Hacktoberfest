@@ -30,21 +30,38 @@ Rules:
 At most {MAX_ITEMS} items, the messiest first."""
 
 
+# Gemma lists these despite the prompt; nobody "puts away" a wall heater or a desk
+FIXTURES = {"wall", "ceiling", "window", "curtain", "blind", "door", "light", "lamp", "fan", "heater", "radiator",
+            "outlet", "socket", "switch", "frame", "picture", "poster", "mirror", "clock", "tv", "television",
+            "monitor", "computer", "laptop", "printer", "desk", "table", "chair", "bed", "sofa", "couch", "shelf",
+            "shelve", "bookcase", "wardrobe", "closet", "dresser", "cabinet", "drawer", "rug", "carpet", "mattress",
+            "pillow", "cushion"}
+
+
 def _norm(s):
     return re.sub(r"\s+", " ", str(s).strip().lower())[:40]
 
 
+def fixture(what, zone, move_to):
+    """True for things that aren't loose mess: furniture, fixtures, and things already where they go."""
+    if zone in ("wall", "ceiling", "window") or zone == move_to:
+        return True
+    head = re.split(r" (?:on|in|under|by|near|against|next to) ", what)[0]  # "pile of books on desk" -> "pile of books"
+    head = head.split(" of ", 1)[-1]                                       # -> "books"
+    return any(w.rstrip("s") in FIXTURES for w in head.split())
+
+
 def tidy(raw):
-    """Clamp and dedupe whatever the model returned; give each item an id."""
+    """Clamp, dedupe and drop fixtures from whatever the model returned; give each item an id."""
     out, seen = [], set()
     for it in raw.get("items", []) if isinstance(raw, dict) else []:
         if not isinstance(it, dict):
             continue
         what, zone = _norm(it.get("what", "")), _norm(it.get("zone", "")) or "room"
-        if not what or (what, zone) in seen:
+        place = _norm(it.get("move_to", ""))
+        if not what or (what, zone) in seen or fixture(what, zone, place):
             continue
         seen.add((what, zone))
-        place = _norm(it.get("move_to", ""))
         try:
             secs, mess = int(it.get("est_seconds", 30)), int(it.get("mess", 2))
         except (TypeError, ValueError):

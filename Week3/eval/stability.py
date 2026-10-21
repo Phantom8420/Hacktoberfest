@@ -28,7 +28,7 @@ from PIL import Image, ImageEnhance
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from effort import gemma, judge, see  # noqa: E402
+from effort import gemma, judge, plan, see  # noqa: E402
 
 OUT = ROOT / "eval" / "results" / "stability.json"
 RAW = ROOT / "photos" / "raw"
@@ -87,6 +87,34 @@ def run_scene(name, kind, takes):
             "judge_seconds": round(time.perf_counter() - t0, 1)}
 
 
+def summary(scenes):
+    """Means over all scenes, with and without see.fixture(). The filter runs after Gemma answers,
+    so applying it to the recorded lists is exactly what the app would have shown."""
+    def keep(items):
+        return [i for i in items if not see.fixture(i["what"], i["zone"], i["move_to"])]
+
+    def mean(xs):
+        return round(sum(xs) / len(xs), 3) if xs else None
+
+    out = {"scenes": len(scenes), "judge_said_same": sum(s["judge_same_scene"]["verdict"] == "same" for s in scenes),
+           "seconds_per_look": mean([l["seconds"] for s in scenes for l in s["looks"]])}
+    for name, f in (("raw", lambda x: x), ("filtered", keep)):
+        for strict in (False, True):
+            js = [jaccard(f(s["looks"][i]["items"]), f(s["looks"][j]["items"]), strict)
+                  for s in scenes for i, j in combinations(range(len(s["looks"])), 2)]
+            out[f"{name}_{'strict' if strict else 'loose'}"] = mean(js)
+        out[f"{name}_items_per_look"] = mean([len(f(l["items"])) for s in scenes for l in s["looks"]])
+        # what the user actually sees: is the one move the same thing on every take?
+        for budget in (30, 90, 300):
+            same = []
+            for s in scenes:
+                first, *rest = [plan.make(f(l["items"]), budget)["one"] for l in s["looks"]]
+                if first:
+                    same.append(float(all(o and match(first, o, False) for o in rest)))
+            out[f"{name}_same_one_move_{budget}s"] = mean(same)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int)
@@ -101,6 +129,9 @@ def main():
         print(name, kind, flush=True)
         done["scenes"].append(run_scene(name, kind, takes))
         OUT.write_text(json.dumps(done, indent=1))  # after every scene, so a crash loses one at most
+    done["summary"] = summary(done["scenes"])
+    OUT.write_text(json.dumps(done, indent=1))
+    print(done["summary"])
     print("saved", OUT)
 
 

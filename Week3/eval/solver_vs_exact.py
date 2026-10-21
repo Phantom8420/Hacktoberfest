@@ -1,7 +1,7 @@
 """How good is greedy (the fallback above 16 items) against brute force (what the app uses up to 16)?
 And how good is the obvious human rule, biggest mess first?
 
-Two sets of rooms: the item lists Gemma actually produced in eval/stability.py, and 1,000
+Two sets of rooms: the item lists Gemma actually produced in eval/stability.py (fixtures dropped, as the app does), and 1,000
 random rooms (fixed seed). For each, budgets of 30 s, 90 s and 5 min.
 
     python eval/solver_vs_exact.py
@@ -14,7 +14,7 @@ from statistics import median
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from effort import plan  # noqa: E402
+from effort import plan, see  # noqa: E402
 
 OUT = ROOT / "eval" / "results" / "solver.json"
 BUDGETS = (30, 90, 300)
@@ -54,7 +54,8 @@ def main():
     real = []
     stab = ROOT / "eval" / "results" / "stability.json"
     if stab.exists():
-        real = [look["items"] for s in json.loads(stab.read_text())["scenes"] for look in s["looks"] if look["items"]]
+        looks = [look["items"] for s in json.loads(stab.read_text())["scenes"] for look in s["looks"]]
+        real = [k for k in ([i for i in x if not see.fixture(i["what"], i["zone"], i["move_to"])] for x in looks) if k]
     rng = random.Random(2026)
     zones = ["bed", "floor", "desk", "chair", "shelf"]
     fake = [[{"id": i, "what": f"x{i}", "zone": rng.choice(zones), "move_to": "other",

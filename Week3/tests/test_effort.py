@@ -86,6 +86,23 @@ def test_tidy_clamps_and_dedupes():
     assert see.tidy("garbage") == []
 
 
+def test_tidy_drops_fixtures_keeps_mess():
+    # real Gemma output from eval/results/stability.json
+    drop = [("wall mounted heater", "wall", "other"), ("printer on desk", "desk", "other"), ("computer monitor", "desk", "other"),
+            ("pillows on bed", "bed", "other"), ("plastic container", "shelf", "shelf")]
+    keep = [("pile of shirts on bed", "bed", "laundry"), ("stack of papers on desk", "desk", "drawer"),
+            ("books on floor", "floor", "shelf"), ("pile of books", "bed", "shelf"), ("gym ball", "floor", "other")]
+    assert [see.fixture(*d) for d in drop] == [True] * len(drop)
+    assert [see.fixture(*k) for k in keep] == [False] * len(keep)
+
+
+def test_one_move_is_the_biggest_mess_in_the_plan():
+    items = [item(1, "desk", 5, 1), item(2, "floor", 30, 3), item(3, "bed", 20, 3)]
+    out = plan.make(items, 60)
+    assert out["one"]["id"] == 3  # not the 5 s crumb, and the quicker of the two mess-3 moves
+    assert out["one"] in out["moves"]
+
+
 def test_learn_starts_neutral_and_converges():
     assert learn.factors([]) == {}
     one = learn.factors([{"move_to": "bin", "est_seconds": 5, "actual_seconds": 50}])

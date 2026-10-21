@@ -51,9 +51,10 @@ def best(items, budget, limit=16):
     return top
 
 
-def one_move(items, budget):
-    fits = [i for i in items if cost(i) <= budget]
-    return max(fits, key=lambda i: score([i]) / max(cost(i), 1), default=None)
+def one_move(moves):
+    """The move from the plan that helps most on its own, quicker one on a tie. Best value per second
+    would be cheaper to compute but keeps picking five-second crumbs, like a mouse on a desk."""
+    return max(moves, key=lambda m: (m["mess"], -cost(m)), default=None)
 
 
 def order(moves):
@@ -67,6 +68,6 @@ def order(moves):
 def make(items, budget):
     chosen = best(items, budget)
     moves = order(greedy(items, budget) if chosen is None else chosen)
-    return {"budget": budget, "one": one_move(items, budget), "moves": moves,
+    return {"budget": budget, "one": one_move(moves), "moves": moves,
             "seconds": sum(cost(m) for m in moves), "score": round(score(moves), 3),
             "possible": round(score(items), 3)}

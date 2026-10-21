@@ -61,7 +61,8 @@
   const round3 = (x) => Math.round(x * 1000) / 1000;
   function make(items, budget) {
     const moves = order(best(items, budget) ?? greedy(items, budget));
-    return { budget, one: argmax(items.filter((i) => cost(i) <= budget), ratio), moves,
+    // plan.one_move: most mess, quicker on a tie; every cost here is under the 600 s budget cap, so 1e4 separates them
+    return { budget, one: argmax(moves, (m) => m.mess * 1e4 - cost(m)), moves,
       seconds: moves.reduce((s, m) => s + cost(m), 0), score: round3(score(moves)), possible: round3(score(items)) };
   }
 
