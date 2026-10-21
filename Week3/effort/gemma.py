@@ -28,7 +28,7 @@ def clean(data, side=SIDE):
 def chat(prompt, images=(), schema=None, timeout=300):
     """One reply from Gemma. images are cleaned JPEG bytes; with a schema the reply is parsed JSON."""
     msg = {"role": "user", "content": prompt, "images": [base64.b64encode(i).decode() for i in images]}
-    body = {"model": MODEL, "stream": False, "keep_alive": "10m", "options": {"temperature": 0},
+    body = {"model": MODEL, "stream": False, "keep_alive": "10m", "options": {"temperature": 0, "use_mmap": True},  # mmap: weights don't eat commit memory
             "messages": [msg]}
     if schema:
         body["format"] = schema

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Effort Budget</title>
+<meta name="description" content="The most tidiness for the energy you have left. Runs on your own computer.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23111815'/%3E%3Cpath d='M8 17c3 4 13 4 16 0' stroke='%2393D0A0' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.5-2h6l1.5 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></symbol>
+</svg>
+
+<main>
+  <header class="top">
+    <h1>Effort Budget</h1>
+    <p class="lede">Show it your room, say how much energy you have left, and get the few moves worth the most tidiness. Everything runs on this computer.</p>
+  </header>
+
+  <section id="snap" class="step" aria-labelledby="snap-h">
+    <h2 id="snap-h">The room, as it is</h2>
+    <label class="drop" id="drop">
+      <input id="photo" type="file" accept="image/*" capture="environment">
+      <svg class="ic"><use href="#i-camera"/></svg>
+      <span class="drop-main">Choose a photo of the mess</span>
+      <span class="drop-sub">Stand somewhere you can find again; you'll take an after photo from the same spot.</span>
+    </label>
+    <figure class="preview" id="preview" hidden><img id="preview-img" alt="Your room, before"></figure>
+    <div class="wait" id="wait" hidden role="status" aria-live="polite">
+      <p><span id="wait-text">Gemma is looking at your room on your own CPU. No cloud, so it takes a minute or two.</span>
+        <span class="clock" id="wait-clock">0 s</span></p>
+      <div class="skeleton" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+    </div>
+    <p class="error" id="snap-error" role="alert" hidden></p>
+  </section>
+
+  <section id="check" class="step" aria-labelledby="check-h" hidden>
+    <h2 id="check-h">What Gemma sees</h2>
+    <p class="hint">Tap anything that isn't really there. Small models imagine things; this keeps the plan honest.</p>
+    <ul class="chips" id="chips"></ul>
+  </section>
+
+  <section id="energy" class="step" aria-labelledby="energy-h" hidden>
+    <h2 id="energy-h">Energy left</h2>
+    <div class="slider">
+      <input id="budget" type="range" min="0" max="100" value="45" aria-describedby="budget-out">
+      <div class="ruler" aria-hidden="true"><!-- log positions, same scale as budget() in app.js -->
+        <span style="--at:0">10s</span><span style="--at:.268">30s</span><span style="--at:.438">1m</span>
+        <span style="--at:.607">2m</span><span style="--at:.831">5m</span><span style="--at:1">10m</span>
+      </div>
+      <output id="budget-out" for="budget"><b id="budget-secs">90 seconds</b> <span id="budget-mood">some</span></output>
+    </div>
+    <button class="primary" id="go" type="button">Find my one move</button>
+  </section>
+
+  <section id="move" class="step" aria-labelledby="move-h" hidden>
+    <h2 id="move-h" class="sr">Your one move</h2>
+    <article class="one" id="one"></article>
+    <p class="calib" id="calib" hidden></p>
+    <details class="plan" id="plan">
+      <summary>Full plan <span class="stats" id="plan-sum"></span></summary>
+      <ol id="moves"></ol>
+    </details>
+  </section>
+
+  <section id="after" class="step" aria-labelledby="after-h" hidden>
+    <h2 id="after-h">Proof</h2>
+    <p class="hint">Same spot, same angle. Gemma compares both photos twice, swapping their order, and only trusts an answer that survives the swap.</p>
+    <label class="drop small">
+      <input id="photo-after" type="file" accept="image/*" capture="environment">
+      <svg class="ic"><use href="#i-camera"/></svg>
+      <span class="drop-main">Choose the after photo</span>
+    </label>
+    <div class="wait" id="wait-after" hidden role="status" aria-live="polite">
+      <p>Comparing, twice. <span class="clock" id="after-clock">0 s</span></p>
+    </div>
+    <div class="verdict" id="verdict" hidden></div>
+    <p class="error" id="after-error" role="alert" hidden></p>
+    <button class="ghost" id="again" type="button" hidden>Another room</button>
+  </section>
+
+  <footer class="foot">Gemma 3 through Ollama, on 127.0.0.1. Photos stay in memory and are never saved.</footer>
+</main>
+<script src="static.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

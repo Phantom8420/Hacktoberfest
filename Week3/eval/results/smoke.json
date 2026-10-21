@@ -1,0 +1,21 @@
+{
+  "model": "gemma3:4b",
+  "photo_kb_sent": 125,
+  "runs": [
+    {
+      "call": "cold",
+      "seconds": 67.4,
+      "reply": "Here's a list of the objects I can see in the photo, separated by commas:\n\nDoor, door handle, electrical outlets, trash bin, recycling bin, plastic bottles, cardboard boxes, black shelving unit, storage bins, baskets, towels, cleaning supplies, umbrella, rug, wall."
+    },
+    {
+      "call": "warm",
+      "seconds": 8.1,
+      "reply": "Here's a list of the objects I can see in the photo, separated by commas:\n\nDoor, door handle, light switches, electrical outlets, trash bin, recycling bin, plastic bottles, backpack, duffel bag, cardboard box, umbrella, shelf, storage bins, cleaning supplies, towels, decorative items, floor."
+    },
+    {
+      "call": "warm",
+      "seconds": 7.2,
+      "reply": "Here's a list of the objects I can see in the photo, separated by commas:\n\nDoor, door handle, light switches, electrical outlets, trash bin, recycling bin, plastic bottles, backpack, duffel bag, cardboard box, umbrella, shelf, storage bins, cleaning supplies, towels, decorative items, floor."
+    }
+  ]
+}

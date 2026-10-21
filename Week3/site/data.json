@@ -1,0 +1,211 @@
+{
+ "model": "gemma3:4b",
+ "samples": [
+  {
+   "file": "messy_uva_dorm.jpg",
+   "title": "Dorm room",
+   "author": "Packer1028",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Messy_UVA_dorm.jpg",
+   "items": [
+    {
+     "id": 1,
+     "what": "plastic bottles",
+     "zone": "floor",
+     "move_to": "bin",
+     "est_seconds": 30,
+     "mess": 3
+    },
+    {
+     "id": 2,
+     "what": "plastic bags",
+     "zone": "floor",
+     "move_to": "bin",
+     "est_seconds": 20,
+     "mess": 2
+    },
+    {
+     "id": 3,
+     "what": "cardboard box",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 60,
+     "mess": 1
+    },
+    {
+     "id": 4,
+     "what": "black umbrella",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 10,
+     "mess": 1
+    },
+    {
+     "id": 5,
+     "what": "plastic container",
+     "zone": "shelf",
+     "move_to": "shelf",
+     "est_seconds": 15,
+     "mess": 2
+    },
+    {
+     "id": 6,
+     "what": "plastic basket",
+     "zone": "shelf",
+     "move_to": "shelf",
+     "est_seconds": 20,
+     "mess": 2
+    },
+    {
+     "id": 7,
+     "what": "plastic bottles",
+     "zone": "shelf",
+     "move_to": "bin",
+     "est_seconds": 30,
+     "mess": 3
+    },
+    {
+     "id": 8,
+     "what": "plastic container",
+     "zone": "floor",
+     "move_to": "bin",
+     "est_seconds": 20,
+     "mess": 2
+    }
+   ],
+   "seconds": 106.1
+  },
+  {
+   "file": "messy_office_room.jpg",
+   "title": "Home office",
+   "author": "OboeBlanket",
+   "license": "CC0",
+   "url": "https://commons.wikimedia.org/wiki/File:Messy_office_(room).jpg",
+   "items": [
+    {
+     "id": 1,
+     "what": "boxes of laptops",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 60,
+     "mess": 4
+    },
+    {
+     "id": 2,
+     "what": "printer",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 30,
+     "mess": 3
+    },
+    {
+     "id": 3,
+     "what": "monitor",
+     "zone": "desk-side",
+     "move_to": "other",
+     "est_seconds": 15,
+     "mess": 2
+    },
+    {
+     "id": 4,
+     "what": "mouse",
+     "zone": "desk-side",
+     "move_to": "other",
+     "est_seconds": 5,
+     "mess": 1
+    },
+    {
+     "id": 5,
+     "what": "boxes of documents",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 45,
+     "mess": 3
+    },
+    {
+     "id": 6,
+     "what": "boxes of equipment",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 75,
+     "mess": 2
+    },
+    {
+     "id": 7,
+     "what": "cooling fan",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 20,
+     "mess": 1
+    },
+    {
+     "id": 8,
+     "what": "boxes of cables",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 30,
+     "mess": 2
+    },
+    {
+     "id": 9,
+     "what": "boxes of papers",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 60,
+     "mess": 3
+    },
+    {
+     "id": 10,
+     "what": "boxes of supplies",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 90,
+     "mess": 4
+    }
+   ],
+   "seconds": 164.6
+  },
+  {
+   "file": "my_messy_room_16200326361.jpg",
+   "title": "Bedroom",
+   "author": "Adnan Islam",
+   "license": "CC BY 2.0",
+   "url": "https://commons.wikimedia.org/wiki/File:My_messy_room_(16200326361).jpg",
+   "items": [
+    {
+     "id": 1,
+     "what": "guitar case",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 60,
+     "mess": 3
+    },
+    {
+     "id": 2,
+     "what": "speaker stand",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 30,
+     "mess": 2
+    },
+    {
+     "id": 3,
+     "what": "speaker box",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 45,
+     "mess": 2
+    },
+    {
+     "id": 4,
+     "what": "guitar",
+     "zone": "floor",
+     "move_to": "other",
+     "est_seconds": 90,
+     "mess": 4
+    }
+   ],
+   "seconds": 116.0
+  }
+ ]
+}

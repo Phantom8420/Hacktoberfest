@@ -6,6 +6,7 @@ My work for the DEV Hacktoberfest Open-Source AI Challenge, one folder per week.
 |---|---|---|
 | 1 | Touch Grass | [Proof of Grass](Week1/) |
 | 2 | Side Hustle | [Déjà](Week2/) ([demo](https://deja-hacktoberfest.vercel.app)) |
+| 3 | Slow and Steady | [Effort Budget](Week3/) ([demo](https://effort-budget.vercel.app)) |
 
 ## Week 1: Touch Grass
 
@@ -39,3 +40,18 @@ is Whisper, answers are Gemma 3 1B through Ollama, all on the laptop. Details, p
 **AI disclosure.** AI assistance was used for this project. I did the planning and laid the base foundations; the
 rest of the coding was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that
 I am accountable for the code.
+
+## Week 3: Slow and Steady
+
+**What the challenge asked.** Build something on open-weight or open-source AI around the theme of slowing down:
+lazy, low-effort, Sloth Day energy.
+
+**What I built.** Effort Budget: show it a photo of your room and say how much energy you have left, from 10 seconds
+to 10 minutes. Gemma 3 4B lists what's lying around and how long each thing takes to put away; a small submodular
+planner picks the moves worth the most tidiness for exactly that budget and hands you just one, with a timer. It
+learns how long things really take you, and judges an after photo against the before. Details, measurements and
+limits are in [Week3/README.md](Week3/README.md).
+
+**AI disclosure.** AI assistance was used for this project. I chose the idea and approved the plan; Claude
+(Anthropic) wrote the code, the evaluation scripts and the write-up under my direction.
+
