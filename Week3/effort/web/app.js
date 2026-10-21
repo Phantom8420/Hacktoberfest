@@ -138,9 +138,10 @@ function renderPlan() {
     card.style.animation = "none"; card.offsetHeight; card.style.animation = "";
   }
   const share = p.possible ? Math.round((100 * p.score) / p.possible) : 0;
-  $("plan-sum").textContent = p.moves.length
-    ? `Full plan: ${p.moves.length} move${p.moves.length > 1 ? "s" : ""}, ${secs(p.seconds)}, ${share}% of the tidiness on offer`
-    : "Full plan: empty";
+  $("plan-sum").innerHTML = p.moves.length
+    ? `<span><b>${p.moves.length}</b> move${p.moves.length > 1 ? "s" : ""}</span><span><b>${secs(p.seconds)}</b></span>
+       <span><b>${share}%</b> of the tidiness on offer</span>`
+    : "<span>empty</span>";
   $("moves").innerHTML = p.moves.map((m) => `
     <li data-id="${m.id}"><span class="what">${esc(cap(m.what))}</span>
       <span class="meta">${esc(m.zone)} → ${esc(m.move_to)} · ~${secs(m.cost)}</span>${timerButton(m)}</li>`).join("");
@@ -148,8 +149,10 @@ function renderPlan() {
 }
 
 function timerButton(m, big) {
-  return `<button type="button" class="${big ? "primary" : "mini"}" data-timer="${m.id}">${icon("play")}<span>Start</span></button>
-    ${big ? `<span class="timer" data-clock="${m.id}">0 s</span>` : ""}`;
+  const ring = `<div class="ring" data-ring="${m.id}" data-cost="${m.cost}"><svg viewBox="0 0 64 64" aria-hidden="true">
+      <circle class="track" cx="32" cy="32" r="28" pathLength="100"/><circle class="fill" cx="32" cy="32" r="28" pathLength="100"/></svg>
+      <span class="timer" data-clock="${m.id}">${secs(m.cost).replace(" seconds", " s")}</span></div>`;
+  return `${big ? ring : ""}<button type="button" class="${big ? "primary" : "mini"}" data-timer="${m.id}">${icon("play")}<span>Start</span></button>`;
 }
 
 function calibLine(one, f) {
@@ -182,9 +185,16 @@ document.addEventListener("click", async (e) => {
   const clocks = [...document.querySelectorAll(`[data-clock="${id}"]`)];
   const buttons = [...document.querySelectorAll(`[data-timer="${id}"]`)];
   const t0 = performance.now();
+  const ring = document.querySelector(`[data-ring="${id}"]`);
   const tick = () => {
-    const s = `${Math.round((performance.now() - t0) / 1000)} s`;
-    clocks.forEach((c) => { c.textContent = s; c.classList.add("on"); });
+    const el = (performance.now() - t0) / 1000, s = `${Math.round(el)} s`;
+    if (ring) { // counts down the planned seconds; running over is allowed, it just says so
+      const left = Math.round(ring.dataset.cost - el);
+      ring.style.setProperty("--p", Math.min(el / ring.dataset.cost, 1) * 100);
+      ring.classList.toggle("over", left < 0);
+      clocks.forEach((c) => { c.textContent = left >= 0 ? `${left} s left` : `${-left} s over`; });
+    } else clocks.forEach((c) => (c.textContent = s));
+    clocks.forEach((c) => c.classList.add("on"));
     buttons.forEach((x) => { if (x.classList.contains("mini")) x.querySelector("span").textContent = s; });
   };
   const iv = setInterval(tick, 250);
@@ -201,7 +211,7 @@ function markDone(id, actual) {
     x.classList.remove("on");
     x.querySelector("span").textContent = `Done in ${Math.round(actual)} s`;
   });
-  document.querySelectorAll(`[data-clock="${id}"]`).forEach((c) => c.remove());
+  document.querySelectorAll(`[data-clock="${id}"], [data-ring="${id}"]`).forEach((c) => c.remove());
   document.querySelector(`#moves li[data-id="${id}"]`)?.classList.add("done");
 }
 

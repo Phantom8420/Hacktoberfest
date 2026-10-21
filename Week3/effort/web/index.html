@@ -50,6 +50,10 @@
     <h2 id="energy-h">Energy left</h2>
     <div class="slider">
       <input id="budget" type="range" min="0" max="100" value="45" aria-describedby="budget-out">
+      <div class="ruler" aria-hidden="true"><!-- log positions, same scale as budget() in app.js -->
+        <span style="--at:0">10s</span><span style="--at:.268">30s</span><span style="--at:.438">1m</span>
+        <span style="--at:.607">2m</span><span style="--at:.831">5m</span><span style="--at:1">10m</span>
+      </div>
       <output id="budget-out" for="budget"><b id="budget-secs">90 seconds</b> <span id="budget-mood">some</span></output>
     </div>
     <button class="primary" id="go" type="button">Find my one move</button>
@@ -60,7 +64,7 @@
     <article class="one" id="one"></article>
     <p class="calib" id="calib" hidden></p>
     <details class="plan" id="plan">
-      <summary id="plan-sum">Full plan</summary>
+      <summary>Full plan <span class="stats" id="plan-sum"></span></summary>
       <ol id="moves"></ol>
     </details>
   </section>
