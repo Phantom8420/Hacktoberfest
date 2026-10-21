@@ -146,7 +146,13 @@ def jpeg(w=60, h=40):
 @pytest.fixture
 def live(tmp_path):
     room = [item(1, "bed", 20, 4), item(2, "desk", 5, 2), item(3, "floor", 8, 3)]
-    app = server.App(log_path=tmp_path / "runs.jsonl", look=lambda photo: [dict(i) for i in room],
+
+    def look(photo, on_items):
+        on_items(room[:1])  # what a half-written reply shows
+        on_items(room[:1])
+        return [dict(i) for i in room]
+
+    app = server.App(log_path=tmp_path / "runs.jsonl", look=look,
                      verdict=lambda b, a, items: {"verdict": "tidier", "margin": 2, "gone": [2],
                                                   "mess_removed": 0.22, "after_items": []})
     srv = ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
@@ -161,8 +167,25 @@ def call(port, method, path, body=None, ctype="application/json", host=None):
     data = json.dumps(body).encode() if ctype == "application/json" and body is not None else body
     c.request(method, path, body=data, headers={"Content-Type": ctype, "Host": host or f"127.0.0.1:{port}"})
     r = c.getresponse()
-    return r.status, json.loads(r.read() or b"{}") if "json" in r.getheader("Content-Type", "") else r.read()
+    if "json" not in r.getheader("Content-Type", ""):
+        return r.status, r.read()
+    lines = [json.loads(line) for line in r.read().splitlines()] or [{}]
+    return r.status, lines[-1]  # NDJSON replies end with the whole answer
 
+
+def test_see_streams_items_before_the_answer(live):
+    port, _ = live
+    c = http.client.HTTPConnection("127.0.0.1", port, timeout=10)
+    c.request("POST", "/api/see", body=jpeg(), headers={"Content-Type": "image/jpeg"})
+    lines = [json.loads(line) for line in c.getresponse().read().splitlines()]
+    assert [list(x) for x in lines[:-1]] == [["item"]]  # sent once, not once per callback
+    assert lines[0]["item"]["id"] == 1 and len(lines[-1]["items"]) == 3
+
+
+def test_partial_reads_only_finished_items():
+    text = '{"items": [{"what": "mug", "zone": "desk", "move_to": "sink", "est_seconds": 5, "mess": 2}, {"what": "so'
+    assert [i["what"] for i in see.partial(text)] == ["mug"]
+    assert see.partial('{"ite') == []
 
 def test_server_full_run(live):
     port, path = live

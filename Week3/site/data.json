@@ -42,22 +42,6 @@
     },
     {
      "id": 5,
-     "what": "plastic container",
-     "zone": "shelf",
-     "move_to": "shelf",
-     "est_seconds": 15,
-     "mess": 2
-    },
-    {
-     "id": 6,
-     "what": "plastic basket",
-     "zone": "shelf",
-     "move_to": "shelf",
-     "est_seconds": 20,
-     "mess": 2
-    },
-    {
-     "id": 7,
      "what": "plastic bottles",
      "zone": "shelf",
      "move_to": "bin",
@@ -65,7 +49,7 @@
      "mess": 3
     },
     {
-     "id": 8,
+     "id": 6,
      "what": "plastic container",
      "zone": "floor",
      "move_to": "bin",
@@ -84,30 +68,6 @@
    "items": [
     {
      "id": 1,
-     "what": "boxes of laptops",
-     "zone": "floor",
-     "move_to": "other",
-     "est_seconds": 60,
-     "mess": 4
-    },
-    {
-     "id": 2,
-     "what": "printer",
-     "zone": "floor",
-     "move_to": "other",
-     "est_seconds": 30,
-     "mess": 3
-    },
-    {
-     "id": 3,
-     "what": "monitor",
-     "zone": "desk-side",
-     "move_to": "other",
-     "est_seconds": 15,
-     "mess": 2
-    },
-    {
-     "id": 4,
      "what": "mouse",
      "zone": "desk-side",
      "move_to": "other",
@@ -115,7 +75,7 @@
      "mess": 1
     },
     {
-     "id": 5,
+     "id": 2,
      "what": "boxes of documents",
      "zone": "floor",
      "move_to": "other",
@@ -123,7 +83,7 @@
      "mess": 3
     },
     {
-     "id": 6,
+     "id": 3,
      "what": "boxes of equipment",
      "zone": "floor",
      "move_to": "other",
@@ -131,15 +91,7 @@
      "mess": 2
     },
     {
-     "id": 7,
-     "what": "cooling fan",
-     "zone": "floor",
-     "move_to": "other",
-     "est_seconds": 20,
-     "mess": 1
-    },
-    {
-     "id": 8,
+     "id": 4,
      "what": "boxes of cables",
      "zone": "floor",
      "move_to": "other",
@@ -147,7 +99,7 @@
      "mess": 2
     },
     {
-     "id": 9,
+     "id": 5,
      "what": "boxes of papers",
      "zone": "floor",
      "move_to": "other",
@@ -155,7 +107,7 @@
      "mess": 3
     },
     {
-     "id": 10,
+     "id": 6,
      "what": "boxes of supplies",
      "zone": "floor",
      "move_to": "other",

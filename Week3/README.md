@@ -7,7 +7,9 @@ looks at the photo and lists what's lying around, where it should go, how long t
 help. A small planner then picks the moves worth the most tidiness for exactly that many seconds, and the page
 shows you one of them, big, with a timer:
 
-> **Shoes**, from the floor to the wardrobe, about 10 seconds. *Start.*
+> **Plastic bottles**, from the floor to the bin, about 30 seconds. *Start.*
+
+(Real output, from the dorm-room sample in the demo at 60 seconds of energy.)
 
 That's the whole ask. If you still have energy afterwards, the full plan is one tap away. The timer learns how long
 things really take *you* (bin runs are quick, laundry never is), and the next plan uses your times instead of
@@ -24,8 +26,9 @@ ollama pull gemma3:4b
 python -m effort
 ```
 
-It opens `http://127.0.0.1:8780`. On a laptop CPU the first look at a photo takes about two minutes (the model
-loads once, then each photo is under two minutes; see the numbers below).
+It opens `http://127.0.0.1:8780`. On a laptop CPU a photo takes about two minutes. The wait isn't blank: each item
+shows up as soon as Gemma has written it, so you can untick what isn't there and set your energy while it's still
+looking.
 
 If Ollama fails to load the model with `failed to allocate CPU buffer` while plenty of RAM is free, Windows has run out
 of *commit* memory (usually: no page file). Restart Ollama with `LLAMA_ARG_REPACK=false` set; together with the
@@ -73,7 +76,7 @@ fetch). Nothing leaves the computer.
 | keep the model honest | you: tap anything that isn't really there before planning |
 | your seconds, not Gemma's | per destination, (sum of actual/guess + 2) / (moves + 2), so one odd move can't swing it |
 | the plan | brute force over every subset up to 16 items, greedy above that |
-| the one move | the best tidiness per second that fits |
+| the one move | the biggest mess in that plan (ties: the quicker one), so it never hands you a five-second crumb |
 | did it get tidier? | Gemma compares before and after twice, photos swapped, and lists the items again |
 
 **Why a planner and not just "biggest mess first".** Tidiness isn't additive. Clearing the first thing off a desk
@@ -118,9 +121,9 @@ STABILITY
 pytest -q
 ```
 
-14 tests: EXIF/GPS stripping and rotation, the planner (empty budget, zones, the single-item fallback, exact never
-worse than greedy and greedy within its guarantee), cleaning up the model's JSON, the time learning, the log, the
-judge's swap logic, a full run through the local server, the server refusing other sites and bad input, and the
+18 tests: EXIF/GPS stripping and rotation, the planner (empty budget, zones, the single-item fallback, exact never
+worse than greedy and greedy within its guarantee), cleaning up the model's JSON (fixtures dropped, half-written replies read item by item), picking the one move, the time learning, the log, the
+judge's swap logic, a full run through the local server, items streaming before the answer, the server refusing other sites and bad input, and the
 JavaScript planner matching the Python one. None of them need Ollama.
 
 ## Credits

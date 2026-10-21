@@ -3,6 +3,7 @@
 Gemma only looks; the numbers it gives are clamped and the destinations forced into a
 fixed list, because learn.py calibrates effort per destination.
 """
+import json
 import re
 
 from . import gemma
@@ -74,11 +75,24 @@ def tidy(raw):
     return out
 
 
-def look(photo):
-    """Cleaned JPEG bytes -> list of items. One retry if the JSON comes back broken."""
+def partial(text):
+    """Items from a reply still being written: every item object that is already complete."""
+    found = []
+    for m in re.finditer(r"\{[^{}]*\}", text.partition("[")[2]):
+        try:
+            found.append(json.loads(m.group()))
+        except ValueError:
+            pass
+    return tidy({"items": found})
+
+
+def look(photo, on_items=None):
+    """Cleaned JPEG bytes -> list of items. One retry if the JSON comes back broken.
+    on_items, if given, gets the items found so far while Gemma is still answering."""
+    on_text = (lambda t: on_items(partial(t))) if on_items else None
     for attempt in (1, 2):
         try:
-            return tidy(gemma.chat(PROMPT, [photo], schema=SCHEMA))
+            return tidy(gemma.chat(PROMPT, [photo], schema=SCHEMA, on_text=on_text))
         except ValueError:
             if attempt == 2:
                 raise

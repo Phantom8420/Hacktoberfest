@@ -25,15 +25,25 @@ def clean(data, side=SIDE):
     return out.getvalue()
 
 
-def chat(prompt, images=(), schema=None, timeout=300):
-    """One reply from Gemma. images are cleaned JPEG bytes; with a schema the reply is parsed JSON."""
+def chat(prompt, images=(), schema=None, timeout=300, on_text=None):
+    """One reply from Gemma. images are cleaned JPEG bytes; with a schema the reply is parsed JSON.
+    on_text, if given, gets the reply so far each time a piece of it arrives."""
     msg = {"role": "user", "content": prompt, "images": [base64.b64encode(i).decode() for i in images]}
-    body = {"model": MODEL, "stream": False, "keep_alive": "10m", "options": {"temperature": 0, "use_mmap": True},  # mmap: weights don't eat commit memory
+    body = {"model": MODEL, "stream": on_text is not None, "keep_alive": "10m",
+            "options": {"temperature": 0, "use_mmap": True},  # mmap: weights don't eat commit memory
             "messages": [msg]}
     if schema:
         body["format"] = schema
     req = urllib.request.Request(f"{OLLAMA}/api/chat", data=json.dumps(body).encode(),
                                  headers={"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
-        text = json.loads(r.read())["message"]["content"].strip()
+        if on_text is None:
+            text = json.loads(r.read())["message"]["content"]
+        else:
+            text = ""
+            for line in r:  # one JSON object per line while streaming
+                if line.strip():
+                    text += json.loads(line)["message"]["content"]
+                    on_text(text)
+    text = text.strip()
     return json.loads(text) if schema else text

@@ -61,7 +61,8 @@
   const round3 = (x) => Math.round(x * 1000) / 1000;
   function make(items, budget) {
     const moves = order(best(items, budget) ?? greedy(items, budget));
-    return { budget, one: argmax(items.filter((i) => cost(i) <= budget), ratio), moves,
+    // plan.one_move: most mess, quicker on a tie; every cost here is under the 600 s budget cap, so 1e4 separates them
+    return { budget, one: argmax(moves, (m) => m.mess * 1e4 - cost(m)), moves,
       seconds: moves.reduce((s, m) => s + cost(m), 0), score: round3(score(moves)), possible: round3(score(items)) };
   }
 
@@ -81,10 +82,16 @@
     if (path === "/api/see") {
       const s = d.samples.find((x) => init.body.name === x.file);
       if (!s) return reply(400, { error: "The online demo has no model, so it can only replay the sample rooms. Run it locally to use your own photo." });
-      await wait(1600);
       const run = Math.random().toString(16).slice(2, 12);
       runs[run] = s.items;
-      return reply(200, { run, items: s.items, seconds: s.seconds });
+      const enc = new TextEncoder(), line = (o) => enc.encode(JSON.stringify(o) + "\n");
+      const body = new ReadableStream({ async start(c) { // the items one by one, as the local app streams them
+        await wait(900);
+        for (const item of s.items) { c.enqueue(line({ item })); await wait(350); }
+        c.enqueue(line({ run, items: s.items, seconds: s.seconds }));
+        c.close();
+      } });
+      return new Response(body, { status: 200, headers: { "Content-Type": "application/x-ndjson" } });
     }
     const b = JSON.parse(init.body || "{}");
     if (path === "/api/plan") {

@@ -36,6 +36,30 @@ async function api(path, body, type = "application/json") {
   return data;
 }
 
+// /api/see answers in NDJSON: {"item": ...} per item as Gemma writes it, then the whole answer
+async function see(file, onItem) {
+  const res = await fetch("/api/see", { method: "POST", headers: { "Content-Type": file.type || "image/jpeg" }, body: file });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    throw new Error(data.error || `Something went wrong (${res.status}).`);
+  }
+  const reader = res.body.getReader(), dec = new TextDecoder();
+  let buf = "", out = null;
+  for (let done = false; !done;) {
+    const r = await reader.read();
+    done = r.done;
+    buf += dec.decode(r.value, { stream: !done });
+    const lines = buf.split("\n");
+    buf = lines.pop();
+    for (const line of lines.filter((l) => l.trim()).map((l) => JSON.parse(l))) {
+      if (line.error) throw new Error(line.error);
+      line.item ? onItem(line.item) : (out = line);
+    }
+  }
+  if (!out) throw new Error("Gemma stopped before finishing. Try the photo again.");
+  return out;
+}
+
 function clock(el) {
   const t0 = performance.now();
   const id = setInterval(() => { el.textContent = `${Math.round((performance.now() - t0) / 1000)} s`; }, 500);
@@ -58,14 +82,23 @@ $("photo").addEventListener("change", async (e) => {
   ["check", "energy", "move", "after"].forEach((id) => ($(id).hidden = true));
   $("wait").hidden = false;
   const stop = clock($("wait-clock"));
+  Object.assign(state, { run: null, items: [], removed: new Set(), plan: null, done: new Set() });
+  $("chips").innerHTML = "";
+  $("go").disabled = true;
   try {
-    const out = await api("/api/see", file, file.type || "image/jpeg");
-    Object.assign(state, { run: out.run, items: out.items, removed: new Set(), plan: null, done: new Set() });
+    const out = await see(file, (item) => { // chips and the slider while Gemma is still writing
+      state.items.push(item);
+      if (state.items.length === 1) { show("check"); show("energy"); }
+      $("chips").insertAdjacentHTML("beforeend", chip(item));
+    });
+    Object.assign(state, { run: out.run, items: out.items });
     renderChips();
     show("check");
     show("energy");
+    $("go").disabled = false;
     $("go").focus();
   } catch (err) {
+    ["check", "energy"].forEach((id) => ($(id).hidden = true)); // half a list with no run to plan
     $("snap-error").textContent = err.message;
     $("snap-error").hidden = false;
   } finally {
@@ -83,11 +116,12 @@ function renderChips() {
     ul.innerHTML = `<li class="hint">Gemma found nothing to move. Either the room is tidy or the photo is too dark; try one with more light.</li>`;
     return;
   }
-  ul.innerHTML = state.items.map((i) => `
-    <li><button class="chip" type="button" data-id="${i.id}" aria-pressed="false"
-      aria-label="${esc(i.what)} on ${esc(i.zone)}; tap if it isn't really there">
-      ${esc(i.what)} <small>${esc(i.zone)} · ~${i.est_seconds}s</small>${icon("x")}</button></li>`).join("");
+  ul.innerHTML = state.items.map(chip).join("");
 }
+const chip = (i) => `
+    <li><button class="chip" type="button" data-id="${i.id}" aria-pressed="${state.removed.has(i.id)}"
+      aria-label="${esc(i.what)} on ${esc(i.zone)}; tap if it isn't really there">
+      ${esc(i.what)} <small>${esc(i.zone)} · ~${i.est_seconds}s</small>${icon("x")}</button></li>`;
 $("chips").addEventListener("click", (e) => {
   const b = e.target.closest(".chip");
   if (!b) return;

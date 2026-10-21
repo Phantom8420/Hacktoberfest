@@ -30,10 +30,10 @@ class App:
     def add(self, kind, **f):
         return log.add(kind, path=self.log_path, **f)
 
-    def see(self, data):
+    def see(self, data, on_items=None):
         photo = gemma.clean(data)
         t = time.perf_counter()
-        items = self.look(photo)
+        items = self.look(photo, on_items)
         secs = round(time.perf_counter() - t, 1)
         run = uuid.uuid4().hex[:10]
         with self.lock:
@@ -73,11 +73,14 @@ class App:
 class Handler(BaseHTTPRequestHandler):
     app: App = None
     port = 0
+    streaming = False
 
     def log_message(self, *a):
         pass
 
     def _send(self, code, body, ctype="application/json"):
+        if self.streaming:  # status already went out; the error becomes the last line
+            return self._line(body)
         data = body if isinstance(body, bytes) else json.dumps(body).encode()
         self.send_response(code)
         self.send_header("Content-Type", ctype)
@@ -87,6 +90,19 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Referrer-Policy", "no-referrer")
         self.end_headers()
         self.wfile.write(data)
+
+    def _line(self, obj):
+        """One line of an NDJSON reply; the first call sends the headers. HTTP/1.0, so closing ends it."""
+        if not self.streaming:
+            self.streaming = True
+            self.send_response(200)
+            self.send_header("Content-Type", "application/x-ndjson")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Referrer-Policy", "no-referrer")
+            self.end_headers()
+        self.wfile.write(json.dumps(obj).encode() + b"\n")
+        self.wfile.flush()
 
     def _trusted(self):
         # DNS rebinding: some other site's name pointed at 127.0.0.1
@@ -124,8 +140,14 @@ class Handler(BaseHTTPRequestHandler):
         url = urllib.parse.urlsplit(self.path)
         q = dict(urllib.parse.parse_qsl(url.query))
         try:
-            if url.path == "/api/see":
-                out = self.app.see(self._body("image"))
+            if url.path == "/api/see":  # streams each item as Gemma writes it, then the whole answer
+                shown = []
+
+                def on_items(items):
+                    for it in items[len(shown):]:
+                        shown.append(it)
+                        self._line({"item": it})
+                return self._line(self.app.see(self._body("image"), on_items))
             elif url.path == "/api/plan":
                 b = self._body("json")
                 out = self.app.plan(b["run"], b["budget"], b.get("removed", []))
