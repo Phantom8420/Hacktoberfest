@@ -1,9 +1,14 @@
+import http.client
 import io
+import json
 import random
+import threading
+from http.server import ThreadingHTTPServer
 
+import pytest
 from PIL import Image
 
-from effort import gemma, judge, learn, log, plan, see
+from effort import gemma, judge, learn, log, plan, see, server
 
 
 def test_clean_strips_gps_and_shrinks():
@@ -109,3 +114,55 @@ def test_judge_removed_and_swap(monkeypatch):
     biased = iter([{"tidier": "A", "margin": 2}, {"tidier": "A", "margin": 2}])  # always "the first one"
     monkeypatch.setattr(judge.gemma, "chat", lambda *a, **k: next(biased))
     assert judge.compare(img.getvalue(), img.getvalue())["verdict"] == "unclear"
+
+
+def jpeg(w=60, h=40):
+    buf = io.BytesIO()
+    Image.new("RGB", (w, h), "grey").save(buf, "JPEG")
+    return buf.getvalue()
+
+
+@pytest.fixture
+def live(tmp_path):
+    room = [item(1, "bed", 20, 4), item(2, "desk", 5, 2), item(3, "floor", 8, 3)]
+    app = server.App(log_path=tmp_path / "runs.jsonl", look=lambda photo: [dict(i) for i in room],
+                     verdict=lambda b, a, items: {"verdict": "tidier", "margin": 2, "gone": [2],
+                                                  "mess_removed": 0.22, "after_items": []})
+    srv = ThreadingHTTPServer(("127.0.0.1", 0), server.Handler)
+    server.Handler.app, server.Handler.port = app, srv.server_address[1]
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    yield srv.server_address[1], tmp_path / "runs.jsonl"
+    srv.shutdown()
+
+
+def call(port, method, path, body=None, ctype="application/json", host=None):
+    c = http.client.HTTPConnection("127.0.0.1", port, timeout=10)
+    data = json.dumps(body).encode() if ctype == "application/json" and body is not None else body
+    c.request(method, path, body=data, headers={"Content-Type": ctype, "Host": host or f"127.0.0.1:{port}"})
+    r = c.getresponse()
+    return r.status, json.loads(r.read() or b"{}") if "json" in r.getheader("Content-Type", "") else r.read()
+
+
+def test_server_full_run(live):
+    port, path = live
+    status, seen = call(port, "POST", "/api/see", jpeg(), "image/jpeg")
+    assert status == 200 and len(seen["items"]) == 3
+    status, p = call(port, "POST", "/api/plan", {"run": seen["run"], "budget": 15, "removed": [3]})
+    assert status == 200 and [m["id"] for m in p["moves"]] == [2] and p["one"]["id"] == 2
+    assert call(port, "POST", "/api/done", {"run": seen["run"], "item": 2, "actual_seconds": 12.5})[0] == 200
+    status, v = call(port, "POST", f"/api/after?run={seen['run']}", jpeg(), "image/jpeg")
+    assert status == 200 and v["verdict"] == "tidier"
+    kinds = [r["kind"] for r in log.read(path)]
+    assert kinds == ["see", "plan", "done", "after"]
+    assert log.read(path)[1]["removed"] == [3]  # hallucinations are recorded
+    assert "photo" not in json.dumps(log.read(path)[0]["items"])  # only a hash of the photo is kept
+    status, f = call(port, "GET", "/api/factors")
+    assert f["moves"] == 1 and f["factors"]["other"] > 1
+
+
+def test_server_refuses_other_hosts_and_bad_input(live):
+    port, _ = live
+    assert call(port, "GET", "/api/factors", host="evil.example")[0] == 403
+    assert call(port, "POST", "/api/see", b"not an image", "text/plain")[0] == 400
+    assert call(port, "POST", "/api/plan", {"run": "nope", "budget": 10})[0] == 400
+    assert call(port, "GET", "/../effort/server.py")[0] == 404
