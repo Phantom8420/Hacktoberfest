@@ -2,8 +2,11 @@ import http.client
 import io
 import json
 import random
+import shutil
+import subprocess
 import threading
 from http.server import ThreadingHTTPServer
+from pathlib import Path
 
 import pytest
 from PIL import Image
@@ -167,3 +170,28 @@ def test_server_refuses_other_hosts_and_bad_input(live):
     assert call(port, "POST", "/api/see", b"not an image", "text/plain")[0] == 400
     assert call(port, "POST", "/api/plan", {"run": "nope", "budget": 10})[0] == 400
     assert call(port, "GET", "/../effort/server.py")[0] == 404
+
+
+JS_RUN = """
+globalThis.fetch = () => new Promise(() => {});
+globalThis.window = { fetch: globalThis.fetch };
+eval(require("fs").readFileSync(process.argv[1], "utf8"));
+const cases = JSON.parse(require("fs").readFileSync(0, "utf8"));
+console.log(JSON.stringify(cases.map(([items, b]) => window.effortPlan.make(items, b))));
+"""
+
+
+@pytest.mark.skipif(not shutil.which("node"), reason="node not installed")
+def test_static_site_planner_matches_python():
+    rng = random.Random(11)
+    cases = []
+    for _ in range(150):
+        items = [item(i, rng.choice("abcd"), rng.randint(2, 90), rng.randint(1, 5)) for i in range(rng.randint(0, 18))]
+        cases.append([items, rng.choice([0, 10, 30, 90, 300, 600])])
+    js = Path(__file__).parents[1] / "effort" / "web" / "static.js"
+    out = subprocess.run(["node", "-e", JS_RUN, str(js)], input=json.dumps(cases), capture_output=True, text=True, check=True)
+    for (items, b), got in zip(cases, json.loads(out.stdout)):
+        want = plan.make(items, b)
+        assert [m["id"] for m in got["moves"]] == [m["id"] for m in want["moves"]]
+        assert (got["one"] or {}).get("id") == (want["one"] or {}).get("id")
+        assert (got["score"], got["possible"], got["seconds"]) == (want["score"], want["possible"], want["seconds"])

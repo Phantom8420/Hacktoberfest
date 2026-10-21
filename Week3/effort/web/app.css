@@ -159,3 +159,14 @@ button { font: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) {
   .one, .skeleton i { animation: none; }
 }
+
+/* online demo only (static.js): sample rooms instead of an upload */
+.sample-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.sample {
+  display: grid; gap: 6px; padding: 0 0 10px; border: 1px solid var(--line); border-radius: var(--r);
+  background: var(--raise); color: var(--text); text-align: left; overflow: hidden; transition: border-color .2s;
+}
+.sample:hover { border-color: var(--moss-dim); }
+.sample img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.sample span { padding: 0 12px; font-size: 0.9375rem; font-weight: 600; }
+.hint a, .foot a { color: var(--moss); }
