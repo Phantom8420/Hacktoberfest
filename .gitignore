@@ -12,3 +12,5 @@ models/
 .env*
 Week2/build/
 Week2/dist/
+Week3/photos/raw/
+Week3/runs.jsonl
