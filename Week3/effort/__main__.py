@@ -8,7 +8,7 @@ from .server import App, run
 
 def main(argv=None):
     ap = argparse.ArgumentParser(prog="effort", description="The most tidiness for the energy you have left.")
-    ap.add_argument("--port", type=int, default=int(os.environ.get("EFFORT_PORT", 8778)))
+    ap.add_argument("--port", type=int, default=int(os.environ.get("EFFORT_PORT", 8780)))
     ap.add_argument("--no-browser", action="store_true")
     a = ap.parse_args(argv)
     if not a.no_browser:

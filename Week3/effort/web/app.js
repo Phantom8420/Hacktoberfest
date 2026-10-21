@@ -1,0 +1,259 @@
+const $ = (id) => document.getElementById(id);
+const state = { run: null, items: [], removed: new Set(), plan: null, timer: null, done: new Set() };
+
+const icon = (name) => `<svg class="ic" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+
+function secs(n) {
+  n = Math.round(n);
+  if (n < 120) return `${n} seconds`;
+  const m = Math.floor(n / 60), s = n % 60;
+  return s ? `${m} min ${s} s` : `${m} minutes`;
+}
+
+// slider position -> seconds, on a log scale from 10 s to 10 min, rounded to numbers people say
+function budget() {
+  const raw = 10 * Math.pow(60, $("budget").value / 100);
+  const step = raw < 60 ? 5 : raw < 180 ? 10 : 30;
+  return Math.round(raw / step) * step;
+}
+function mood(s) {
+  return s <= 30 ? "barely alive" : s <= 120 ? "some" : s <= 300 ? "a little" : "suspiciously motivated";
+}
+function showBudget() {
+  const s = budget();
+  $("budget-secs").textContent = secs(s);
+  $("budget-mood").textContent = mood(s);
+}
+
+async function api(path, body, type = "application/json") {
+  const res = await fetch(path, {
+    method: "POST", headers: { "Content-Type": type },
+    body: type === "application/json" ? JSON.stringify(body) : body,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || `Something went wrong (${res.status}).`);
+  return data;
+}
+
+function clock(el) {
+  const t0 = performance.now();
+  const id = setInterval(() => { el.textContent = `${Math.round((performance.now() - t0) / 1000)} s`; }, 500);
+  el.textContent = "0 s";
+  return () => clearInterval(id);
+}
+
+function show(id) {
+  $(id).hidden = false;
+}
+
+/* 1. before photo -> items */
+$("photo").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  $("preview-img").src = URL.createObjectURL(file);
+  $("preview").hidden = false;
+  $("snap-error").hidden = true;
+  $("drop").classList.add("busy");
+  ["check", "energy", "move", "after"].forEach((id) => ($(id).hidden = true));
+  $("wait").hidden = false;
+  const stop = clock($("wait-clock"));
+  try {
+    const out = await api("/api/see", file, file.type || "image/jpeg");
+    Object.assign(state, { run: out.run, items: out.items, removed: new Set(), plan: null, done: new Set() });
+    renderChips();
+    show("check");
+    show("energy");
+    $("go").focus();
+  } catch (err) {
+    $("snap-error").textContent = err.message;
+    $("snap-error").hidden = false;
+  } finally {
+    stop();
+    $("wait").hidden = true;
+    $("drop").classList.remove("busy");
+    e.target.value = "";
+  }
+});
+
+/* 2. untick what isn't there */
+function renderChips() {
+  const ul = $("chips");
+  if (!state.items.length) {
+    ul.innerHTML = `<li class="hint">Gemma found nothing to move. Either the room is tidy or the photo is too dark; try one with more light.</li>`;
+    return;
+  }
+  ul.innerHTML = state.items.map((i) => `
+    <li><button class="chip" type="button" data-id="${i.id}" aria-pressed="false"
+      aria-label="${esc(i.what)} on ${esc(i.zone)}; tap if it isn't really there">
+      ${esc(i.what)} <small>${esc(i.zone)} · ~${i.est_seconds}s</small>${icon("x")}</button></li>`).join("");
+}
+$("chips").addEventListener("click", (e) => {
+  const b = e.target.closest(".chip");
+  if (!b) return;
+  const id = Number(b.dataset.id);
+  const off = !state.removed.has(id);
+  off ? state.removed.add(id) : state.removed.delete(id);
+  b.setAttribute("aria-pressed", String(off));
+});
+
+/* 3. energy -> plan */
+$("budget").addEventListener("input", showBudget);
+$("go").addEventListener("click", async () => {
+  $("go").disabled = true;
+  try {
+    state.plan = await api("/api/plan", { run: state.run, budget: budget(), removed: [...state.removed] });
+    state.done = new Set();
+    renderPlan();
+    show("move");
+    show("after");
+    $("one").scrollIntoView({ behavior: "smooth", block: "start" });
+  } catch (err) {
+    alertIn("snap-error", err.message);
+  } finally {
+    $("go").disabled = false;
+  }
+});
+
+function alertIn(id, msg) {
+  $(id).textContent = msg;
+  $(id).hidden = false;
+}
+
+function renderPlan() {
+  const p = state.plan, one = p.one;
+  const card = $("one");
+  card.classList.toggle("empty", !one);
+  if (!one) {
+    card.innerHTML = `<p class="label">Your one move</p><h3>Nothing fits in ${secs(p.budget)}.</h3>
+      <p class="rest">Which is a perfectly good answer. Lie down, or nudge the slider.</p>`;
+  } else {
+    card.innerHTML = `
+      <p class="label">Your one move</p>
+      <h3>${esc(cap(one.what))}</h3>
+      <p class="route"><span>from the ${esc(one.zone)}</span> ${icon("arrow")} <span>${esc(one.move_to)}</span></p>
+      <p class="cost">about ${secs(one.cost)}</p>
+      <div class="row">${timerButton(one, true)}</div>
+      <p class="rest">That's it. If you still have energy afterwards, the full plan is below.</p>`;
+    card.style.animation = "none"; card.offsetHeight; card.style.animation = "";
+  }
+  const share = p.possible ? Math.round((100 * p.score) / p.possible) : 0;
+  $("plan-sum").textContent = p.moves.length
+    ? `Full plan: ${p.moves.length} move${p.moves.length > 1 ? "s" : ""}, ${secs(p.seconds)}, ${share}% of the tidiness on offer`
+    : "Full plan: empty";
+  $("moves").innerHTML = p.moves.map((m) => `
+    <li data-id="${m.id}"><span class="what">${esc(cap(m.what))}</span>
+      <span class="meta">${esc(m.zone)} → ${esc(m.move_to)} · ~${secs(m.cost)}</span>${timerButton(m)}</li>`).join("");
+  calibLine(one, p.factors);
+}
+
+function timerButton(m, big) {
+  return `<button type="button" class="${big ? "primary" : "mini"}" data-timer="${m.id}">${icon("play")}<span>Start</span></button>
+    ${big ? `<span class="timer" data-clock="${m.id}">0 s</span>` : ""}`;
+}
+
+function calibLine(one, f) {
+  const el = $("calib");
+  const k = one && f[one.move_to];
+  el.hidden = !k || Math.abs(k - 1) < 0.1;
+  if (!el.hidden) {
+    el.innerHTML = `You take <b>${k.toFixed(1)}×</b> Gemma's guess for <b>${esc(one.move_to)}</b> moves, so this one is planned at ${secs(one.cost)}, not ${secs(one.est_seconds)}.`;
+  }
+}
+
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/* 4. timers: one running at a time; Done logs the real seconds */
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("[data-timer]");
+  if (!b || b.disabled) return;
+  const id = Number(b.dataset.timer);
+  const t = state.timer;
+  if (t && t.id === id) {
+    t.stop();
+    const actual = (performance.now() - t.t0) / 1000;
+    state.timer = null;
+    markDone(id, actual);
+    try { await api("/api/done", { run: state.run, item: id, actual_seconds: actual }); }
+    catch (err) { alertIn("after-error", `Couldn't save that time: ${err.message}`); }
+    return;
+  }
+  if (t) return; // finish the running move first
+  const clocks = [...document.querySelectorAll(`[data-clock="${id}"]`)];
+  const buttons = [...document.querySelectorAll(`[data-timer="${id}"]`)];
+  const t0 = performance.now();
+  const tick = () => {
+    const s = `${Math.round((performance.now() - t0) / 1000)} s`;
+    clocks.forEach((c) => { c.textContent = s; c.classList.add("on"); });
+    buttons.forEach((x) => { if (x.classList.contains("mini")) x.querySelector("span").textContent = s; });
+  };
+  const iv = setInterval(tick, 250);
+  state.timer = { id, t0, stop: () => clearInterval(iv) };
+  buttons.forEach((x) => { x.classList.add("on"); x.querySelector("use").setAttribute("href", "#i-check"); x.querySelector("span").textContent = "Done"; });
+  tick();
+  buttons.filter((x) => x.classList.contains("primary")).forEach((x) => (x.querySelector("span").textContent = "Done"));
+});
+
+function markDone(id, actual) {
+  state.done.add(id);
+  document.querySelectorAll(`[data-timer="${id}"]`).forEach((x) => {
+    x.disabled = true;
+    x.classList.remove("on");
+    x.querySelector("span").textContent = `Done in ${Math.round(actual)} s`;
+  });
+  document.querySelectorAll(`[data-clock="${id}"]`).forEach((c) => c.remove());
+  document.querySelector(`#moves li[data-id="${id}"]`)?.classList.add("done");
+}
+
+/* 5. after photo -> verdict */
+$("photo-after").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  $("after-error").hidden = true;
+  $("verdict").hidden = true;
+  $("wait-after").hidden = false;
+  const stop = clock($("after-clock"));
+  try {
+    const v = await api(`/api/after?run=${encodeURIComponent(state.run)}`, file, file.type || "image/jpeg");
+    renderVerdict(v);
+    $("again").hidden = false;
+  } catch (err) {
+    alertIn("after-error", err.message);
+  } finally {
+    stop();
+    $("wait-after").hidden = true;
+    e.target.value = "";
+  }
+});
+
+function renderVerdict(v) {
+  const spent = state.plan.moves.filter((m) => state.done.has(m.id)).length;
+  const heads = {
+    tidier: "Tidier. Officially.",
+    messier: "Somehow, messier.",
+    same: "Gemma sees no difference.",
+    unclear: "Gemma can't make up its mind.",
+  };
+  const body = {
+    tidier: `Clearly enough that it said so with the photos either way round (margin ${v.margin} of 3).`,
+    messier: "Both ways round. Perhaps the light changed, or something got knocked over.",
+    same: "From this angle the change is too small to see. Bold strategy; the sloth approves.",
+    unclear: "It picked a different photo when the order swapped, so neither answer counts.",
+  };
+  const extra = v.mess_removed != null
+    ? ` ${v.gone.length} item${v.gone.length === 1 ? "" : "s"} gone, about ${Math.round(v.mess_removed * 100)}% of the mess, after ${spent} move${spent === 1 ? "" : "s"}.`
+    : "";
+  $("verdict").innerHTML = `<h3>${heads[v.verdict] || "Done."}</h3><p>${body[v.verdict] || ""}${extra}</p>`;
+  $("verdict").hidden = false;
+}
+
+$("again").addEventListener("click", () => {
+  ["check", "energy", "move", "after"].forEach((id) => ($(id).hidden = true));
+  $("preview").hidden = true;
+  $("verdict").hidden = true;
+  $("again").hidden = true;
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  $("photo").focus();
+});
+
+showBudget();
