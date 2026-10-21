@@ -47,12 +47,11 @@ class App:
         f = self.factors()
         items = learn.apply([i for i in r["items"] if i["id"] not in removed], f)
         out = plan.make(items, int(budget))
-        exact = plan.best(items, int(budget))
+        quick = plan.greedy(items, int(budget))
         r.update(costed={i["id"]: i for i in items}, budget=int(budget))
         self.add("plan", run=run, budget=int(budget), removed=sorted(removed), factors=f,
-                 greedy=[m["id"] for m in out["moves"]], greedy_score=out["score"],
-                 exact=None if exact is None else [m["id"] for m in exact],
-                 exact_score=None if exact is None else round(plan.score(exact), 3))
+                 moves=[m["id"] for m in out["moves"]], score=out["score"],
+                 greedy=[m["id"] for m in quick], greedy_score=round(plan.score(quick), 3))
         return {**out, "factors": f}
 
     def done(self, run, item_id, actual):

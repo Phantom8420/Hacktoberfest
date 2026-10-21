@@ -64,6 +64,7 @@ def test_exact_never_worse_and_greedy_within_guarantee():
         g, b = plan.score(plan.greedy(items, budget)), plan.score(plan.best(items, budget))
         assert b >= g - 1e-9
         assert g >= (1 - 1 / 2.718281828) / 2 * b - 1e-9
+        assert abs(plan.make(items, budget)["score"] - round(b, 3)) < 1e-9  # small rooms get the exact plan
 
 
 def test_order_groups_zones():

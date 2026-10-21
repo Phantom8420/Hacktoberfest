@@ -1,4 +1,5 @@
-"""Was the clever solver worth it? Greedy (what the app uses) against brute force.
+"""How good is greedy (the fallback above 16 items) against brute force (what the app uses up to 16)?
+And how good is the obvious human rule, biggest mess first?
 
 Two sets of rooms: the item lists Gemma actually produced in eval/stability.py, and 1,000
 random rooms (fixed seed). For each, budgets of 30 s, 90 s and 5 min.

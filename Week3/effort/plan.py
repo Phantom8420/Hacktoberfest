@@ -4,7 +4,8 @@ Tidiness isn't additive: the first thing cleared off a desk helps more than the 
 So a zone's value is (sum of its cleared mess) ** POWER, summed over zones. That is a
 monotone submodular function, and for those, cost-benefit greedy plus "or just the single
 best item, if that's better" is guaranteed at least (1 - 1/e) / 2 of the best possible plan.
-best() checks that against brute force on small rooms.
+Rooms of 16 items or fewer (most of them) are small enough to try every subset, so
+make() uses that and only falls back to greedy above it.
 """
 from itertools import combinations
 
@@ -64,7 +65,8 @@ def order(moves):
 
 
 def make(items, budget):
-    moves = order(greedy(items, budget))
+    chosen = best(items, budget)
+    moves = order(greedy(items, budget) if chosen is None else chosen)
     return {"budget": budget, "one": one_move(items, budget), "moves": moves,
             "seconds": sum(cost(m) for m in moves), "score": round(score(moves), 3),
             "possible": round(score(items), 3)}
