@@ -1,0 +1,1211 @@
+{
+ "model": "gemma3:4b",
+ "scenes": [
+  {
+   "scene": "a_very_messy_room",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 145.3,
+     "items": [
+      {
+       "id": 1,
+       "what": "pile of shirts on bed",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "books on floor",
+       "zone": "floor",
+       "move_to": "shelf",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "box on floor",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "basket on floor",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "gym ball on floor",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 6,
+       "what": "laptop on desk",
+       "zone": "desk",
+       "move_to": "desk-side",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 7,
+       "what": "printer on desk",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 20,
+       "mess": 1
+      },
+      {
+       "id": 8,
+       "what": "clothes on chair",
+       "zone": "chair",
+       "move_to": "laundry",
+       "est_seconds": 45,
+       "mess": 3
+      },
+      {
+       "id": 9,
+       "what": "pillows on bed",
+       "zone": "bed",
+       "move_to": "wardrobe",
+       "est_seconds": 20,
+       "mess": 2
+      },
+      {
+       "id": 10,
+       "what": "books on shelf",
+       "zone": "shelf",
+       "move_to": "shelf",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 11,
+       "what": "box on shelf",
+       "zone": "shelf",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 12,
+       "what": "plastic bin",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 139.8,
+     "items": [
+      {
+       "id": 1,
+       "what": "pile of shirts",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "pile of clothes",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "basket of clothes",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "pile of books",
+       "zone": "bed",
+       "move_to": "shelf",
+       "est_seconds": 120,
+       "mess": 3
+      },
+      {
+       "id": 5,
+       "what": "gym ball",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "computer monitor",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 180,
+       "mess": 1
+      },
+      {
+       "id": 7,
+       "what": "old computer",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 240,
+       "mess": 1
+      },
+      {
+       "id": 8,
+       "what": "plastic box",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 1
+      },
+      {
+       "id": 9,
+       "what": "phone",
+       "zone": "desk",
+       "move_to": "desk-side",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 10,
+       "what": "small box",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 1
+      },
+      {
+       "id": 11,
+       "what": "plastic bag",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 12,
+       "what": "cardboard box",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 224.2,
+     "items": [
+      {
+       "id": 1,
+       "what": "pile of shirts on bed",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "basket of clothes",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 45,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "books on floor",
+       "zone": "floor",
+       "move_to": "shelf",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 4,
+       "what": "globe on floor",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "ball on floor",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 10,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "computer on desk",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 7,
+       "what": "printer on desk",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 8,
+       "what": "old computer on floor",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 9,
+       "what": "pillows on bed",
+       "zone": "bed",
+       "move_to": "wardrobe",
+       "est_seconds": 20,
+       "mess": 1
+      },
+      {
+       "id": 10,
+       "what": "cardboard box on floor",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 11,
+       "what": "photo frame on wall",
+       "zone": "wall",
+       "move_to": "other",
+       "est_seconds": 5,
+       "mess": 1
+      },
+      {
+       "id": 12,
+       "what": "small box on desk",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 25,
+       "mess": 1
+      },
+      {
+       "id": 13,
+       "what": "plastic bin on floor",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 14,
+       "what": "stack of papers on desk",
+       "zone": "desk",
+       "move_to": "bin",
+       "est_seconds": 75,
+       "mess": 3
+      },
+      {
+       "id": 15,
+       "what": "lamp on desk",
+       "zone": "desk",
+       "move_to": "other",
+       "est_seconds": 10,
+       "mess": 1
+      },
+      {
+       "id": 16,
+       "what": "wall mounted fan",
+       "zone": "wall",
+       "move_to": "other",
+       "est_seconds": 5,
+       "mess": 1
+      },
+      {
+       "id": 17,
+       "what": "wall mounted light",
+       "zone": "wall",
+       "move_to": "other",
+       "est_seconds": 5,
+       "mess": 1
+      },
+      {
+       "id": 18,
+       "what": "wall mounted heater",
+       "zone": "wall",
+       "move_to": "other",
+       "est_seconds": 5,
+       "mess": 1
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.2,
+    0.429,
+    0.111
+   ],
+   "jaccard_loose": [
+    0.2,
+    0.5,
+    0.364
+   ],
+   "judge_same_scene": {
+    "verdict": "same",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "same",
+      "margin": 1
+     }
+    ]
+   },
+   "judge_seconds": 126.7
+  },
+  {
+   "scene": "dirty_room_1_2013_06_14",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 123.3,
+     "items": [
+      {
+       "id": 1,
+       "what": "remote control",
+       "zone": "couch",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "cardboard boxes",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 3,
+       "what": "sprouts spring milk",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 3
+      },
+      {
+       "id": 4,
+       "what": "boxes of cereal",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 90,
+       "mess": 4
+      },
+      {
+       "id": 5,
+       "what": "bottles",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "pill bottles",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 3
+      },
+      {
+       "id": 7,
+       "what": "cardboard",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 8,
+       "what": "newspaper",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 9,
+       "what": "plastic cups",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 20,
+       "mess": 1
+      },
+      {
+       "id": 10,
+       "what": "small black object",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 112.2,
+     "items": [
+      {
+       "id": 1,
+       "what": "remote control",
+       "zone": "sofa cushions",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "cardboard boxes",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 3,
+       "what": "tv boxes",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 4,
+       "what": "sprouts milk box",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "cans of soda",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "bottle of sauce",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 20,
+       "mess": 1
+      },
+      {
+       "id": 7,
+       "what": "plastic bottles",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 8,
+       "what": "red toy",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 178.2,
+     "items": [
+      {
+       "id": 1,
+       "what": "remote control",
+       "zone": "bed",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "cardboard boxes",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 3,
+       "what": "boxes of fruit",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 90,
+       "mess": 4
+      },
+      {
+       "id": 4,
+       "what": "shopping boxes",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 75,
+       "mess": 3
+      },
+      {
+       "id": 5,
+       "what": "bottles",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "plastic containers",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 7,
+       "what": "boxes",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 90,
+       "mess": 3
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.636,
+    0.545,
+    0.364
+   ],
+   "jaccard_loose": [
+    0.8,
+    0.7,
+    0.5
+   ],
+   "judge_same_scene": {
+    "verdict": "same",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "same",
+      "margin": 1
+     }
+    ]
+   },
+   "judge_seconds": 123.6
+  },
+  {
+   "scene": "gfp_messy_couch",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 88.3,
+     "items": [
+      {
+       "id": 1,
+       "what": "pile of shirts",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "blue jackets",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "purple shirt",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "black backpack",
+       "zone": "floor",
+       "move_to": "wardrobe",
+       "est_seconds": 45,
+       "mess": 5
+      },
+      {
+       "id": 5,
+       "what": "black bag",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "blue bag",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 7,
+       "what": "boxes",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 120,
+       "mess": 3
+      },
+      {
+       "id": 8,
+       "what": "small box",
+       "zone": "floor",
+       "move_to": "shelf",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 9,
+       "what": "blue coat",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 75,
+       "mess": 3
+      },
+      {
+       "id": 10,
+       "what": "plastic bottles",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 3
+      },
+      {
+       "id": 11,
+       "what": "cardboard",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 12,
+       "what": "blue blanket",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 13,
+       "what": "small toy",
+       "zone": "bed",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 83.7,
+     "items": [
+      {
+       "id": 1,
+       "what": "pile of shirts",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "blue jacket",
+       "zone": "bed",
+       "move_to": "wardrobe",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "purple blanket",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 45,
+       "mess": 3
+      },
+      {
+       "id": 4,
+       "what": "black backpack",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "folded map",
+       "zone": "bed",
+       "move_to": "desk-side",
+       "est_seconds": 10,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "pile of clothes",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 7,
+       "what": "grey jacket",
+       "zone": "bed",
+       "move_to": "wardrobe",
+       "est_seconds": 20,
+       "mess": 2
+      },
+      {
+       "id": 8,
+       "what": "plastic bags",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 147.2,
+     "items": [
+      {
+       "id": 1,
+       "what": "pile of shirts",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 60,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "blue jacket",
+       "zone": "bed",
+       "move_to": "wardrobe",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "black backpack",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 4
+      },
+      {
+       "id": 4,
+       "what": "purple blanket",
+       "zone": "floor",
+       "move_to": "laundry",
+       "est_seconds": 75,
+       "mess": 3
+      },
+      {
+       "id": 5,
+       "what": "blue sleeping bag",
+       "zone": "bed",
+       "move_to": "wardrobe",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 6,
+       "what": "cardboard box",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 7,
+       "what": "folded map",
+       "zone": "bed",
+       "move_to": "drawer",
+       "est_seconds": 20,
+       "mess": 2
+      },
+      {
+       "id": 8,
+       "what": "pile of clothes",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 90,
+       "mess": 3
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.615,
+    0.615,
+    0.6
+   ],
+   "jaccard_loose": [
+    0.75,
+    0.75,
+    0.778
+   ],
+   "judge_same_scene": {
+    "verdict": "same",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "same",
+      "margin": 1
+     }
+    ]
+   },
+   "judge_seconds": 103.1
+  },
+  {
+   "scene": "messy_japanese_room",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 83.1,
+     "items": [
+      {
+       "id": 1,
+       "what": "rice cooker",
+       "zone": "floor",
+       "move_to": "shelf",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "bowl",
+       "zone": "floor",
+       "move_to": "sink",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "pile of shirts",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 4,
+       "what": "speaker",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "microwave",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 75,
+       "mess": 2
+      },
+      {
+       "id": 6,
+       "what": "box",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 102.2,
+     "items": [
+      {
+       "id": 1,
+       "what": "rice cooker",
+       "zone": "floor",
+       "move_to": "shelf",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "white shirt",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "red bowl",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "box of white",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 45,
+       "mess": 2
+      },
+      {
+       "id": 5,
+       "what": "stack of books",
+       "zone": "floor",
+       "move_to": "shelf",
+       "est_seconds": 90,
+       "mess": 3
+      },
+      {
+       "id": 6,
+       "what": "microwave",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 120,
+       "mess": 3
+      },
+      {
+       "id": 7,
+       "what": "wire bundle",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 1
+      }
+     ]
+    },
+    {
+     "seconds": 76.7,
+     "items": [
+      {
+       "id": 1,
+       "what": "pile of shirts",
+       "zone": "bed",
+       "move_to": "laundry",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "rice cooker",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 3,
+       "what": "red bowl",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 15,
+       "mess": 2
+      },
+      {
+       "id": 4,
+       "what": "magazine",
+       "zone": "desk-side",
+       "move_to": "bin",
+       "est_seconds": 10,
+       "mess": 1
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.444,
+    0.429,
+    0.375
+   ],
+   "jaccard_loose": [
+    0.444,
+    0.429,
+    0.375
+   ],
+   "judge_same_scene": {
+    "verdict": "same",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "same",
+      "margin": 1
+     }
+    ]
+   },
+   "judge_seconds": 122.9
+  },
+  {
+   "scene": "messy_office_room",
+   "kind": "synthetic",
+   "looks": [
+    {
+     "seconds": 203.3,
+     "items": [
+      {
+       "id": 1,
+       "what": "boxes",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "mouse",
+       "zone": "desk-side",
+       "move_to": "other",
+       "est_seconds": 5,
+       "mess": 1
+      },
+      {
+       "id": 3,
+       "what": "boxes",
+       "zone": "chair",
+       "move_to": "other",
+       "est_seconds": 45,
+       "mess": 3
+      }
+     ]
+    },
+    {
+     "seconds": 115.4,
+     "items": [
+      {
+       "id": 1,
+       "what": "cacao show boxes",
+       "zone": "desk",
+       "move_to": "shelf",
+       "est_seconds": 30,
+       "mess": 3
+      },
+      {
+       "id": 2,
+       "what": "box of papers",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 30,
+       "mess": 2
+      },
+      {
+       "id": 3,
+       "what": "black bag",
+       "zone": "floor",
+       "move_to": "bin",
+       "est_seconds": 15,
+       "mess": 1
+      },
+      {
+       "id": 4,
+       "what": "box of cables",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 45,
+       "mess": 2
+      }
+     ]
+    },
+    {
+     "seconds": 109.8,
+     "items": [
+      {
+       "id": 1,
+       "what": "boxes of cacao",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 60,
+       "mess": 4
+      },
+      {
+       "id": 2,
+       "what": "cardboard boxes",
+       "zone": "floor",
+       "move_to": "other",
+       "est_seconds": 30,
+       "mess": 3
+      }
+     ]
+    }
+   ],
+   "jaccard_strict": [
+    0.0,
+    0.0,
+    0.2
+   ],
+   "jaccard_loose": [
+    0.0,
+    0.0,
+    0.2
+   ],
+   "judge_same_scene": {
+    "verdict": "same",
+    "margin": 0,
+    "raw": [
+     {
+      "tidier": "same",
+      "margin": 1
+     },
+     {
+      "tidier": "same",
+      "margin": 1
+     }
+    ]
+   },
+   "judge_seconds": 112.1
+  }
+ ]
+}

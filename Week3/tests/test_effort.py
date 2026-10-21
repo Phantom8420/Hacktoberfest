@@ -212,6 +212,26 @@ def test_server_refuses_other_hosts_and_bad_input(live):
     assert call(port, "GET", "/../effort/server.py")[0] == 404
 
 
+def test_phone_mode_needs_the_key(live, monkeypatch):
+    port, _ = live
+    monkeypatch.setattr(server.Handler, "lan", "10.0.0.5")
+    monkeypatch.setattr(server.Handler, "key", "s3cret")
+    host = f"10.0.0.5:{port}"
+
+    def phone(path, cookie=""):  # a request from another address, like a phone on the Wi-Fi
+        c = http.client.HTTPConnection("127.0.0.1", port, timeout=10, source_address=("127.0.0.2", 0))
+        c.request("GET", path, headers={"Host": host, "Cookie": cookie})
+        return c.getresponse()
+
+    assert phone("/").status == 403
+    assert phone("/?key=wrong").status == 403
+    r = phone("/?key=s3cret")
+    assert r.status == 303 and "effort_key=s3cret" in r.getheader("Set-Cookie") and "HttpOnly" in r.getheader("Set-Cookie")
+    assert phone("/", cookie="effort_key=s3cret").status == 200
+    assert phone("/api/phone", cookie="effort_key=s3cret").read() == b"{}"  # only the computer itself gets the QR
+    assert call(port, "GET", "/api/phone", host=host)[1]["url"] == f"http://10.0.0.5:{port}/?key=s3cret"
+
+
 JS_RUN = """
 globalThis.fetch = () => new Promise(() => {});
 globalThis.window = { fetch: globalThis.fetch };

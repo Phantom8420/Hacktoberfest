@@ -15,6 +15,11 @@ That's the whole ask. If you still have energy afterwards, the full plan is one 
 things really take *you* (bin runs are quick, laundry never is), and the next plan uses your times instead of
 Gemma's guesses. Take an after photo from the same spot and Gemma judges whether the room actually got tidier.
 
+![The demo: pick a room, items appear one by one, untick one, set energy, get one move with a countdown](eval/charts/demo.gif)
+
+*The online demo replaying Gemma's real output for the dorm sample. The replay is sped up: on a laptop CPU the items
+arrive over about 100 seconds.*
+
 ## Run it
 
 Needs Python 3.11 or newer and [Ollama](https://ollama.com) with the vision model `gemma3:4b` (3.3 GB). Measured here on an
@@ -26,9 +31,11 @@ ollama pull gemma3:4b
 python -m effort
 ```
 
-It opens `http://127.0.0.1:8780`. On a laptop CPU a photo takes about two minutes. The wait isn't blank: each item
+It opens `http://127.0.0.1:8780`, after checking that Ollama is running and has the model (and saying what to run if
+not). On a laptop CPU a photo takes about two minutes. The wait isn't blank: each item
 shows up as soon as Gemma has written it, so you can untick what isn't there and set your energy while it's still
-looking.
+looking. That helps less than it sounds: on the dorm sample the first item showed up after 68 seconds and the last
+at 102, because most of the time goes into reading the photo before Gemma writes a word.
 
 If Ollama fails to load the model with `failed to allocate CPU buffer` while plenty of RAM is free, Windows has run out
 of *commit* memory (usually: no page file). Restart Ollama with `LLAMA_ARG_REPACK=false` set; together with the
@@ -38,7 +45,14 @@ memory-mapped weights the app already asks for, that brought the model from fail
 |---|---|
 | `--port N` | web page port (default 8780) |
 | `--no-browser` | don't open the page |
+| `--phone` | also serve the page on your Wi-Fi, so you can take the photos with your phone (see below) |
 | `EFFORT_GEMMA` | another Ollama vision model, e.g. `gemma3:12b` if you have the memory |
+
+### With your phone
+
+The photo is usually on your phone and Gemma is on your laptop. `python -m effort --phone` shows a QR code on the
+laptop's page (and prints the address): scan it and use the whole app from the phone, camera included, while Gemma
+runs on the laptop. Windows asks once whether Python may use the network; allow private networks only.
 
 ## Online demo
 
@@ -68,6 +82,11 @@ without EXIF, so the GPS position and camera serial a phone writes into every pi
 The page listens on 127.0.0.1 only and refuses requests from other websites (wrong Host header or a cross-site
 fetch). Nothing leaves the computer.
 
+With `--phone` it also listens on your home network. Anything that isn't the laptop itself then needs a random key
+that's new every start and only shown on the laptop, in the QR code; the phone keeps it in a cookie. The connection
+is plain HTTP, so the photo crosses your Wi-Fi unencrypted, the same as a photo sent to a home printer. Don't use
+`--phone` on a network you don't trust.
+
 ## How it works
 
 | step | done by |
@@ -86,7 +105,10 @@ in ways a person wouldn't notice. Rooms with 16 items or fewer, which is all of 
 by trying every subset (0.2 s at 16 items). Above that, cost-benefit greedy with a "single best item" fallback is
 guaranteed at least (1 - 1/e)/2 of the best.
 
-`python eval/solver_vs_exact.py` measures both against the exact plan on 1,000 random rooms at 30 s, 90 s and 5 min:
+How much does that matter in practice? Less than the maths suggests, and here's the honest version. On the six real
+REAL_ROOMS
+The planner earns its place in bigger, messier rooms, which `python eval/solver_vs_exact.py` simulates with 1,000
+random rooms of 3 to 14 items:
 
 ![Share of the best possible tidiness, worst cases first: greedy stays above 0.66, biggest-mess-first drops to 0.3](eval/charts/solver.png)
 
@@ -121,14 +143,14 @@ STABILITY
 pytest -q
 ```
 
-18 tests: EXIF/GPS stripping and rotation, the planner (empty budget, zones, the single-item fallback, exact never
+19 tests: EXIF/GPS stripping and rotation, the planner (empty budget, zones, the single-item fallback, exact never
 worse than greedy and greedy within its guarantee), cleaning up the model's JSON (fixtures dropped, half-written replies read item by item), picking the one move, the time learning, the log, the
-judge's swap logic, a full run through the local server, items streaming before the answer, the server refusing other sites and bad input, and the
+judge's swap logic, a full run through the local server, items streaming before the answer, phone mode refusing anything without the key, the server refusing other sites and bad input, and the
 JavaScript planner matching the Python one. None of them need Ollama.
 
 ## Credits
 
-Gemma 3 (Gemma Terms of Use), Ollama (MIT), Pillow (MIT-CMU). Test and demo photos from Wikimedia Commons, listed with
+Gemma 3 (Gemma Terms of Use), Ollama (MIT), Pillow (MIT-CMU), qrcode (BSD). Test and demo photos from Wikimedia Commons, listed with
 their licenses in [CREDITS.md](CREDITS.md).
 
 AI assistance was used for this project. I chose the idea and approved the plan; Claude (Anthropic) wrote the code,

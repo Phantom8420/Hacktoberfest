@@ -1,7 +1,13 @@
 """The local web app. Listens on 127.0.0.1 only and refuses requests from other sites
 (wrong Host header or a cross-site fetch): what it receives is photos of your room.
 Photos live in memory for the current run and are never written to disk.
+
+With --phone it also listens on the home network, so a phone can send the photo; then every
+request that doesn't come from this computer needs the random key in the QR code.
 """
+import hmac
+import http.cookies
+import io
 import json
 import mimetypes
 import threading
@@ -73,6 +79,8 @@ class App:
 class Handler(BaseHTTPRequestHandler):
     app: App = None
     port = 0
+    lan = None  # this computer's address on the home network, in --phone mode
+    key = None
     streaming = False
 
     def log_message(self, *a):
@@ -104,11 +112,20 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps(obj).encode() + b"\n")
         self.wfile.flush()
 
+    def _given_key(self):
+        q = dict(urllib.parse.parse_qsl(urllib.parse.urlsplit(self.path).query))
+        c = http.cookies.SimpleCookie(self.headers.get("Cookie", ""))
+        return q.get("key") or (c["effort_key"].value if "effort_key" in c else "")
+
     def _trusted(self):
         # DNS rebinding: some other site's name pointed at 127.0.0.1
-        if self.headers.get("Host", "") not in (f"127.0.0.1:{self.port}", f"localhost:{self.port}"):
+        hosts = [f"127.0.0.1:{self.port}", f"localhost:{self.port}"] + ([f"{self.lan}:{self.port}"] if self.lan else [])
+        if self.headers.get("Host", "") not in hosts:
             return False
-        return self.headers.get("Sec-Fetch-Site", "same-origin") in ("same-origin", "none")
+        if self.headers.get("Sec-Fetch-Site", "same-origin") not in ("same-origin", "none"):
+            return False
+        local = self.client_address[0] == "127.0.0.1"
+        return local or (self.key is not None and hmac.compare_digest(self._given_key(), self.key))
 
     def _body(self, kind):
         ctype = self.headers.get("Content-Type", "").split(";")[0].strip()
@@ -125,7 +142,17 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if not self._trusted():
             return self._send(403, {"error": "forbidden"})
-        path = urllib.parse.urlsplit(self.path).path
+        url = urllib.parse.urlsplit(self.path)
+        path = url.path
+        if self.key and "key=" in url.query:  # from the QR code: keep the key in a cookie, out of the address bar
+            self.send_response(303)
+            self.send_header("Set-Cookie", f"effort_key={self.key}; HttpOnly; SameSite=Strict; Path=/")
+            self.send_header("Location", "/")
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+            return
+        if path == "/api/phone":
+            return self._send(200, phone_link(self.lan, self.port, self.key) if self.client_address[0] == "127.0.0.1" else {})
         if path == "/api/factors":
             return self._send(200, {"factors": self.app.factors(), "moves": len(log.done_moves(self.app.log_path))})
         name = "index.html" if path == "/" else path.lstrip("/")
@@ -167,8 +194,30 @@ class Handler(BaseHTTPRequestHandler):
             self._send(502, {"error": f"couldn't reach Gemma through Ollama ({e}). Is `ollama serve` running?"})
 
 
-def run(app, port, host="127.0.0.1"):
-    Handler.app, Handler.port = app, port
-    srv = ThreadingHTTPServer((host, port), Handler)
-    print(f"Effort Budget is open at http://{host}:{port}", flush=True)
+def phone_link(lan, port, key):
+    """The address a phone opens, and its QR code as SVG; empty without --phone."""
+    if not lan:
+        return {}
+    import qrcode
+    import qrcode.image.svg
+    url = f"http://{lan}:{port}/?key={key}"
+    buf = io.BytesIO()
+    qrcode.make(url, image_factory=qrcode.image.svg.SvgPathImage, border=2).save(buf)
+    return {"url": url, "svg": buf.getvalue().decode()}
+
+
+def run(app, port, lan=None, key=None):
+    Handler.app, Handler.port, Handler.lan, Handler.key = app, port, lan, key
+    srv = ThreadingHTTPServer(("0.0.0.0" if lan else "127.0.0.1", port), Handler)
+    print(f"Effort Budget is open at http://127.0.0.1:{port}", flush=True)
+    if lan:
+        import qrcode
+        qr = qrcode.QRCode(border=1)
+        qr.add_data(phone_link(lan, port, key)["url"])
+        print("On your phone (same Wi-Fi), scan the code on the page or open:", flush=True)
+        print(phone_link(lan, port, key)["url"], flush=True)
+        try:
+            qr.print_ascii(invert=True)
+        except UnicodeEncodeError:  # a console without block characters; the page shows the code anyway
+            print()
     srv.serve_forever()

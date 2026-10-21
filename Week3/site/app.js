@@ -165,7 +165,7 @@ function renderPlan() {
     card.innerHTML = `
       <p class="label">Your one move</p>
       <h3>${esc(cap(one.what))}</h3>
-      <p class="route"><span>from the ${esc(one.zone)}</span> ${icon("arrow")} <span>${esc(one.move_to)}</span></p>
+      <p class="route"><span>from the ${esc(one.zone)}</span> ${icon("arrow")} <span>${esc(place(one.move_to))}</span></p>
       <p class="cost">about ${secs(one.cost)}</p>
       <div class="row">${timerButton(one, true)}</div>
       <p class="rest">That's it. If you still have energy afterwards, the full plan is below.</p>`;
@@ -178,7 +178,7 @@ function renderPlan() {
     : "<span>empty</span>";
   $("moves").innerHTML = p.moves.map((m) => `
     <li data-id="${m.id}"><span class="what">${esc(cap(m.what))}</span>
-      <span class="meta">${esc(m.zone)} → ${esc(m.move_to)} · ~${secs(m.cost)}</span>${timerButton(m)}</li>`).join("");
+      <span class="meta">${esc(m.zone)} → ${esc(place(m.move_to))} · ~${secs(m.cost)}</span>${timerButton(m)}</li>`).join("");
   calibLine(one, p.factors);
 }
 
@@ -198,6 +198,8 @@ function calibLine(one, f) {
   }
 }
 
+// "other" is Gemma's "no idea"; said plainly, it's still a move a person can do
+const place = (p) => ({ other: "its usual place", "desk-side": "beside the desk" })[p] || p;
 const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /* 4. timers: one running at a time; Done logs the real seconds */
@@ -301,3 +303,12 @@ $("again").addEventListener("click", () => {
 });
 
 showBudget();
+
+// --phone mode: the computer shows a QR code for the phone; the phone itself gets nothing here
+fetch("/api/phone").then((r) => r.json()).then((d) => {
+  if (!d.url) return;
+  $("phone-qr").innerHTML = d.svg;
+  $("phone-url").textContent = d.url;
+  $("phone").hidden = false;
+  $("phone").open = true;
+}).catch(() => {});

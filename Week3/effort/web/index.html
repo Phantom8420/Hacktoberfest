@@ -31,6 +31,12 @@
       <span class="drop-main">Choose a photo of the mess</span>
       <span class="drop-sub">Stand somewhere you can find again; you'll take an after photo from the same spot.</span>
     </label>
+    <details class="phone" id="phone" hidden>
+      <summary>Use your phone's camera instead</summary>
+      <div class="phone-body"><div class="qr" id="phone-qr" aria-hidden="true"></div>
+        <p>Scan this with your phone on the same Wi-Fi and do everything from there. The photo goes straight to this
+          computer and nowhere else. <span class="mono" id="phone-url"></span></p></div>
+    </details>
     <figure class="preview" id="preview" hidden><img id="preview-img" alt="Your room, before"></figure>
     <div class="wait" id="wait" hidden role="status" aria-live="polite">
       <p><span id="wait-text">Gemma is looking at your room on your own CPU. No cloud, so it takes a minute or two; things appear below as it spots them.</span>
