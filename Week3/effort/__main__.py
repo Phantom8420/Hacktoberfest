@@ -19,6 +19,8 @@ def main(argv=None):
     a = ap.parse_args(argv)
     if problem := check_ollama():
         print(problem, flush=True)
+    else:  # load Gemma while you're still pointing the camera, not after
+        threading.Thread(target=gemma.warm, daemon=True).start()
     if not a.no_browser:
         threading.Timer(0.8, webbrowser.open, [f"http://127.0.0.1:{a.port}"]).start()
     run(App(), a.port, *((lan_ip(), secrets.token_urlsafe(12)) if a.phone else ()))

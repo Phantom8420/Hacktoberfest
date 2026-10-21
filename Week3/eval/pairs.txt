@@ -1,0 +1,2 @@
+storage_before.jpg https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Back_storage_room_before_clean_up-DCD_%2854ccbd17-1dd8-b71b-0b41-298e09fb133d%29.JPG/1280px-Back_storage_room_before_clean_up-DCD_%2854ccbd17-1dd8-b71b-0b41-298e09fb133d%29.JPG
+storage_after.jpg https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Back_storage_room_after_clean_up_%2854c8e3e5-1dd8-b71b-0bb9-2ebcb870c068%29.JPG/1280px-Back_storage_room_after_clean_up_%2854c8e3e5-1dd8-b71b-0bb9-2ebcb870c068%29.JPG

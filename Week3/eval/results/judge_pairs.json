@@ -1,0 +1,150 @@
+[
+ {
+  "pair": "storage",
+  "seconds": 332,
+  "forward": {
+   "verdict": "unclear",
+   "margin": 0,
+   "raw": [
+    {
+     "tidier": "B",
+     "margin": 2
+    },
+    {
+     "tidier": "B",
+     "margin": 3
+    }
+   ],
+   "items_before": 9,
+   "items_after": 3,
+   "gone": [
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "mess_removed": null
+  },
+  "backward": {
+   "verdict": "unclear",
+   "margin": 0,
+   "raw": [
+    {
+     "tidier": "B",
+     "margin": 3
+    },
+    {
+     "tidier": "B",
+     "margin": 2
+    }
+   ],
+   "items_before": 3,
+   "items_after": 8,
+   "gone": [
+    2
+   ],
+   "mess_removed": null
+  },
+  "items_before": [
+   {
+    "id": 1,
+    "what": "plastic buckets",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 30,
+    "mess": 3
+   },
+   {
+    "id": 2,
+    "what": "plastic trays",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 15,
+    "mess": 2
+   },
+   {
+    "id": 3,
+    "what": "cardboard boxes",
+    "zone": "shelves",
+    "move_to": "other",
+    "est_seconds": 60,
+    "mess": 4
+   },
+   {
+    "id": 4,
+    "what": "party mix box",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 10,
+    "mess": 2
+   },
+   {
+    "id": 5,
+    "what": "shelving unit",
+    "zone": "floor",
+    "move_to": "other",
+    "est_seconds": 10,
+    "mess": 1
+   },
+   {
+    "id": 6,
+    "what": "plastic containers",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 20,
+    "mess": 2
+   },
+   {
+    "id": 7,
+    "what": "metal shelving",
+    "zone": "floor",
+    "move_to": "other",
+    "est_seconds": 15,
+    "mess": 1
+   },
+   {
+    "id": 8,
+    "what": "plastic bins",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 25,
+    "mess": 2
+   },
+   {
+    "id": 9,
+    "what": "debris",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 45,
+    "mess": 3
+   }
+  ],
+  "items_after": [
+   {
+    "id": 1,
+    "what": "debris",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 30,
+    "mess": 3
+   },
+   {
+    "id": 2,
+    "what": "cardboard",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 60,
+    "mess": 3
+   },
+   {
+    "id": 3,
+    "what": "plastic sheet",
+    "zone": "floor",
+    "move_to": "bin",
+    "est_seconds": 45,
+    "mess": 2
+   }
+  ]
+ }
+]

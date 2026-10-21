@@ -154,23 +154,44 @@ function alertIn(id, msg) {
   $(id).hidden = false;
 }
 
-function renderPlan() {
-  const p = state.plan, one = p.one;
-  const card = $("one");
+// the plan's moves in one-move order (most mess, quicker on a tie), minus what's done
+const queue = () => state.plan.moves.filter((m) => !state.done.has(m.id))
+  .sort((a, b) => b.mess - a.mess || a.cost - b.cost);
+
+function renderOne(one, label = "Your one move") {
+  const p = state.plan, card = $("one"), left = queue();
+  state.one = one;
   card.classList.toggle("empty", !one);
-  if (!one) {
+  if (!one && state.done.size) {
+    card.innerHTML = `<p class="label">All done</p><h3>That was the whole plan.</h3>
+      <p class="rest">Stop here. Take the after photo below if you want to see the difference.</p>`;
+  } else if (!one) {
     card.innerHTML = `<p class="label">Your one move</p><h3>Nothing fits in ${secs(p.budget)}.</h3>
       <p class="rest">Which is a perfectly good answer. Lie down, or nudge the slider.</p>`;
   } else {
     card.innerHTML = `
-      <p class="label">Your one move</p>
+      <p class="label">${label}</p>
       <h3>${esc(cap(one.what))}</h3>
       <p class="route"><span>from the ${esc(one.zone)}</span> ${icon("arrow")} <span>${esc(place(one.move_to))}</span></p>
       <p class="cost">about ${secs(one.cost)}</p>
       <div class="row">${timerButton(one, true)}</div>
-      <p class="rest">That's it. If you still have energy afterwards, the full plan is below.</p>`;
-    card.style.animation = "none"; card.offsetHeight; card.style.animation = "";
+      ${left.length > 1 ? `<button class="ghost" type="button" id="other">Something else</button>` : ""}
+      <p class="rest">${state.done.size ? "Only if you've got it in you." : "That's it. If you still have energy afterwards, the full plan is below."}</p>`;
   }
+  card.style.animation = "none"; card.offsetHeight; card.style.animation = "";
+  calibLine(one, p.factors);
+}
+
+// not there, not doable right now, not today: the next one in line, round and round
+document.addEventListener("click", (e) => {
+  if (e.target.id !== "other" || state.timer) return;
+  const q = queue(), i = q.findIndex((m) => m.id === state.one.id);
+  renderOne(q[(i + 1) % q.length]);
+});
+
+function renderPlan() {
+  const p = state.plan;
+  renderOne(p.one);
   const share = p.possible ? Math.round((100 * p.score) / p.possible) : 0;
   $("plan-sum").innerHTML = p.moves.length
     ? `<span><b>${p.moves.length}</b> move${p.moves.length > 1 ? "s" : ""}</span><span><b>${secs(p.seconds)}</b></span>
@@ -179,7 +200,6 @@ function renderPlan() {
   $("moves").innerHTML = p.moves.map((m) => `
     <li data-id="${m.id}"><span class="what">${esc(cap(m.what))}</span>
       <span class="meta">${esc(m.zone)} → ${esc(place(m.move_to))} · ~${secs(m.cost)}</span>${timerButton(m)}</li>`).join("");
-  calibLine(one, p.factors);
 }
 
 function timerButton(m, big) {
@@ -249,6 +269,7 @@ function markDone(id, actual) {
   });
   document.querySelectorAll(`[data-clock="${id}"], [data-ring="${id}"]`).forEach((c) => c.remove());
   document.querySelector(`#moves li[data-id="${id}"]`)?.classList.add("done");
+  if (state.one?.id === id) setTimeout(() => renderOne(queue()[0], `Done in ${Math.round(actual)} s. Next, maybe`), 1500);
 }
 
 /* 5. after photo -> verdict */
@@ -288,7 +309,10 @@ function renderVerdict(v) {
   };
   const extra = v.mess_removed != null
     ? ` ${v.gone.length} item${v.gone.length === 1 ? "" : "s"} gone, about ${Math.round(v.mess_removed * 100)}% of the mess, after ${spent} move${spent === 1 ? "" : "s"}.`
-    : "";
+    : v.items_after != null && v.items_after !== v.items_before
+      // shortcut: counts drift on unchanged rooms (0.5x-2x in eval/stability.py), so they're shown, not judged
+      ? ` It did count <b>${v.items_before}</b> thing${v.items_before === 1 ? "" : "s"} lying around before and <b>${v.items_after}</b> now; you were there, you decide.`
+      : "";
   $("verdict").innerHTML = `<h3>${heads[v.verdict] || "Done."}</h3><p>${body[v.verdict] || ""}${extra}</p>`;
   $("verdict").hidden = false;
 }

@@ -13,6 +13,7 @@ from PIL import Image, ImageOps
 
 OLLAMA = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 MODEL = os.environ.get("EFFORT_GEMMA", "gemma3:4b")
+KEEP = "30m"  # long enough to tidy and take the after photo without loading the model again
 SIDE = 1024  # longest side sent to the model; much faster on a CPU, barely changes what it sees
 
 
@@ -29,7 +30,7 @@ def chat(prompt, images=(), schema=None, timeout=300, on_text=None):
     """One reply from Gemma. images are cleaned JPEG bytes; with a schema the reply is parsed JSON.
     on_text, if given, gets the reply so far each time a piece of it arrives."""
     msg = {"role": "user", "content": prompt, "images": [base64.b64encode(i).decode() for i in images]}
-    body = {"model": MODEL, "stream": on_text is not None, "keep_alive": "10m",
+    body = {"model": MODEL, "stream": on_text is not None, "keep_alive": KEEP,
             "options": {"temperature": 0, "use_mmap": True},  # mmap: weights don't eat commit memory
             "messages": [msg]}
     if schema:
@@ -47,3 +48,14 @@ def chat(prompt, images=(), schema=None, timeout=300, on_text=None):
                     on_text(text)
     text = text.strip()
     return json.loads(text) if schema else text
+
+
+def warm():
+    """Load the model into memory now; an empty request does that and nothing else."""
+    body = {"model": MODEL, "keep_alive": KEEP, "options": {"use_mmap": True}}
+    req = urllib.request.Request(f"{OLLAMA}/api/generate", data=json.dumps(body).encode(),
+                                 headers={"Content-Type": "application/json"})
+    try:
+        urllib.request.urlopen(req, timeout=120).read()
+    except OSError:
+        pass  # the first photo will say what's wrong

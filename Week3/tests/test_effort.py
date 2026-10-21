@@ -242,6 +242,17 @@ console.log(JSON.stringify(cases.map(([items, b]) => window.effortPlan.make(item
 
 
 @pytest.mark.skipif(not shutil.which("node"), reason="node not installed")
+def test_startup_check_says_what_to_fix(monkeypatch):
+    from effort.__main__ import check_ollama
+    monkeypatch.setattr(gemma, "OLLAMA", "http://127.0.0.1:9")  # nothing listens there
+    assert "Ollama isn't answering" in check_ollama()
+    tags = {"models": [{"name": "llava:7b"}]}
+    monkeypatch.setattr("urllib.request.urlopen", lambda *a, **k: io.BytesIO(json.dumps(tags).encode()))
+    assert f"ollama pull {gemma.MODEL}" in check_ollama()
+    tags["models"].append({"name": gemma.MODEL})
+    assert check_ollama() is None
+
+
 def test_static_site_planner_matches_python():
     rng = random.Random(11)
     cases = []

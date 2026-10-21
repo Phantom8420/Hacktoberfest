@@ -11,9 +11,11 @@ shows you one of them, big, with a timer:
 
 (Real output, from the dorm-room sample in the demo at 60 seconds of energy.)
 
-That's the whole ask. If you still have energy afterwards, the full plan is one tap away. The timer learns how long
+That's the whole ask. Not that one? *Something else* gives the next move in line. Finished it? The card offers
+the next one, quietly, and you can stop there. The full plan is one tap away. The timer learns how long
 things really take *you* (bin runs are quick, laundry never is), and the next plan uses your times instead of
-Gemma's guesses. Take an after photo from the same spot and Gemma judges whether the room actually got tidier.
+Gemma's guesses. Take an after photo from the same spot and Gemma judges whether the room actually got tidier, or
+says it can't tell, which with a 4B model is often the honest answer.
 
 ![The demo: pick a room, items appear one by one, untick one, set energy, get one move with a countdown](eval/charts/demo.gif)
 
@@ -32,7 +34,8 @@ python -m effort
 ```
 
 It opens `http://127.0.0.1:8780`, after checking that Ollama is running and has the model (and saying what to run if
-not). On a laptop CPU a photo takes about two minutes. The wait isn't blank: each item
+not). It loads Gemma right away and keeps it loaded for 30 minutes, so neither the first photo nor the after photo
+waits for that. On a laptop CPU a photo takes about two minutes. The wait isn't blank: each item
 shows up as soon as Gemma has written it, so you can untick what isn't there and set your energy while it's still
 looking. That helps less than it sounds: on the dorm sample the first item showed up after 68 seconds and the last
 at 102, because most of the time goes into reading the photo before Gemma writes a word.
@@ -95,7 +98,7 @@ is plain HTTP, so the photo crosses your Wi-Fi unencrypted, the same as a photo 
 | keep the model honest | you: tap anything that isn't really there before planning |
 | your seconds, not Gemma's | per destination, (sum of actual/guess + 2) / (moves + 2), so one odd move can't swing it |
 | the plan | brute force over every subset up to 16 items, greedy above that |
-| the one move | the biggest mess in that plan (ties: the quicker one), so it never hands you a five-second crumb |
+| the one move | the biggest mess in that plan (ties: the quicker one), so it never hands you a five-second crumb; *Something else* and *next* go down the same order |
 | did it get tidier? | Gemma compares before and after twice, photos swapped, and lists the items again |
 
 **Why a planner and not just "biggest mess first".** Tidiness isn't additive. Clearing the first thing off a desk
@@ -128,6 +131,14 @@ side by side, then again with the sides swapped, and only an answer that survive
 "unclear". As a second check, Gemma lists the items again on the after photo and whatever is gone counts as removed.
 When the two checks disagree, no percentage is shown.
 
+The swap earns its keep. On a real clean-up (a National Park Service storage room before and after, public domain,
+`python eval/judge_pairs.py`), Gemma said the photo on the *right* was tidier every time, whichever photo was on the
+right. The swap turned that into "unclear" both ways round instead of a confident wrong answer for one of them. The
+recount saw what the comparison couldn't: 9 things lying around before, 3 after, and the other way round 3 then 8.
+But on unchanged rooms the count already drifts between half and double from one look to the next, so one pair isn't
+enough to trust it alone. When the comparison can't decide, the page shows both counts and leaves the call to you.
+Your own pairs go in `photos/raw/pairs/` as `<name>_before.jpg` and `<name>_after.jpg`.
+
 **How steady is Gemma?** `python eval/stability.py` shows Gemma each of the 9 Commons photos three times: as is,
 slightly cropped, and slightly darker and turned 2°. Real retakes from a phone would be a harder test. These numbers
 are from synthetic ones:
@@ -137,7 +148,8 @@ are from synthetic ones:
 - Item lists overlap by 61% between takes (Jaccard, matching names), 37% if the zone has to match too. Gemma sees
   roughly the same stuff and files it under different zones.
 - The one move is the same in all three takes for 2 to 4 of the 9 photos, depending on the budget. That's the
-  real cost of a small model, and why the item list is shown for you to fix before anything is planned.
+  real cost of a small model, and why the item list is shown for you to fix before anything is planned and
+  *Something else* is one tap away.
 - The judge, shown take 1 against take 2 where nothing changed: "same" for 7 of 9, "unclear" for the other 2 (in one
   it preferred whichever photo came second both times, and the swap caught it). It never claimed a change that
   wasn't there.
@@ -160,9 +172,9 @@ are from synthetic ones:
 pytest -q
 ```
 
-19 tests: EXIF/GPS stripping and rotation, the planner (empty budget, zones, the single-item fallback, exact never
+20 tests: EXIF/GPS stripping and rotation, the planner (empty budget, zones, the single-item fallback, exact never
 worse than greedy and greedy within its guarantee), cleaning up the model's JSON (fixtures dropped, half-written replies read item by item), picking the one move, the time learning, the log, the
-judge's swap logic, a full run through the local server, items streaming before the answer, phone mode refusing anything without the key, the server refusing other sites and bad input, and the
+judge's swap logic, a full run through the local server, items streaming before the answer, phone mode refusing anything without the key, the startup check, the server refusing other sites and bad input, and the
 JavaScript planner matching the Python one. None of them need Ollama.
 
 ## Credits

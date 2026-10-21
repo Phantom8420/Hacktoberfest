@@ -13,5 +13,7 @@ Test photos from Wikimedia Commons, used under their licenses. They are not in t
 | `messy_office_room.jpg` | [Messy office (room).jpg](https://commons.wikimedia.org/wiki/File:Messy_office_(room).jpg) | OboeBlanket | CC0 |
 | `my_messy_room_16200326361.jpg` | [My messy room (16200326361).jpg](https://commons.wikimedia.org/wiki/File:My_messy_room_(16200326361).jpg) | Adnan Islam from NY, USA | CC BY 2.0 |
 | `old_table_in_a_messy_room_unsplash.jpg` | [Old table in a messy room (Unsplash).jpg](https://commons.wikimedia.org/wiki/File:Old_table_in_a_messy_room_(Unsplash).jpg) | Eric Parks parksed24 | CC0 |
+| `pairs/storage_before.jpg` | [Back storage room before clean up-DCD](https://commons.wikimedia.org/wiki/File:Back_storage_room_before_clean_up-DCD_(54ccbd17-1dd8-b71b-0b41-298e09fb133d).JPG) | National Park Service | Public Domain |
+| `pairs/storage_after.jpg` | [Back storage room after clean up](https://commons.wikimedia.org/wiki/File:Back_storage_room_after_clean_up_(54c8e3e5-1dd8-b71b-0bb9-2ebcb870c068).JPG) | National Park Service | Public Domain |
 
 Model: [Gemma 3](https://ai.google.dev/gemma) (open weights, [Gemma Terms of Use](https://ai.google.dev/gemma/terms)), run locally with [Ollama](https://ollama.com).
