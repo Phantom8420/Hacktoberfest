@@ -182,5 +182,6 @@ JavaScript planner matching the Python one. None of them need Ollama.
 Gemma 3 (Gemma Terms of Use), Ollama (MIT), Pillow (MIT-CMU), qrcode (BSD). Test and demo photos from Wikimedia Commons, listed with
 their licenses in [CREDITS.md](CREDITS.md).
 
-AI assistance was used for this project. I chose the idea and approved the plan; Claude (Anthropic) wrote the code,
-the evaluation scripts and this write-up under my direction. Every number here comes from the scripts in `eval/`.
+AI assistance was used for this project. I did the planning and laid the base foundations; the rest of the coding
+was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that I am accountable
+for the code. Every number here comes from the scripts in `eval/`.

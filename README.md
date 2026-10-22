@@ -52,6 +52,7 @@ planner picks the moves worth the most tidiness for exactly that budget and hand
 learns how long things really take you, and judges an after photo against the before. Details, measurements and
 limits are in [Week3/README.md](Week3/README.md).
 
-**AI disclosure.** AI assistance was used for this project. I chose the idea and approved the plan; Claude
-(Anthropic) wrote the code, the evaluation scripts and the write-up under my direction.
+**AI disclosure.** AI assistance was used for this project. I did the planning and laid the base foundations; the
+rest of the coding was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that
+I am accountable for the code.
 
