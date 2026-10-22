@@ -30,9 +30,10 @@ def main():
     shutil.rmtree(OUT, ignore_errors=True)
     shutil.copytree(HERE / "effort" / "web", OUT)
     (OUT / "samples").mkdir()
-    page = OUT / "index.html"
-    page.write_text(page.read_text(encoding="utf8").replace(
+    app = (OUT / "index.html").read_text(encoding="utf8")  # the app goes to try.html, the front page is a short intro
+    (OUT / "try.html").write_text(app.replace(
         '<script src="app.js">', '<script src="static.js"></script>\n<script src="app.js">'), encoding="utf8")
+    shutil.copy(HERE / "site_home.html", OUT / "index.html")
     samples = []
     for name, title, author, lic, url in SAMPLES:
         photo = gemma.clean((PHOTOS / f"{name}.jpg").read_bytes())

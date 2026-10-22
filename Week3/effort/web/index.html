@@ -19,7 +19,7 @@
 
 <main>
   <header class="top">
-    <h1>Effort Budget</h1>
+    <h1><span>Effort</span><span>Budget</span></h1>
     <p class="lede">Show it your room, say how much energy you have left, and get the few moves worth the most tidiness. Everything runs on this computer.</p>
   </header>
 
@@ -27,7 +27,7 @@
     <h2 id="snap-h">The room, as it is</h2>
     <label class="drop" id="drop">
       <input id="photo" type="file" accept="image/*" capture="environment">
-      <svg class="ic"><use href="#i-camera"/></svg>
+      <span class="badge"><svg class="ic"><use href="#i-camera"/></svg></span>
       <span class="drop-main">Choose a photo of the mess</span>
       <span class="drop-sub">Stand somewhere you can find again; you'll take an after photo from the same spot.</span>
     </label>
@@ -80,7 +80,7 @@
     <p class="hint">Same spot, same angle. Gemma compares both photos twice, swapping their order, and only trusts an answer that survives the swap.</p>
     <label class="drop small">
       <input id="photo-after" type="file" accept="image/*" capture="environment">
-      <svg class="ic"><use href="#i-camera"/></svg>
+      <span class="badge"><svg class="ic"><use href="#i-camera"/></svg></span>
       <span class="drop-main">Choose the after photo</span>
     </label>
     <div class="wait" id="wait-after" hidden role="status" aria-live="polite">

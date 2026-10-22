@@ -126,6 +126,7 @@
     pick.id = "drop";
     input.hidden = true;
     pick.append(input);
+    document.querySelector("h1").innerHTML = `<a href="./" title="About Effort Budget"><span>Effort</span><span>Budget</span></a>`;
     document.querySelector(".lede").textContent = "Show it your room, say how much energy you have left, and get the few moves worth the most tidiness. The real thing runs on your own computer; this copy replays it.";
     document.getElementById("wait-text").textContent = "Replaying what Gemma saw. On a laptop CPU this took a while; here it's instant-ish.";
     document.querySelector(".foot").innerHTML = d.samples.map((s) =>

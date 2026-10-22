@@ -24,6 +24,7 @@ function showBudget() {
   const s = budget();
   $("budget-secs").textContent = secs(s);
   $("budget-mood").textContent = mood(s);
+  $("budget").style.setProperty("--v", `${$("budget").value}%`);
 }
 
 async function api(path, body, type = "application/json") {

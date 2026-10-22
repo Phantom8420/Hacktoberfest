@@ -70,7 +70,7 @@ sh eval/fetch_photos.sh
 python build_site.py      # Ollama with gemma3:4b running; about 6 minutes on a CPU
 ```
 
-`site/` is plain files with no build step, so any static host works. The demo above is that folder on Vercel.
+`site/` is plain files with no build step, so any static host works: a short front page (`site_home.html`) and the demo itself at `try.html`. The demo above is that folder on Vercel.
 
 ## What it never records
 
