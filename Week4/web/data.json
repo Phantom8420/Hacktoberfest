@@ -1,0 +1,172 @@
+{
+ "census": {
+  "clips": 105,
+  "spoke": 105,
+  "lines": 214,
+  "languages": [
+   [
+    "en",
+    93
+   ],
+   [
+    "nn",
+    93
+   ],
+   [
+    "cy",
+    28
+   ]
+  ],
+  "top": [
+   [
+    "I'm going to go to the next room.",
+    56
+   ],
+   [
+    "you",
+    22
+   ],
+   [
+    "I'm going to do it.",
+    14
+   ],
+   [
+    "Ysbydd yw'r cyllid yma.",
+    14
+   ],
+   [
+    "2.5% de rupo.",
+    13
+   ],
+   [
+    "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.",
+    11
+   ],
+   [
+    "nd",
+    11
+   ],
+   [
+    "ლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლ�.",
+    8
+   ],
+   [
+    "1.5mm",
+    7
+   ],
+   [
+    "සිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවි",
+    7
+   ],
+   [
+    "1.5% de rupo.",
+    5
+   ],
+   [
+    "ლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლ�",
+    4
+   ],
+   [
+    "Yn ymwneud yw'r llwyddiad, yw'r llwyddiad yn ymwneud yw'r llwyddiad.",
+    4
+   ],
+   [
+    "1.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x ",
+    2
+   ],
+   [
+    "Halt!",
+    2
+   ],
+   [
+    "වවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවව",
+    2
+   ]
+  ],
+  "noise": {
+   "silence": {
+    "tiny": [
+     "you"
+    ],
+    "base": [
+     "you"
+    ],
+    "small": [
+     "you"
+    ]
+   },
+   "white": {
+    "tiny": [
+     "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x "
+    ],
+    "base": [
+     "nd"
+    ],
+    "small": [
+     "සිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිවිව"
+    ]
+   },
+   "pink": {
+    "tiny": [
+     "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x "
+    ],
+    "base": [
+     "1.5% de ronkai"
+    ],
+    "small": [
+     "වවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවවව"
+    ]
+   },
+   "brown": {
+    "tiny": [
+     "...and the other side of the building."
+    ],
+    "base": [
+     "1.5 km."
+    ],
+    "small": [
+     "ស្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្្�"
+    ]
+   },
+   "hum": {
+    "tiny": [
+     "you."
+    ],
+    "base": [
+     "I'm going to go to the next room.",
+     "I'm going to go to the next room.",
+     "I'm going to go to the next room.",
+     "I'm going to go to the next room."
+    ],
+    "small": [
+     "Yn ymwneud yw'r ysgolwch, mae'r ysgolwch yn ymwneud yw'r ysgolwch yn ymwneud.",
+     "Yn ymwneud yw'r ysgolwch yn ymwneud, mae'r ysgolwch yn ymwneud.",
+     "Yn ymwneud yw'r ysgolwch yn ymwneud, mae'r ysgolwch yn ymwneud.",
+     "Yn ymwneud yw'r ysgolwch yn ymwneud."
+    ]
+   },
+   "fan": {
+    "tiny": [
+     "1.5mm"
+    ],
+    "base": [
+     "1.5% de rupo."
+    ],
+    "small": [
+     "ლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლლ�."
+    ]
+   },
+   "rain": {
+    "tiny": [
+     "you"
+    ],
+    "base": [
+     "nd"
+    ],
+    "small": [
+     "ʻɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰɪʰ"
+    ]
+   }
+  }
+ }
+}

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spirit Box</title>
+<meta name="description" content="Turn off the filters that keep Whisper quiet, play it static, and it starts talking. Summon a ghost in your browser, read the census of what it hears, and see Gemma catch them in meeting transcripts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="bar">
+  <a class="mark" href="#top">Spirit Box</a>
+  <nav>
+    <a href="#census">Census</a>
+    <a href="#witness">Witness</a>
+    <a href="#exorcise">Clean a transcript</a>
+    <a href="https://github.com/Phantom8420/Hacktoberfest/tree/main/Week4">Code</a>
+  </nav>
+  <a class="btn small" href="#summon">Summon one</a>
+</header>
+
+<main id="top">
+<section class="hero">
+  <h1 class="split"><span class="half a">Whisper hears</span><span class="half b">voices in noise.</span></h1>
+
+  <div class="box" id="summon" data-ui>
+    <div class="box-top">
+      <span class="box-title">Whisper tiny, filters off</span>
+      <span class="box-state" id="state">Ready</span>
+    </div>
+    <canvas id="scope" width="640" height="120" aria-hidden="true"></canvas>
+    <fieldset class="dial">
+      <legend>Noise to play it</legend>
+      <label><input type="radio" name="noise" value="silence"> Silence</label>
+      <label><input type="radio" name="noise" value="white" checked> White</label>
+      <label><input type="radio" name="noise" value="pink"> Pink</label>
+      <label><input type="radio" name="noise" value="brown"> Brown</label>
+      <label><input type="radio" name="noise" value="hum"> Mains hum</label>
+      <label><input type="radio" name="noise" value="fan"> Fan</label>
+      <label><input type="radio" name="noise" value="rain"> Rain</label>
+    </fieldset>
+    <div class="box-act">
+      <button class="btn" id="go">Summon</button>
+      <span class="hint" id="hint">The first summon downloads Whisper tiny, about 40 MB. It runs in this tab; no audio leaves it.</span>
+    </div>
+    <ol class="heard" id="heard" aria-live="polite"></ol>
+    <p class="laptop" id="laptop"></p>
+  </div>
+
+  <p class="lede">Speech recognition is trained never to leave a pause empty. Switch off the filters that keep OpenAI's open Whisper model quiet, feed it 30 seconds of static, and it starts talking.</p>
+</section>
+
+<section class="history">
+  <figure class="pic tall">
+    <img src="assets/2017-magnetofon-szpulowy-aria-m-2408-sd.jpg" width="1920" height="1356" alt="A reel-to-reel tape recorder with two reels and level meters" loading="lazy">
+  </figure>
+  <div class="history-text">
+    <h2>Voices in the static, again</h2>
+    <p>From the 1950s, people left tape recorders running in empty rooms and tuned radios between stations, then played the hiss back listening for words. They called it electronic voice phenomena. What they found was the human ear filling noise with speech.</p>
+    <p>Whisper was trained on 680,000 hours of audio from the web, much of it subtitled video. Give it nothing to hear and it does what those listeners did, with more confidence: it writes down a voice. The weights are open, so anyone can reproduce this on a laptop. The training data is not, so why it says these exact words stays a guess.</p>
+  </div>
+  <figure class="pic wide">
+    <img src="assets/shortwave-receiver-1924.jpg" width="1600" height="712" alt="A 1924 shortwave regenerative radio receiver with three tuning dials" loading="lazy">
+  </figure>
+</section>
+
+<section class="census" id="census">
+  <div class="census-head">
+    <h2>Every clip said something</h2>
+    <p id="census-sum">105 clips of generated noise, seven kinds, five seeds, three model sizes.</p>
+  </div>
+  <div class="reel" id="reel" aria-label="What each model heard in each noise"></div>
+  <div class="reel-note" aria-live="polite"><p class="reel-name" id="reel-name"></p><p id="reel-line"></p></div>
+</section>
+
+<section class="top">
+  <figure class="pic scope-pic">
+    <img src="assets/oscilloscope-with-noise-3605063544.jpg" width="1920" height="1440" alt="An oscilloscope screen showing a band of electrical noise" loading="lazy">
+  </figure>
+  <div class="top-list">
+    <h2>What it says most</h2>
+    <ul class="rows" id="top-rows"></ul>
+    <p class="note">Counted across all 105 clips. Most noise gets labelled Norwegian Nynorsk; the small model drifts into Welsh, Sinhala, Khmer and Georgian.</p>
+  </div>
+</section>
+
+<section class="witness" id="witness">
+  <div class="tiles" id="tiles">
+    <div class="tile lead"><h2>Who catches them</h2><p>Six synthetic meetings with known pauses, transcribed the normal way. Then two judges read every line.</p></div>
+  </div>
+  <p class="witness-note" id="witness-note"></p>
+</section>
+
+<section class="exorcise" id="exorcise">
+  <div class="steps">
+    <h2>Cleaning a transcript</h2>
+    <div class="step" data-state="1"><p class="say">First, Whisper transcribes the meeting as usual.</p><p>Base model, its normal filters on. A fan runs under five minutes of talk with long pauses.</p></div>
+    <div class="step" data-state="2"><p class="say">Then the rules strike the obvious ghosts.</p><p>Known sign-offs, sound tags, loops, wrong language, and lines Whisper itself thought were silence.</p></div>
+    <div class="step" data-state="3"><p class="say">Then Gemma reads it like a person.</p><p>Gemma 3 4B, running locally, sees each line with its neighbours and how sure Whisper was, and says why.</p></div>
+  </div>
+  <div class="stage">
+    <div class="doc" id="doc" data-ui data-state="1"></div>
+  </div>
+</section>
+
+<section class="run">
+  <figure class="pic spec">
+    <img src="assets/short-window-reassigned-spectrogram-of-speech.png" width="1076" height="758" alt="A spectrogram of real speech: dense bands of energy where a voice is, empty where it is not" loading="lazy">
+    <figcaption>Speech has shape. Noise does not, and Whisper writes words over it anyway.</figcaption>
+  </figure>
+  <div class="run-text">
+    <h2>Run it yourself</h2>
+<pre><code>pip install -r requirements.txt
+python -m spiritbox summon pink
+python -m spiritbox exorcise meeting.mp3</code></pre>
+    <p>Everything runs on a laptop CPU: faster-whisper for listening, Gemma 3 4B through Ollama as the witness. The census, the meetings and every verdict are in the repository.</p>
+    <p>This page uses the tiny model through transformers.js and judges with the rules only; Gemma's results above were computed offline.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <span>Whisper, with its filters off</span>
+  <span class="foot-links"><a href="https://github.com/Phantom8420/Hacktoberfest/tree/main/Week4">Code</a><a href="https://github.com/openai/whisper">Whisper</a><a href="https://ollama.com/library/gemma3">Gemma 3</a></span>
+  <span>2026</span>
+  <p class="credits">Pictures: <a href="https://commons.wikimedia.org/wiki/File:2017_Magnetofon_szpulowy_Aria_M_2408_SD.jpg">“2017 Magnetofon szpulowy Aria M 2408 SD”</a> by Jacek Halicki, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Shortwave_Regenerative_Receiver_image_from_Modern_Radio_Practice_by_Charles_Hayward_page_232.png">shortwave regenerative receiver</a> from Modern Radio Practice by Charles B. Hayward (1924), <a href="https://creativecommons.org/publicdomain/mark/1.0/">public domain</a>; <a href="https://commons.wikimedia.org/wiki/File:Oscilloscope_with_noise_(3605063544).jpg">“Oscilloscope with noise”</a> by Jean-Etienne Minh-Duy Poirrier, <a href="https://creativecommons.org/licenses/by-sa/2.0">CC BY-SA 2.0</a>; <a href="https://commons.wikimedia.org/wiki/File:Short-window_reassigned_spectrogram_of_speech.png">“Short-window reassigned spectrogram of speech”</a>, <a href="https://creativecommons.org/licenses/by-sa/3.0">CC BY-SA 3.0</a>; all via Wikimedia Commons.</p>
+</footer>
+
+<script src="ghosts.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

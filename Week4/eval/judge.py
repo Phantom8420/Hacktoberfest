@@ -46,11 +46,13 @@ def main():
     for r in out:
         r["both"] = "ghost" if "ghost" in (r["rules"], r["gemma"]) else "real"
     report["either"] = score(out, "both")
-    report["disagreements"] = [{k: r[k] for k in ("model", "meeting", "start", "text", "truth", "rules", "rules_kind",
-                                                   "gemma", "gemma_kind", "gemma_reason")}
-                               for r in out if r["rules"] != r["gemma"] or r["truth"] != r["gemma"]]
+    report["rows"] = [{k: r[k] for k in ("model", "meeting", "start", "text", "truth", "rules", "rules_kind",
+                                         "gemma", "gemma_kind", "gemma_reason")} for r in out]
     (HERE / "judge.json").write_text(json.dumps(report, indent=1))
-    print(json.dumps({k: v for k, v in report.items() if k != "disagreements"}, indent=1))
+    print(json.dumps({k: v for k, v in report.items() if k != "rows"}, indent=1))
+    for r in report["rows"]:
+        if r["truth"] != r["gemma"] or r["rules"] != r["gemma"]:
+            print(f"{r['truth']:5} rules {r['rules']:5} gemma {r['gemma']:6} {r['text'][:60]!r}  {r['gemma_reason'][:90]}")
 
 
 if __name__ == "__main__":
