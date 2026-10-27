@@ -4,6 +4,8 @@ unsure Whisper was."""
 import difflib
 import json
 import os
+import time
+import urllib.error
 import urllib.request
 
 OLLAMA = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
@@ -55,9 +57,15 @@ def ask(prompt, model=MODEL):
             # file-backed weights: this laptop has no page file, so the model must not count against commit memory
             "options": {"temperature": 0, "use_mmap": True, "num_ctx": 2048}, "keep_alive": "10m"}
     req = urllib.request.Request(f"{OLLAMA}/api/chat", json.dumps(body).encode(), {"Content-Type": "application/json"})
-    for _ in range(2):  # now and then the reply comes back empty
-        with urllib.request.urlopen(req, timeout=300) as r:
-            text = json.loads(r.read())["message"]["content"]
+    for attempt in range(3):  # now and then the reply comes back empty, or the model fails to load for lack of memory
+        try:
+            with urllib.request.urlopen(req, timeout=300) as r:
+                text = json.loads(r.read())["message"]["content"]
+        except (urllib.error.URLError, ConnectionError):
+            if attempt == 2:
+                raise
+            time.sleep(30)
+            continue
         try:
             return json.loads(text)
         except json.JSONDecodeError:
