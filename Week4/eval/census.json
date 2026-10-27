@@ -1,0 +1,2877 @@
+[
+ {
+  "model": "tiny",
+  "noise": "silence",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.943,
+    "logprob": -0.65,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "silence",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.943,
+    "logprob": -0.65,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "silence",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.943,
+    "logprob": -0.65,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "silence",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.943,
+    "logprob": -0.65,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "silence",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.943,
+    "logprob": -0.65,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "white",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.976,
+    "logprob": -0.17,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "white",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2 cm x 2.5 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2",
+    "lang": "nn",
+    "no_speech": 0.97,
+    "logprob": -0.212,
+    "compression": 15.96,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "white",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2 cm x 2.5 cm x 2.5 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x",
+    "lang": "nn",
+    "no_speech": 0.96,
+    "logprob": -0.215,
+    "compression": 16.07,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "white",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2",
+    "lang": "nn",
+    "no_speech": 0.963,
+    "logprob": -0.213,
+    "compression": 17.24,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "white",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5mm",
+    "lang": "nn",
+    "no_speech": 0.968,
+    "logprob": -1.68,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "pink",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.978,
+    "logprob": -0.169,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "pink",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.965,
+    "logprob": -0.172,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "pink",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.974,
+    "logprob": -0.173,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "pink",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2.5 cm x 2 cm x 2.5 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2 cm x 2",
+    "lang": "nn",
+    "no_speech": 0.969,
+    "logprob": -0.211,
+    "compression": 15.96,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "pink",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.972,
+    "logprob": -0.176,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "brown",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "...and the other side of the building.",
+    "lang": "nn",
+    "no_speech": 0.97,
+    "logprob": -1.905,
+    "compression": 0.88,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "brown",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5mm",
+    "lang": "nn",
+    "no_speech": 0.968,
+    "logprob": -1.704,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "brown",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5mm",
+    "lang": "nn",
+    "no_speech": 0.972,
+    "logprob": -1.771,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "brown",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5mm",
+    "lang": "nn",
+    "no_speech": 0.967,
+    "logprob": -1.751,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "brown",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.97,
+    "logprob": -0.164,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "hum",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you.",
+    "lang": "en",
+    "no_speech": 0.976,
+    "logprob": -1.539,
+    "compression": 0.33,
+    "kind": "unsure audio"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "hum",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.966,
+    "logprob": -0.155,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "hum",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.961,
+    "logprob": -0.155,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "hum",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.969,
+    "logprob": -0.15,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "hum",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.965,
+    "logprob": -0.155,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "fan",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5mm",
+    "lang": "nn",
+    "no_speech": 0.955,
+    "logprob": -1.626,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "fan",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.966,
+    "logprob": -1.368,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "fan",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5mm",
+    "lang": "nn",
+    "no_speech": 0.974,
+    "logprob": -1.627,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "fan",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5mm",
+    "lang": "nn",
+    "no_speech": 0.959,
+    "logprob": -1.709,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "fan",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5mm x 2.5",
+    "lang": "nn",
+    "no_speech": 0.965,
+    "logprob": -0.163,
+    "compression": 16.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "rain",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.97,
+    "logprob": -1.348,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "rain",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "I'm going to do a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little bit of a little",
+    "lang": "nn",
+    "no_speech": 0.972,
+    "logprob": -0.251,
+    "compression": 18.5,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "rain",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "I'm going to use a little bit of water to make the water easier.",
+    "lang": "nn",
+    "no_speech": 0.97,
+    "logprob": -1.786,
+    "compression": 1.0,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "rain",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "I'm going to use a little bit of water to make it easier to use.",
+    "lang": "nn",
+    "no_speech": 0.973,
+    "logprob": -1.702,
+    "compression": 1.0,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "tiny",
+  "noise": "rain",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "...",
+    "lang": "nn",
+    "no_speech": 0.977,
+    "logprob": -1.763,
+    "compression": 0.27,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "silence",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.929,
+    "logprob": -0.88,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "silence",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.929,
+    "logprob": -0.88,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "silence",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.929,
+    "logprob": -0.88,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "silence",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.929,
+    "logprob": -0.88,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "silence",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.929,
+    "logprob": -0.88,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "white",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 6.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.99,
+    "logprob": -1.403,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "white",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "1.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.99,
+    "logprob": -2.042,
+    "compression": 0.62,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "white",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 6.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.988,
+    "logprob": -1.447,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "white",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.988,
+    "logprob": -1.394,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "white",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 6.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.988,
+    "logprob": -1.455,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "pink",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 10.0,
+    "text": "1.5% de ronkai",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -2.191,
+    "compression": 0.64,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "pink",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice, 1.5% deurice",
+    "lang": "nn",
+    "no_speech": 0.991,
+    "logprob": -0.146,
+    "compression": 13.93,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "pink",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 4.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -1.484,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "pink",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 4.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.992,
+    "logprob": -1.452,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "pink",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 7.0,
+    "text": "1.5% de ron",
+    "lang": "nn",
+    "no_speech": 0.993,
+    "logprob": -2.097,
+    "compression": 0.58,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "brown",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 4.0,
+    "text": "1.5 km.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -1.788,
+    "compression": 0.47,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "brown",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5m x 2.5",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.165,
+    "compression": 15.55,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "brown",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "1.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice, 2.5% deurice",
+    "lang": "nn",
+    "no_speech": 0.989,
+    "logprob": -0.175,
+    "compression": 13.93,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "brown",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 7.0,
+    "text": "1.5 km de Rue de la Vierta",
+    "lang": "nn",
+    "no_speech": 0.981,
+    "logprob": -2.124,
+    "compression": 0.84,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "brown",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "1.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.987,
+    "logprob": -2.233,
+    "compression": 0.62,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "hum",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 2.0,
+    "end": 4.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 4.0,
+    "end": 6.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 6.0,
+    "end": 8.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 14.0,
+    "end": 16.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 16.0,
+    "end": 18.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 18.0,
+    "end": 20.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 20.0,
+    "end": 22.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 22.0,
+    "end": 24.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 26.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.812,
+    "logprob": -1.251,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "hum",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 2.0,
+    "end": 4.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 4.0,
+    "end": 6.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 6.0,
+    "end": 8.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 14.0,
+    "end": 16.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 16.0,
+    "end": 18.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 18.0,
+    "end": 20.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 20.0,
+    "end": 22.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 22.0,
+    "end": 24.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 26.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": "I'm going to do it.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.25,
+    "compression": 9.0,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.79,
+    "logprob": -1.267,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "hum",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 2.0,
+    "end": 4.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 4.0,
+    "end": 6.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 6.0,
+    "end": 8.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 14.0,
+    "end": 16.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 16.0,
+    "end": 18.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 18.0,
+    "end": 20.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 20.0,
+    "end": 22.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 22.0,
+    "end": 24.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 26.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.221,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.798,
+    "logprob": -1.277,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "hum",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 2.0,
+    "end": 4.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 4.0,
+    "end": 6.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 6.0,
+    "end": 8.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 14.0,
+    "end": 16.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 16.0,
+    "end": 18.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 18.0,
+    "end": 20.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 20.0,
+    "end": 22.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 22.0,
+    "end": 24.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 26.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.99,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.797,
+    "logprob": -1.295,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "hum",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 2.0,
+    "end": 4.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 4.0,
+    "end": 6.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 6.0,
+    "end": 8.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 14.0,
+    "end": 16.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 16.0,
+    "end": 18.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 18.0,
+    "end": 20.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 20.0,
+    "end": 22.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 22.0,
+    "end": 24.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 26.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": "I'm going to go to the next room.",
+    "lang": "en",
+    "no_speech": 0.989,
+    "logprob": -0.226,
+    "compression": 10.33,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.789,
+    "logprob": -1.326,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "fan",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "1.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.982,
+    "logprob": -2.145,
+    "compression": 0.62,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "fan",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "1.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.984,
+    "logprob": -2.133,
+    "compression": 0.62,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "fan",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "Halt!",
+    "lang": "nn",
+    "no_speech": 0.987,
+    "logprob": -1.527,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "fan",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "Halt!",
+    "lang": "nn",
+    "no_speech": 0.983,
+    "logprob": -1.58,
+    "compression": 0.38,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "fan",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "1.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 2.0,
+    "end": 4.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 4.0,
+    "end": 6.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 6.0,
+    "end": 8.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 14.0,
+    "end": 16.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 16.0,
+    "end": 18.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 18.0,
+    "end": 20.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 20.0,
+    "end": 22.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 22.0,
+    "end": 24.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 26.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": "2.5% de rupo.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.253,
+    "compression": 7.8,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 28.0,
+    "end": 30.0,
+    "text": "1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0",
+    "lang": "nn",
+    "no_speech": 0.74,
+    "logprob": -0.204,
+    "compression": 17.15,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "rain",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 4.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -1.495,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "rain",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 6.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.991,
+    "logprob": -1.556,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "rain",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 6.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.991,
+    "logprob": -1.377,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "rain",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -1.401,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "base",
+  "noise": "rain",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 6.0,
+    "text": "nd",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -1.45,
+    "compression": 0.2,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "silence",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.06,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.946,
+    "logprob": -0.501,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "silence",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.06,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.946,
+    "logprob": -0.501,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "silence",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.06,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.946,
+    "logprob": -0.501,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "silence",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.06,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.946,
+    "logprob": -0.501,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "silence",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.06,
+    "text": "you",
+    "lang": "en",
+    "no_speech": 0.946,
+    "logprob": -0.501,
+    "compression": 0.27,
+    "kind": "sign-off"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "white",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.989,
+    "logprob": -0.244,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "white",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.989,
+    "logprob": -0.243,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "white",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.991,
+    "logprob": -0.241,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "white",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.988,
+    "logprob": -0.234,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "white",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.992,
+    "logprob": -0.24,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "pink",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -0.191,
+    "compression": 19.59,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "pink",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.991,
+    "logprob": -0.196,
+    "compression": 19.59,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "pink",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -0.204,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "pink",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc0\u0dc4\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -0.235,
+    "compression": 13.32,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "pink",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -0.242,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "brown",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u179f\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\ufffd",
+    "lang": "nn",
+    "no_speech": 0.99,
+    "logprob": -0.332,
+    "compression": 11.25,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "brown",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd",
+    "lang": "nn",
+    "no_speech": 0.988,
+    "logprob": -0.141,
+    "compression": 12.5,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "brown",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 13.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -0.174,
+    "compression": 10.14,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 13.0,
+    "end": 15.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.994,
+    "logprob": -0.174,
+    "compression": 10.14,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 15.0,
+    "end": 30.0,
+    "text": "\u02bb\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0",
+    "lang": "nn",
+    "no_speech": 0.826,
+    "logprob": -0.284,
+    "compression": 13.06,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "brown",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd",
+    "lang": "nn",
+    "no_speech": 0.992,
+    "logprob": -0.159,
+    "compression": 12.5,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "brown",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd",
+    "lang": "nn",
+    "no_speech": 0.996,
+    "logprob": -0.146,
+    "compression": 12.5,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "hum",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 7.0,
+    "text": "Yn ymwneud yw'r ysgolwch, mae'r ysgolwch yn ymwneud yw'r ysgolwch yn ymwneud.",
+    "lang": "cy",
+    "no_speech": 0.996,
+    "logprob": -0.411,
+    "compression": 4.32,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 7.0,
+    "end": 13.0,
+    "text": "Yn ymwneud yw'r ysgolwch yn ymwneud, mae'r ysgolwch yn ymwneud.",
+    "lang": "cy",
+    "no_speech": 0.996,
+    "logprob": -0.411,
+    "compression": 4.32,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 13.0,
+    "end": 19.0,
+    "text": "Yn ymwneud yw'r ysgolwch yn ymwneud, mae'r ysgolwch yn ymwneud.",
+    "lang": "cy",
+    "no_speech": 0.996,
+    "logprob": -0.411,
+    "compression": 4.32,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 19.0,
+    "end": 24.0,
+    "text": "Yn ymwneud yw'r ysgolwch yn ymwneud.",
+    "lang": "cy",
+    "no_speech": 0.996,
+    "logprob": -0.411,
+    "compression": 4.32,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 30.0,
+    "text": "Yn ymwneud yma, mae'r cyfnodd yn ymwneud yma.",
+    "lang": "cy",
+    "no_speech": 0.898,
+    "logprob": -1.418,
+    "compression": 1.07,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "hum",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "Yn ymweld yw'r cyllid yma, mae'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r cyllid yn ymweld yw'r",
+    "lang": "cy",
+    "no_speech": 0.995,
+    "logprob": -0.241,
+    "compression": 8.64,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "hum",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 5.0,
+    "text": "Yn ymwneud yw'r llwyddiad, yw'r llwyddiad.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -1.243,
+    "compression": 1.14,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "hum",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 2.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 2.0,
+    "end": 4.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 4.0,
+    "end": 6.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 6.0,
+    "end": 8.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 8.0,
+    "end": 10.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 10.0,
+    "end": 12.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 12.0,
+    "end": 14.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 14.0,
+    "end": 16.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 16.0,
+    "end": 18.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 18.0,
+    "end": 20.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 20.0,
+    "end": 22.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 22.0,
+    "end": 24.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 24.0,
+    "end": 26.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 26.0,
+    "end": 28.0,
+    "text": "Ysbydd yw'r cyllid yma.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.159,
+    "compression": 8.82,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "hum",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 7.0,
+    "text": "Yn ymwneud yw'r llwyddiad, yw'r llwyddiad yn ymwneud yw'r llwyddiad.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.319,
+    "compression": 5.98,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 7.0,
+    "end": 13.0,
+    "text": "Yn ymwneud yw'r llwyddiad, yw'r llwyddiad yn ymwneud yw'r llwyddiad.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.319,
+    "compression": 5.98,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 13.0,
+    "end": 19.0,
+    "text": "Yn ymwneud yw'r llwyddiad, yw'r llwyddiad yn ymwneud yw'r llwyddiad.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.319,
+    "compression": 5.98,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 19.0,
+    "end": 25.0,
+    "text": "Yn ymwneud yw'r llwyddiad, yw'r llwyddiad yn ymwneud yw'r llwyddiad.",
+    "lang": "cy",
+    "no_speech": 0.997,
+    "logprob": -0.319,
+    "compression": 5.98,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 25.0,
+    "end": 30.0,
+    "text": "Yn ymwneud, mae'r cyfnodd yn ymwneud.",
+    "lang": "cy",
+    "no_speech": 0.909,
+    "logprob": -1.411,
+    "compression": 0.97,
+    "kind": "wrong language"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "fan",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 13.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.179,
+    "compression": 11.42,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "fan",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 13.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.983,
+    "logprob": -0.181,
+    "compression": 8.65,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 13.0,
+    "end": 15.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.983,
+    "logprob": -0.181,
+    "compression": 8.65,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "fan",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "Yn ymweld, mae'r ddweud yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiadol yn ymddiad",
+    "lang": "cy",
+    "no_speech": 0.992,
+    "logprob": -0.259,
+    "compression": 8.74,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "fan",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd",
+    "lang": "nn",
+    "no_speech": 0.986,
+    "logprob": -0.15,
+    "compression": 12.5,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "fan",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "Mae'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddweud o'r ddwe",
+    "lang": "cy",
+    "no_speech": 0.99,
+    "logprob": -0.133,
+    "compression": 13.0,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "rain",
+  "seed": 0,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u02bb\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0\u026a\u02b0",
+    "lang": "nn",
+    "no_speech": 0.981,
+    "logprob": -0.243,
+    "compression": 13.06,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "rain",
+  "seed": 1,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 13.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.981,
+    "logprob": -0.206,
+    "compression": 9.05,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "rain",
+  "seed": 2,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u0dc3\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0\u0dd2\u0dc0",
+    "lang": "nn",
+    "no_speech": 0.976,
+    "logprob": -0.235,
+    "compression": 15.14,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "rain",
+  "seed": 3,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 30.0,
+    "text": "\u178d\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\u17d2\ufffd",
+    "lang": "nn",
+    "no_speech": 0.979,
+    "logprob": -0.35,
+    "compression": 11.25,
+    "kind": "repetition loop"
+   }
+  ]
+ },
+ {
+  "model": "small",
+  "noise": "rain",
+  "seed": 4,
+  "lines": [
+   {
+    "start": 0.0,
+    "end": 13.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.985,
+    "logprob": -0.183,
+    "compression": 10.18,
+    "kind": "repetition loop"
+   },
+   {
+    "start": 13.0,
+    "end": 30.0,
+    "text": "\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\u10da\ufffd.",
+    "lang": "nn",
+    "no_speech": 0.862,
+    "logprob": -0.155,
+    "compression": 11.42,
+    "kind": "repetition loop"
+   }
+  ]
+ }
+]
