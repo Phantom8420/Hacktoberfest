@@ -1,0 +1,344 @@
+[
+ {
+  "name": "0_silence",
+  "bed": "silence",
+  "seconds": 257.0,
+  "said": [
+   {
+    "start": 26.05,
+    "end": 29.32,
+    "text": "We should write down why we picked this database."
+   },
+   {
+    "start": 34.9,
+    "end": 38.3,
+    "text": "Please send me the slides before lunch."
+   },
+   {
+    "start": 43.59,
+    "end": 47.66,
+    "text": "The new laptop takes about four minutes to compile everything."
+   },
+   {
+    "start": 70.2,
+    "end": 73.07,
+    "text": "I measured the room and the desk won't fit."
+   },
+   {
+    "start": 93.86,
+    "end": 97.41,
+    "text": "The battery on the field recorder died halfway through."
+   },
+   {
+    "start": 134.43,
+    "end": 138.29,
+    "text": "The train was cancelled, so I'm working from home."
+   },
+   {
+    "start": 164.94,
+    "end": 169.14,
+    "text": "The interview went well, I'd like a second round."
+   },
+   {
+    "start": 191.65,
+    "end": 195.75,
+    "text": "Can someone check whether the backup actually ran last night?"
+   },
+   {
+    "start": 217.63,
+    "end": 220.81,
+    "text": "The library closes at eight on weekdays."
+   },
+   {
+    "start": 233.72,
+    "end": 236.78,
+    "text": "The logs from the night shift are missing an hour."
+   }
+  ]
+ },
+ {
+  "name": "1_room",
+  "bed": "room",
+  "seconds": 297.7,
+  "said": [
+   {
+    "start": 17.95,
+    "end": 22.05,
+    "text": "Can someone check whether the backup actually ran last night?"
+   },
+   {
+    "start": 37.68,
+    "end": 40.86,
+    "text": "The library closes at eight on weekdays."
+   },
+   {
+    "start": 50.27,
+    "end": 53.61,
+    "text": "I'll write the summary and share it this afternoon."
+   },
+   {
+    "start": 86.99,
+    "end": 90.39,
+    "text": "Please send me the slides before lunch."
+   },
+   {
+    "start": 108.05,
+    "end": 111.91,
+    "text": "The train was cancelled, so I'm working from home."
+   },
+   {
+    "start": 151.15,
+    "end": 154.65,
+    "text": "That bug only happens when the window is minimised."
+   },
+   {
+    "start": 179.89,
+    "end": 183.12,
+    "text": "We need two more people for the hackathon team."
+   },
+   {
+    "start": 208.91,
+    "end": 212.18,
+    "text": "We should write down why we picked this database."
+   },
+   {
+    "start": 239.14,
+    "end": 243.42,
+    "text": "Grandma's recipe needs more salt than you'd think."
+   },
+   {
+    "start": 271.78,
+    "end": 274.65,
+    "text": "I measured the room and the desk won't fit."
+   }
+  ]
+ },
+ {
+  "name": "2_fan",
+  "bed": "fan",
+  "seconds": 276.1,
+  "said": [
+   {
+    "start": 23.88,
+    "end": 27.17,
+    "text": "The printer on the second floor is jammed again."
+   },
+   {
+    "start": 37.67,
+    "end": 41.18,
+    "text": "That bug only happens when the window is minimised."
+   },
+   {
+    "start": 77.0,
+    "end": 80.06,
+    "text": "The logs from the night shift are missing an hour."
+   },
+   {
+    "start": 107.16,
+    "end": 110.04,
+    "text": "I measured the room and the desk won't fit."
+   },
+   {
+    "start": 134.55,
+    "end": 138.09,
+    "text": "I tried the new version and the search is much faster."
+   },
+   {
+    "start": 155.63,
+    "end": 158.69,
+    "text": "Let's start with the numbers from last week."
+   },
+   {
+    "start": 177.49,
+    "end": 180.26,
+    "text": "The coffee machine finally works."
+   },
+   {
+    "start": 192.88,
+    "end": 196.28,
+    "text": "I think we should move the release to Friday."
+   },
+   {
+    "start": 201.65,
+    "end": 206.83,
+    "text": "Next time, let's record the meeting so nobody has to remember."
+   },
+   {
+    "start": 242.37,
+    "end": 246.78,
+    "text": "My internet dropped during the demo, sorry about that."
+   }
+  ]
+ },
+ {
+  "name": "3_hum",
+  "bed": "hum",
+  "seconds": 288.0,
+  "said": [
+   {
+    "start": 36.73,
+    "end": 39.51,
+    "text": "The coffee machine finally works."
+   },
+   {
+    "start": 48.94,
+    "end": 53.04,
+    "text": "Can someone check whether the backup actually ran last night?"
+   },
+   {
+    "start": 90.65,
+    "end": 94.04,
+    "text": "I think we should move the release to Friday."
+   },
+   {
+    "start": 98.23,
+    "end": 103.41,
+    "text": "Next time, let's record the meeting so nobody has to remember."
+   },
+   {
+    "start": 134.52,
+    "end": 138.44,
+    "text": "Let's not rename anything until after the launch."
+   },
+   {
+    "start": 171.62,
+    "end": 176.12,
+    "text": "The client wants the report in a spreadsheet, not a PDF."
+   },
+   {
+    "start": 185.05,
+    "end": 188.32,
+    "text": "We should write down why we picked this database."
+   },
+   {
+    "start": 207.4,
+    "end": 210.27,
+    "text": "I measured the room and the desk won't fit."
+   },
+   {
+    "start": 243.62,
+    "end": 247.48,
+    "text": "The train was cancelled, so I'm working from home."
+   },
+   {
+    "start": 252.0,
+    "end": 255.4,
+    "text": "Please send me the slides before lunch."
+   }
+  ]
+ },
+ {
+  "name": "4_rain",
+  "bed": "rain",
+  "seconds": 325.8,
+  "said": [
+   {
+    "start": 36.28,
+    "end": 39.51,
+    "text": "We need two more people for the hackathon team."
+   },
+   {
+    "start": 70.25,
+    "end": 73.0,
+    "text": "There's a typo on the pricing page."
+   },
+   {
+    "start": 97.9,
+    "end": 103.08,
+    "text": "Next time, let's record the meeting so nobody has to remember."
+   },
+   {
+    "start": 122.44,
+    "end": 124.77,
+    "text": "Who is on call this weekend?"
+   },
+   {
+    "start": 160.39,
+    "end": 163.45,
+    "text": "Let's start with the numbers from last week."
+   },
+   {
+    "start": 182.27,
+    "end": 186.9,
+    "text": "The build broke twice on Tuesday, both times in the same test."
+   },
+   {
+    "start": 224.12,
+    "end": 227.18,
+    "text": "The logs from the night shift are missing an hour."
+   },
+   {
+    "start": 233.66,
+    "end": 237.52,
+    "text": "The train was cancelled, so I'm working from home."
+   },
+   {
+    "start": 256.99,
+    "end": 259.87,
+    "text": "I measured the room and the desk won't fit."
+   },
+   {
+    "start": 282.57,
+    "end": 286.77,
+    "text": "The interview went well, I'd like a second round."
+   }
+  ]
+ },
+ {
+  "name": "5_pink",
+  "bed": "pink",
+  "seconds": 290.2,
+  "said": [
+   {
+    "start": 20.77,
+    "end": 24.11,
+    "text": "I'll write the summary and share it this afternoon."
+   },
+   {
+    "start": 50.72,
+    "end": 53.05,
+    "text": "Who is on call this weekend?"
+   },
+   {
+    "start": 79.92,
+    "end": 84.11,
+    "text": "The interview went well, I'd like a second round."
+   },
+   {
+    "start": 94.73,
+    "end": 98.29,
+    "text": "The battery on the field recorder died halfway through."
+   },
+   {
+    "start": 104.52,
+    "end": 108.02,
+    "text": "That bug only happens when the window is minimised."
+   },
+   {
+    "start": 126.84,
+    "end": 131.32,
+    "text": "We agreed to stop adding features until the tests pass."
+   },
+   {
+    "start": 162.83,
+    "end": 167.33,
+    "text": "The client wants the report in a spreadsheet, not a PDF."
+   },
+   {
+    "start": 200.68,
+    "end": 205.86,
+    "text": "Next time, let's record the meeting so nobody has to remember."
+   },
+   {
+    "start": 236.14,
+    "end": 239.54,
+    "text": "Please send me the slides before lunch."
+   },
+   {
+    "start": 247.61,
+    "end": 251.94,
+    "text": "Sales were up a little, mostly from returning customers."
+   }
+  ]
+ }
+]

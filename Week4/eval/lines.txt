@@ -1,0 +1,30 @@
+Let's start with the numbers from last week.
+The build broke twice on Tuesday, both times in the same test.
+I think we should move the release to Friday.
+Can someone check whether the backup actually ran last night?
+The new laptop takes about four minutes to compile everything.
+We lost the meeting notes, so this is from memory.
+The printer on the second floor is jammed again.
+Sales were up a little, mostly from returning customers.
+I'd rather fix the flaky test than add another retry.
+Who is on call this weekend?
+The client wants the report in a spreadsheet, not a PDF.
+My internet dropped during the demo, sorry about that.
+We should write down why we picked this database.
+The coffee machine finally works.
+Please send me the slides before lunch.
+I tried the new version and the search is much faster.
+There's a typo on the pricing page.
+The interview went well, I'd like a second round.
+We need two more people for the hackathon team.
+The logs from the night shift are missing an hour.
+Let's not rename anything until after the launch.
+I'll write the summary and share it this afternoon.
+The battery on the field recorder died halfway through.
+Grandma's recipe needs more salt than you'd think.
+The train was cancelled, so I'm working from home.
+That bug only happens when the window is minimised.
+We agreed to stop adding features until the tests pass.
+The library closes at eight on weekdays.
+I measured the room and the desk won't fit.
+Next time, let's record the meeting so nobody has to remember.
