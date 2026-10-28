@@ -23,7 +23,7 @@ spiritbox/        the package
   listen.py       faster-whisper two ways: as everyone uses it, and with its guards off
   ghosts.py       the rules a careful engineer would write: known sign-offs, sound tags, loops, wrong language,
                   and lines Whisper itself scored as probably silence
-  witness.py      Gemma 3 4B through Ollama, judging each line from its neighbours, its timing and Whisper's numbers
+  witness.py      Gemma 3 4B through Ollama, asking two questions about each line Whisper doubted
   __main__.py     the command line
 eval/
   census.py       105 clips: 7 noises x 5 seeds x Whisper tiny, base, small, guards off
@@ -31,9 +31,10 @@ eval/
                   so we know exactly when somebody spoke
   transcribe_meetings.py   transcribes them the normal way and labels every line real or ghost
   judge.py        scores the rules against Gemma; Gemma's verdicts are cached in witness_cache.json
+                  SPIRITBOX_SET=holdout runs any of these three on the held-out meetings (eval/lines_holdout.txt)
   export_web.py   packs the results for the page
 web/              the demo page: whisper-tiny in the browser through transformers.js, the rules ported to JS
-tests/            the rules and the noise generator
+tests/            the rules, the noise generator, and the order the witness runs in
 ```
 
 ## Run it
@@ -44,7 +45,7 @@ Needs Python 3.11+, ffmpeg for audio files, and [Ollama](https://ollama.com) wit
 pip install -r requirements.txt
 python -m spiritbox summon pink                 # what Whisper base hears in 30 s of pink noise
 python -m spiritbox summon white --size small --seed 3
-python -m spiritbox exorcise meeting.mp3        # normal transcript, each line judged by Gemma
+python -m spiritbox exorcise meeting.mp3        # normal transcript, rules first, then Gemma on the doubted lines
 python -m spiritbox exorcise meeting.mp3 --judge rules
 pytest
 ```
@@ -74,23 +75,46 @@ rather than from the noise.
 
 ### Witness: who catches the ghosts in a normal transcript
 
-Six meetings, about five minutes each, transcribed with Whisper's normal settings (VAD and thresholds on). 195 lines;
-12 of them are ghosts: three YouTube sign-offs, and nine plausible sentences, mostly echoes of something said
-minutes earlier, written during long pauses.
+Six meetings, about five minutes each, transcribed with Whisper's normal settings (VAD and thresholds on), so we
+know exactly when somebody spoke. Most ghosts are not the famous "Thanks for watching": they are **echoes**, an
+earlier line written again minutes later during a long pause, sometimes reworded.
 
-WITNESS_TABLE
+Gemma's prompt went through three versions on these meetings (195 lines, 12 ghosts):
 
-The rules catch sign-offs and nothing else: the echoes and invented lines carry normal confidence scores, so no
-threshold separates them. Gemma gets a hint the rules don't: when a line closely matches one said earlier, the
-earlier line is shown to it.
+| version | ghosts caught | real lines flagged |
+|---|---|---|
+| 1. Gemma reads every line and gives a verdict | 12 of 12 | 84 |
+| 2. Gemma reads only the 23 lines Whisper itself doubted | 7 of 12 | 5 |
+| 3. Same 23 lines, two yes/no questions instead of a verdict | 12 of 12 | 3 |
+
+Version 1 suspected nearly every line after a pause. Version 2 wrote reasons like "a direct echo of the line at 27s"
+and then answered "real". Version 3 asks *was this said earlier in the meeting?* and *is it a phrase that ends a
+video?*, and the code turns the answers into the verdict. "Whisper doubted" means no-speech probability over 0.3 and
+average log-probability under -0.5, the same cut-offs the prompt already used to describe Whisper's confidence.
+
+Because version 3 was tuned on those meetings, it was then scored once on six new meetings: 30 sentences not used
+before, new pauses, new noise, made after the prompt was settled (202 lines, 19 ghosts):
+
+| judge | caught | missed | false alarms | precision | recall | F1 |
+|---|---|---|---|---|---|---|
+| the rules | 12 | 7 | 4 | 0.75 | 0.63 | 0.69 |
+| Whisper's doubt alone (strike every doubted line) | 11 | 8 | 9 | 0.55 | 0.58 | 0.56 |
+| Gemma on the doubted lines | 10 | 9 | 2 | 0.83 | 0.53 | 0.65 |
+| **the rules, then Gemma** | **17** | **2** | **5** | **0.77** | **0.89** | **0.83** |
+
+Neither judge is enough alone. The rules catch the stock phrases Whisper writes without doubting itself (Whisper
+small wrote "You" seven times into one silent stretch); Gemma catches the reworded echoes no list can hold. That
+combination is what `exorcise` runs. Every verdict, with Gemma's reason, is in `eval/judge_holdout.json`; the
+earlier prompts' runs are kept in `eval/judge_first_prompt.json` and `eval/judge_second_prompt.json`.
 
 ## Limits
 
-- 12 ghosts is a small test set. The numbers are a direction, not a benchmark.
+- 19 held-out ghosts is a small test set. The numbers are a direction, not a benchmark.
 - The meetings are synthetic: Windows text-to-speech voices over generated noise, not people in a room.
-- The rules were written before the evaluation and not tuned on it; Gemma's prompt was adjusted on a handful of
-  lines from these meetings, so its score is optimistic.
-- Gemma takes 10 to 20 seconds per line on a laptop CPU. A one-hour meeting is too slow for real time.
+- The rules were written before the evaluation. Gemma's prompt was tuned on the first six meetings; only the
+  held-out numbers are clean, and they come from one run.
+- Gemma takes 10 to 20 seconds per line on a laptop CPU, but it only reads the lines Whisper doubted (about one in
+  ten here), so a five-minute meeting takes well under a minute.
 - The page runs whisper-tiny with transformers.js, which has no no-speech score, so only the text rules run there.
   Pink and brown noise on the page come from a filter, not the FFT the Python code uses.
 

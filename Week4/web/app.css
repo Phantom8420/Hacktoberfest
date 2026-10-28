@@ -219,7 +219,8 @@ p + p { margin-top: 1rem; }
 .doc[data-state="2"] .ln.rules .tag.r, .doc[data-state="3"] .ln.rules .tag.r { display: block; color: var(--muted); }
 .doc[data-state="3"] .ln.gemma { background: var(--accent); color: var(--accent-ink); }
 .doc[data-state="3"] .ln.gemma .at, .doc[data-state="3"] .ln.gemma .tx { color: var(--accent-ink); }
-.doc[data-state="3"] .ln.gemma .tag.g { display: block; color: var(--accent-ink); }
+.doc[data-state="3"] .ln.gemma .tag.r, .doc[data-state="3"] .ln.gemma .tag.g { color: var(--accent-ink); }
+.doc[data-state="3"] .ln.gemma .tag.g { display: block; }
 .doc[data-state="3"] .ln.missed .tag.m { display: block; color: var(--accent); }
 .doc .empty { color: var(--muted); }
 

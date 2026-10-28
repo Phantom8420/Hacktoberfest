@@ -218,6 +218,46 @@
    "unsure": 2
   }
  },
+ "holdout": {
+  "lines": 202,
+  "ghosts": 19,
+  "rules": {
+   "caught": 12,
+   "missed": 7,
+   "false_alarms": 4,
+   "precision": 0.75,
+   "recall": 0.63,
+   "f1": 0.69,
+   "unsure": 0
+  },
+  "doubt": {
+   "caught": 11,
+   "missed": 8,
+   "false_alarms": 9,
+   "precision": 0.55,
+   "recall": 0.58,
+   "f1": 0.56,
+   "unsure": 0
+  },
+  "gemma": {
+   "caught": 10,
+   "missed": 9,
+   "false_alarms": 2,
+   "precision": 0.83,
+   "recall": 0.53,
+   "f1": 0.65,
+   "unsure": 2
+  },
+  "either": {
+   "caught": 17,
+   "missed": 2,
+   "false_alarms": 5,
+   "precision": 0.77,
+   "recall": 0.89,
+   "f1": 0.83,
+   "unsure": 0
+  }
+ },
  "meeting": [
   {
    "start": 0.0,

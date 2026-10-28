@@ -159,13 +159,13 @@ function buildWitness() {
   const w = data.witness, tiles = $("#tiles");
   if (!w) { $("#witness-note").textContent = "The judges are still reading the meetings; their scores land here when they finish."; return; }
   const tile = (big, of, h, p) => { const t = el("div", "tile rise"); const b = el("p", "big", big); b.append(el("small", null, ` of ${of}`)); t.append(b, el("h3", null, h), el("p", null, p)); tiles.append(t); };
-  const fa = n => `${n} real ${n === 1 ? "line" : "lines"} struck by mistake.`;
-  tile(w.rules.caught, w.ghosts, "the rules", `Known sign-offs, loops, wrong language. ${fa(w.rules.false_alarms)}`);
-  tile(w.doubt.caught, w.ghosts, "Whisper's own doubt", `Strike every line Whisper was unsure of. ${fa(w.doubt.false_alarms)}`);
-  tile(w.first.caught, w.ghosts, "Gemma, first try", `Asked about all ${w.lines} lines, it suspected nearly every pause. ${fa(w.first.false_alarms)}`);
-  tile(w.gemma.caught, w.ghosts, "Gemma, on the doubted lines", `It reads only the ${w.doubt.caught + w.doubt.false_alarms} lines Whisper doubted. ${fa(w.gemma.false_alarms)}`);
+  const h = data.holdout, fa = n => `${n} real ${n === 1 ? "line" : "lines"} struck by mistake.`;
+  tile(h.rules.caught, h.ghosts, "the rules", `Known sign-offs, loops, wrong language. ${fa(h.rules.false_alarms)}`);
+  tile(h.doubt.caught, h.ghosts, "Whisper's own doubt", `Strike every line Whisper was unsure of. ${fa(h.doubt.false_alarms)}`);
+  tile(h.gemma.caught, h.ghosts, "Gemma alone", `It reads only the lines Whisper doubted, and asks: said before? a video sign-off? ${fa(h.gemma.false_alarms)}`);
+  tile(h.either.caught, h.ghosts, "the rules, then Gemma", `The rules catch the stock phrases Whisper writes without a doubt; Gemma catches the echoes they can't. ${fa(h.either.false_alarms)}`);
   tiles.lastChild.classList.add("best");
-  $("#witness-note").textContent = `${w.lines} lines across Whisper tiny, base and small. Rules and Gemma together catch ${w.either.caught} of ${w.ghosts} for ${w.either.false_alarms} false alarms. The second prompt was written after seeing the first run's mistakes on these same meetings, so its score is optimistic, and ${w.ghosts} ghosts is a small test: a direction, not a benchmark.`;
+  $("#witness-note").textContent = `Scored on six meetings of new sentences, ${h.lines} lines, made after the prompt was settled. The prompt was written on an earlier six (${w.lines} lines): there Gemma's first try, asked about every line, struck ${w.first.false_alarms} real ones; the final version with the rules caught ${w.either.caught} of ${w.ghosts} for ${w.either.false_alarms}. ${h.ghosts} ghosts is still a small test: a direction, not a benchmark.`;
 }
 
 function buildDoc() {
