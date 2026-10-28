@@ -111,7 +111,8 @@ earlier prompts' runs are kept in `eval/judge_first_prompt.json` and `eval/judge
 
 - 19 held-out ghosts is a small test set. The numbers are a direction, not a benchmark.
 - The meetings are synthetic: Windows text-to-speech voices over generated noise, not people in a room.
-- The rules were written before the evaluation. Gemma's prompt was tuned on the first six meetings; only the
+- The rules were written before the evaluation; one later fix (a real "Thank you. Let's start" was read as a
+  sign-off) changed no verdict in either set. Gemma's prompt was tuned on the first six meetings; only the
   held-out numbers are clean, and they come from one run.
 - Gemma takes 10 to 20 seconds per line on a laptop CPU, but it only reads the lines Whisper doubted (about one in
   ten here), so a five-minute meeting takes well under a minute.
