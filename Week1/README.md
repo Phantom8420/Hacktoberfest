@@ -77,3 +77,7 @@ Latency: about 0.2 s per 5 s window on a laptop CPU, no GPU.
 ## Credits
 
 Perch 2.0 by Google DeepMind (Apache-2.0), ONNX export by `justinchuby/Perch-onnx`. Test clips: see CREDITS.md.
+
+AI assistance was used for this project. I did the planning and laid the base foundations; the rest of the coding
+was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that I am accountable
+for the code. Every number here comes from the scripts in `eval/`.

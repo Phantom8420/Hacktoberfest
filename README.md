@@ -24,9 +24,10 @@ verify without the model. Code, method, measured results and limits are in [Week
 the verification step needs no model at all. Being open let me inspect the full label list, regroup it into
 living / nature / human classes, and re-tune the decision rules after the evaluation exposed a flaw.
 
-**AI disclosure.** Heavy. Claude (Anthropic) wrote most of the code, evaluation scripts and write-up under my
-direction. I chose the idea, reviewed results and approved what was published. Every number in the READMEs comes
-from the evaluation scripts in `Week1/eval/`. Not tested outdoors yet.
+**AI disclosure.** AI assistance was used for this project. I did the planning and laid the base foundations; the
+rest of the coding was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that
+I am accountable for the code. Every number in the READMEs comes from the evaluation scripts in `Week1/eval/`. Not
+tested outdoors yet.
 
 ## Week 2: Side Hustle
 
