@@ -64,7 +64,12 @@ def ask(prompt, model=MODEL):
         try:
             with urllib.request.urlopen(req, timeout=300) as r:
                 text = json.loads(r.read())["message"]["content"]
-        except (urllib.error.URLError, ConnectionError):
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or attempt == 2:  # 404: the model isn't pulled; waiting won't help
+                raise
+            time.sleep(30)
+            continue
+        except (urllib.error.URLError, ConnectionError, TimeoutError):
             if attempt == 2:
                 raise
             time.sleep(30)

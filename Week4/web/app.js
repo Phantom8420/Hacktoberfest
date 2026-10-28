@@ -90,12 +90,15 @@ function animateScope() {
   tick();
 }
 
+let busy = false;
 async function summon() {
   const go = $("#go"), state = $("#state"), heard = $("#heard");
+  if (busy) return;
   const k = kindNow();
   audio = makeNoise(k);
   playing = true; animateScope();
-  go.disabled = true; heard.innerHTML = "";
+  // aria-disabled, not disabled, so keyboard focus stays on the button
+  busy = true; go.setAttribute("aria-disabled", "true"); $(".dial").disabled = true; heard.innerHTML = "";
   state.className = "box-state on";
   try {
     if (!asr) {
@@ -120,7 +123,7 @@ async function summon() {
     state.textContent = "Whisper could not load here";
     heard.append(el("li", "quiet", "This browser could not run the model. The laptop result below is what it says in this noise."));
   } finally {
-    playing = false; go.disabled = false; go.textContent = "Summon again";
+    playing = false; busy = false; go.removeAttribute("aria-disabled"); $(".dial").disabled = false; go.textContent = "Summon again";
   }
 }
 
@@ -145,7 +148,7 @@ function buildReel() {
     $("#reel-line").textContent = ABOUT[p.dataset.k] || "";
   };
   light(reel.firstChild);
-  reel.querySelectorAll(".panel").forEach(p => { p.tabIndex = 0; p.addEventListener("pointerenter", () => light(p)); p.addEventListener("focus", () => light(p)); });
+  reel.querySelectorAll(".panel").forEach(p => { p.tabIndex = 0; p.setAttribute("role", "listitem"); p.addEventListener("pointerenter", () => light(p)); p.addEventListener("focus", () => light(p)); });
 }
 
 function buildTop() {
@@ -157,7 +160,7 @@ function buildTop() {
 
 function buildWitness() {
   const w = data.witness, tiles = $("#tiles");
-  if (!w) { $("#witness-note").textContent = "The judges are still reading the meetings; their scores land here when they finish."; return; }
+  if (!w || !data.holdout) { $("#witness-note").textContent = "The judges are still reading the meetings; their scores land here when they finish."; return; }
   const tile = (big, of, h, p) => { const t = el("div", "tile rise"); const b = el("p", "big", big); b.append(el("small", null, ` of ${of}`)); t.append(b, el("h3", null, h), el("p", null, p)); tiles.append(t); };
   const h = data.holdout, fa = n => `${n} real ${n === 1 ? "line" : "lines"} struck by mistake.`;
   tile(h.rules.caught, h.ghosts, "the rules", `Known sign-offs, loops, wrong language. ${fa(h.rules.false_alarms)}`);
@@ -181,9 +184,11 @@ function buildDoc() {
     ln.append(el("span", "at", `${m}:${s}`), body); doc.append(ln);
   }
   const steps = document.querySelectorAll(".step");
-  if (matchMedia("(max-width: 960px)").matches) { doc.dataset.state = 3; return; }
+  const narrow = matchMedia("(max-width: 960px)");
+  const fit = () => { if (narrow.matches) doc.dataset.state = 3; };
+  narrow.addEventListener("change", fit); fit();
   const io = new IntersectionObserver(es => es.forEach(e => {
-    if (!e.isIntersecting) return;
+    if (!e.isIntersecting || narrow.matches) return;
     steps.forEach(s => s.classList.toggle("on", s === e.target));
     doc.dataset.state = e.target.dataset.state;
   }), { rootMargin: "-45% 0px -45% 0px" });
@@ -206,7 +211,15 @@ async function main() {
   audio = makeNoise("white", 1); animateScope();
   document.querySelectorAll("input[name=noise]").forEach(i => i.addEventListener("change", () => { audio = makeNoise(kindNow(), 1); animateScope(); showLaptop(); }));
   $("#go").addEventListener("click", summon);
-  data = await (await fetch("data.json")).json();
+  try {
+    const res = await fetch("data.json");
+    if (!res.ok) throw new Error(res.status);
+    data = await res.json();
+  } catch (e) {
+    console.error(e);
+    $("#census-sum").textContent = "The saved results did not load. Summon above still works; the numbers are in the repository.";
+    return;
+  }
   showLaptop(); buildReel(); buildTop(); buildWitness(); buildDoc(); entrances();
 }
 main();

@@ -15,6 +15,13 @@ def test_known_ghosts():
     assert ghosts.kind(seg("Hello", no_speech=0.9, logprob=-1.4)) == "unsure audio"
 
 
+def test_real_lines_that_look_like_ghosts():
+    assert ghosts.kind(seg("Thank you. Let's move to the budget.")) is None
+    assert ghosts.kind(seg("I'll see you at the offsite.")) is None
+    assert ghosts.kind(seg("Please unsubscribe me from that list.")) is None
+    assert ghosts.kind(seg("こんにちは", lang="ja"), seg("ありがとう", lang="ja"), "ja") is None
+
+
 def test_speech_passes():
     assert ghosts.kind(seg("Let's start with the numbers from last week.")) is None
     assert ghosts.kind(seg("Can you watch the build for me?")) is None

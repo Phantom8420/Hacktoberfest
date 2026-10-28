@@ -40,7 +40,7 @@ def exorcise(a):
         return print(json.dumps(out, indent=1))
     for s in out:
         mark = "GHOST" if s["verdict"] == "ghost" else "  ?  " if s["verdict"] == "unsure" else "     "
-        why = f"  <- {s['kind']}" + (f": {s['reason']}" if s.get("reason") else "") if s["verdict"] != "real" else ""
+        why = f"  <- {s['kind'] or 'no answer'}" + (f": {s['reason']}" if s.get("reason") else "") if s["verdict"] != "real" else ""
         print(f"{mark} [{s['start']:6.1f}s] {s['text']}{why}")
 
 

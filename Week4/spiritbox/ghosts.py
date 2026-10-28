@@ -6,6 +6,8 @@ import re
 PHRASES = ["thanks for watching", "thank you for watching", "subscribe", "like and subscribe", "see you next time",
            "see you in the next video", "subtitles by", "captions by", "transcribed by", "amara.org", "thank you.",
            "bye.", "you", "i'll see you", "please like", "next video"]
+# Found inside a longer line too; "thank you." and "i'll see you" start real sentences, so only whole lines count.
+PARTIAL = [p for p in PHRASES if len(p) > 8 and p not in ("thank you.", "i'll see you")]
 
 
 def norm(s):
@@ -17,9 +19,9 @@ def kind(seg, prev=None, language="en"):
     t, n = seg["text"].strip(), norm(seg["text"])
     if re.fullmatch(r"[\[(♪*].*[\])♪*]", t):
         return "sound tag"  # (water splashing), [MUSIC], ♪
-    if n in PHRASES or any(p in n for p in PHRASES if len(p) > 8):
+    if n in PHRASES or any(re.search(rf"\b{re.escape(p)}", n) for p in PARTIAL):
         return "sign-off"
-    if seg.get("compression", 0) > 2.4 or prev and norm(prev["text"]) == n:
+    if seg.get("compression", 0) > 2.4 or n and prev and norm(prev["text"]) == n:
         return "repetition loop"
     if seg.get("lang") and language and seg["lang"] != language:
         return "wrong language"

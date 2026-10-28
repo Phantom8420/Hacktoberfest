@@ -42,8 +42,10 @@ def main():
             elif k in cache:
                 w = cache[k]
             else:
-                w = cache[k] = listen.retry(witness.judge, g, i)
-                cache_path.write_text(json.dumps(cache, indent=1))
+                w = listen.retry(witness.judge, g, i)
+                if w["verdict"] != "unsure":  # a failed answer is asked again next run
+                    cache[k] = w
+                    cache_path.write_text(json.dumps(cache, indent=1))
             out.append(dict(r, rules=r["verdict"], rules_kind=r["kind"], gemma=w["verdict"], gemma_kind=w.get("kind"),
                             gemma_reason=w.get("reason")))
         print(size, meeting, "judged", flush=True)

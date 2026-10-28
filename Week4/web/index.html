@@ -29,7 +29,7 @@
   <div class="box" id="summon" data-ui>
     <div class="box-top">
       <span class="box-title">Whisper tiny, filters off</span>
-      <span class="box-state" id="state">Ready</span>
+      <span class="box-state" id="state" role="status">Ready</span>
     </div>
     <canvas id="scope" width="640" height="120" aria-hidden="true"></canvas>
     <fieldset class="dial">
@@ -72,8 +72,8 @@
     <h2>Every clip said something</h2>
     <p id="census-sum">105 clips of generated noise, seven kinds, five seeds, three model sizes.</p>
   </div>
-  <div class="reel" id="reel" aria-label="What each model heard in each noise"></div>
-  <div class="reel-note" aria-live="polite"><p class="reel-name" id="reel-name"></p><p id="reel-line"></p></div>
+  <div class="reel" id="reel" role="list" aria-label="What each model heard in each noise"></div>
+  <div class="reel-note"><p class="reel-name" id="reel-name"></p><p id="reel-line"></p></div>
 </section>
 
 <section class="top">

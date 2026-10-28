@@ -62,7 +62,7 @@ p + p { margin-top: 1rem; }
 }
 .btn:hover { color: var(--accent-ink); transform: translateY(-2px); }
 .btn:active { transform: translateY(1px) scale(0.98); }
-.btn[disabled] { opacity: 0.55; cursor: progress; transform: none; }
+.btn[aria-disabled="true"] { opacity: 0.55; cursor: progress; transform: none; }
 .btn.small { font-size: var(--step-small); padding: 0.7rem 1.1rem; }
 
 /* bar */
@@ -221,7 +221,7 @@ p + p { margin-top: 1rem; }
 .doc[data-state="3"] .ln.gemma .at, .doc[data-state="3"] .ln.gemma .tx { color: var(--accent-ink); }
 .doc[data-state="3"] .ln.gemma .tag.r, .doc[data-state="3"] .ln.gemma .tag.g { color: var(--accent-ink); }
 .doc[data-state="3"] .ln.gemma .tag.g { display: block; }
-.doc[data-state="3"] .ln.missed .tag.m { display: block; color: var(--accent); }
+.doc[data-state="3"] .ln.missed .tag.m { display: block; color: var(--ghost); }
 .doc .empty { color: var(--muted); }
 
 /* run it */
