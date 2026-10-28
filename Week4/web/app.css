@@ -192,6 +192,7 @@ p + p { margin-top: 1rem; }
 .tile { background: var(--surface); border-radius: var(--r); padding: 1.5rem; display: grid; gap: 0.6rem; align-content: space-between; min-height: 15rem; }
 .tile.lead { background: var(--accent); color: var(--accent-ink); grid-column: span 2; }
 .tile.lead h2 { margin: 0; }
+.tile.best { grid-column: span 3; outline: 2px solid var(--accent); outline-offset: -2px; }
 .tile.lead p { color: var(--accent-ink); }
 .tile .big { font-size: clamp(3rem, 2rem + 4vw, 5.5rem); font-weight: 600; letter-spacing: -0.05em; line-height: 0.9; font-variant-numeric: tabular-nums; }
 .tile .big small { font-size: 0.4em; letter-spacing: -0.02em; }
@@ -252,12 +253,13 @@ pre { background: var(--night); color: var(--night-ink); border-radius: var(--r)
   .pic.tall { grid-row: auto; aspect-ratio: 4 / 3; }
   .scope-pic { position: static; aspect-ratio: 16 / 9; }
   .tiles { grid-template-columns: 1fr 1fr; }
+  .tile.best { grid-column: auto; }
   .step { min-height: auto; opacity: 1; padding: 0 0 1.5rem; }
   .doc { position: static; max-height: none; }
 }
 @media (max-width: 560px) {
   .tiles { grid-template-columns: 1fr; }
-  .tile.lead { grid-column: auto; }
+  .tile.lead, .tile.best { grid-column: auto; }
   .tile { min-height: 11rem; }
 }
 

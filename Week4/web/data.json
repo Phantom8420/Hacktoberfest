@@ -168,5 +168,186 @@
     ]
    }
   }
- }
+ },
+ "witness": {
+  "lines": 195,
+  "ghosts": 12,
+  "rules": {
+   "caught": 4,
+   "missed": 8,
+   "false_alarms": 2,
+   "precision": 0.67,
+   "recall": 0.33,
+   "f1": 0.44,
+   "unsure": 0
+  },
+  "doubt": {
+   "caught": 12,
+   "missed": 0,
+   "false_alarms": 11,
+   "precision": 0.52,
+   "recall": 1.0,
+   "f1": 0.69,
+   "unsure": 0
+  },
+  "gemma": {
+   "caught": 12,
+   "missed": 0,
+   "false_alarms": 3,
+   "precision": 0.8,
+   "recall": 1.0,
+   "f1": 0.89,
+   "unsure": 0
+  },
+  "either": {
+   "caught": 12,
+   "missed": 0,
+   "false_alarms": 3,
+   "precision": 0.8,
+   "recall": 1.0,
+   "f1": 0.89,
+   "unsure": 0
+  },
+  "first": {
+   "caught": 12,
+   "missed": 0,
+   "false_alarms": 84,
+   "precision": 0.12,
+   "recall": 1.0,
+   "f1": 0.22,
+   "unsure": 2
+  }
+ },
+ "meeting": [
+  {
+   "start": 0.0,
+   "text": "The printer on the second floor is jammed again.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 27.08,
+   "text": "That bug only happens when the window is minimized.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 42.08,
+   "text": "That bug only happens when the window is minimized.",
+   "truth": "real",
+   "rules": "ghost",
+   "rules_kind": "repetition loop",
+   "gemma": "ghost",
+   "gemma_kind": "echo",
+   "gemma_reason": "The transcript indicates a direct repetition of a previously stated phrase, confirming the issue."
+  },
+  {
+   "start": 62.08,
+   "text": "The logs from the night shift are missing an hour.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 92.08,
+   "text": "I measured the room and the desk won't fit.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 122.08,
+   "text": "I tried the new version and the search is much faster.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 152.08,
+   "text": "Let's start with the numbers from last week.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 177.08,
+   "text": "The coffee machine finally works.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 192.08,
+   "text": "I think we should move the release to Friday.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 201.08,
+   "text": "Next time, let's record the meeting so nobody has to remember.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 231.08,
+   "text": "My internet dropped during the demo, sorry about that.",
+   "truth": "real",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "real",
+   "gemma_kind": null,
+   "gemma_reason": "Whisper heard speech here and was sure of the words"
+  },
+  {
+   "start": 254.08,
+   "text": "Let's record the meeting.",
+   "truth": "ghost",
+   "rules": "real",
+   "rules_kind": null,
+   "gemma": "ghost",
+   "gemma_kind": "echo",
+   "gemma_reason": "The line repeats a phrase that was previously stated in the meeting, specifically 'Let's record the meeting'."
+  },
+  {
+   "start": 274.08,
+   "text": "Let's record the meeting.",
+   "truth": "ghost",
+   "rules": "ghost",
+   "rules_kind": "repetition loop",
+   "gemma": "ghost",
+   "gemma_kind": "echo",
+   "gemma_reason": "The line repeats a phrase that was stated earlier in the meeting, specifically mirroring the content of the 254s timestamp."
+  }
+ ]
 }

@@ -33,7 +33,8 @@ def main():
     judge = HERE / "judge.json"
     if judge.exists():
         j = json.loads(judge.read_text(encoding="utf8"))
-        out["witness"] = {k: j[k] for k in ("lines", "ghosts", "rules", "gemma", "either")}
+        out["witness"] = {k: j[k] for k in ("lines", "ghosts", "rules", "doubt", "gemma", "either")}
+        out["witness"]["first"] = json.loads((HERE / "judge_first_prompt.json").read_text(encoding="utf8"))["gemma"]
         out["meeting"] = [{k: r[k] for k in ("start", "text", "truth", "rules", "rules_kind", "gemma", "gemma_kind",
                                              "gemma_reason")} for r in j["rows"] if (r["model"], r["meeting"]) == SHOWN]
     path = HERE.parent / "web" / "data.json"

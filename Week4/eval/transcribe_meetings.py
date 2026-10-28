@@ -5,6 +5,7 @@ voice said, a ghost if it came out of a pause. Writes eval/transcripts.json.
 """
 import difflib
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -13,6 +14,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from spiritbox import listen, noise  # noqa: E402
 
 HERE = Path(__file__).parent
+# SPIRITBOX_SET=holdout: a second set of meetings, made and scored only after the prompt was settled
+SET = "_" + os.environ["SPIRITBOX_SET"] if os.environ.get("SPIRITBOX_SET") else ""
 
 
 def norm(s):
@@ -36,8 +39,8 @@ def label(seg, said):
 
 
 def main(sizes):
-    meetings = json.loads((HERE / "meetings.json").read_text())
-    path = HERE / "transcripts.json"
+    meetings = json.loads((HERE / f"meetings{SET}.json").read_text())
+    path = HERE / f"transcripts{SET}.json"
     out = json.loads(path.read_text()) if path.exists() else []  # resumable: memory on this laptop runs out now and then
     said = {m["name"]: m["said"] for m in meetings}
     for s in out:  # labels are cheap; transcripts aren't, so relabel what's saved
@@ -48,7 +51,7 @@ def main(sizes):
         for m in meetings:
             if (size, m["name"]) in done:
                 continue
-            audio = noise.load(HERE / "meetings" / f"{m['name']}.wav")
+            audio = noise.load(HERE / f"meetings{SET}" / f"{m['name']}.wav")
             segs = listen.retry(listen.transcribe, audio, guards=True, size=size, language="en")
             for i, s in enumerate(segs):
                 s.update(meeting=m["name"], bed=m["bed"], model=size, i=i, truth=label(s, m["said"]))

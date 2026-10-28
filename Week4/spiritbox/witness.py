@@ -1,6 +1,7 @@
-"""Gemma as the witness. It can't hear the audio, so it judges each line the way a person reading a transcript would:
-does this sound like something said in this conversation, given the lines around it, when it was said, and how
-unsure Whisper was."""
+"""Gemma as the witness. It can't hear the audio. Whisper's own numbers pick the suspects, the lines it doubted
+itself; Gemma reads each suspect the way a person reading the transcript would: is it something said earlier, coming
+back, or a phrase that ends a video? Lines Whisper heard clearly are left alone: asked about every line, Gemma
+struck 84 real ones."""
 import difflib
 import json
 import os
@@ -8,23 +9,20 @@ import time
 import urllib.error
 import urllib.request
 
+from . import ghosts
+
 OLLAMA = os.environ.get("OLLAMA_HOST", "http://127.0.0.1:11434")
 MODEL = os.environ.get("SPIRITBOX_GEMMA", "gemma3:4b")
-KINDS = ["sign-off", "captions credit", "sound tag", "repetition loop", "wrong language", "echo", "invented line",
-         "other"]
-
-# reason comes first so the model explains itself before it commits to a verdict
-SCHEMA = {"type": "object", "required": ["reason", "kind", "verdict"], "properties": {
+# Asked for a verdict straight out, Gemma 3 4B would write "this is a direct echo of the earlier line" and then answer
+# "real". Two plain yes/no questions, with the verdict worked out here, keep its answer and its reason together.
+SCHEMA = {"type": "object", "required": ["reason", "said_before", "video_phrase"], "properties": {
     "reason": {"type": "string"},
-    "kind": {"type": "string", "enum": ["none"] + KINDS},
-    "verdict": {"type": "string", "enum": ["real", "ghost", "unsure"]}}}
+    "said_before": {"type": "boolean"},
+    "video_phrase": {"type": "boolean"}}}
 
-PROMPT = """You are checking a speech-to-text transcript for hallucinations. Whisper sometimes writes words during
-silence or noise: YouTube sign-offs ("Thanks for watching"), caption credits, sound tags like (music), a phrase
-repeated over and over, text in the wrong language, a plausible sentence nobody said, or an echo: an earlier line
-written again, often reworded, during a long pause. Nobody can hear the audio; judge from the words, the timing and
-how sure Whisper was. Most lines in a transcript are real: a normal sentence that fits the meeting, which Whisper
-heard as speech, is real even after a pause. Call it a ghost only when something specific gives it away.
+PROMPT = """You are checking a meeting transcript made by Whisper, a speech-to-text model. During silence or noise
+Whisper sometimes writes words nobody said: it repeats something from earlier in the meeting, or writes a phrase
+that ends a video. Whisper doubted the line marked >>.
 
 Transcript around the line:
 {context}
@@ -32,7 +30,12 @@ Transcript around the line:
 The line to judge (marked >>):
 {line}
 
-Is the >> line real speech or a ghost? Give a one-sentence reason, then the kind of ghost it is ("none" if it is ordinary speech), then the verdict."""
+Earlier in the meeting: {echo}
+
+Answer two questions about the >> line:
+said_before: does it repeat, or say again in other words, something already said earlier in this meeting?
+video_phrase: is it the kind of phrase that ends a video or talk: thanking the audience, a goodbye, a captions credit?
+Give a one-sentence reason first."""
 
 
 def _sure(s):
@@ -70,7 +73,12 @@ def ask(prompt, model=MODEL):
             return json.loads(text)
         except json.JSONDecodeError:
             pass
-    return {"reason": "the witness gave no answer", "kind": "none", "verdict": "unsure"}
+    return {"reason": "the witness gave no answer", "kind": None, "verdict": "unsure"}
+
+
+def suspect(s):
+    """Whisper unsure there was speech and unsure of the words: the same cut-offs _sure() puts into words."""
+    return s.get("no_speech", 0) > 0.3 and s.get("logprob", 0) < -0.5
 
 
 def judge(segs, i, model=MODEL, window=3):
@@ -78,15 +86,27 @@ def judge(segs, i, model=MODEL, window=3):
     ctx = "\n".join(line(k, k == i) for k in range(max(0, i - window), min(len(segs), i + window + 1)))
     # Whisper's ghosts are often echoes of something said minutes earlier, outside the window
     t = segs[i]["text"].lower()
-    sim = [(difflib.SequenceMatcher(None, t, s["text"].lower()).ratio(), k) for k, s in enumerate(segs[:max(0, i - window)])]
-    if sim and max(sim)[0] >= 0.5:
-        ctx = "Earlier, a similar line:\n" + line(max(sim)[1]) + "\n...\n" + ctx
-    out = ask(PROMPT.format(context=ctx, line=line(i, True)), model)
-    if out.get("verdict") == "real" or out.get("kind") == "none":
-        out["kind"] = None
+    sim = [(difflib.SequenceMatcher(None, t, s["text"].lower()).ratio(), k) for k, s in enumerate(segs[:i])]
+    best = max(sim, default=(0, None))
+    echo = f"it closely matches the line at {segs[best[1]]['start']:.0f}s: {segs[best[1]]['text']!r}" \
+        if best[0] >= 0.5 else "no earlier line looks like this one"
+    out = ask(PROMPT.format(context=ctx, line=line(i, True), echo=echo), model)
+    if "said_before" not in out:
+        return out  # no answer: ask() already marked it unsure
+    kind = "echo" if out["said_before"] else "sign-off" if out["video_phrase"] else None
+    return {"verdict": "ghost" if kind else "real", "kind": kind, "reason": out["reason"]}
+
+
+CLEAR = {"verdict": "real", "kind": None, "reason": "Whisper heard speech here and was sure of the words"}
+
+
+def flag(segs, model=MODEL, language="en"):
+    """Each segment with a verdict, kind and reason. The rules go first (they catch the stock phrases Whisper writes
+    without doubting itself); Gemma reads the remaining suspects. On unseen meetings the two together beat either."""
+    out = []
+    for i, s in enumerate(ghosts.flag(segs, language)):
+        if s["verdict"] == "ghost":
+            out.append(dict(s, reason="a rule matched"))
+        else:
+            out.append(dict(s, **(judge(segs, i, model) if suspect(s) else CLEAR)))
     return out
-
-
-def flag(segs, model=MODEL):
-    """Each segment with the witness's verdict, kind and reason."""
-    return [dict(s, **judge(segs, i, model)) for i, s in enumerate(segs)]

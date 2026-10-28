@@ -33,7 +33,7 @@ def exorcise(a):
     segs = listen.retry(listen.transcribe, noise.load(a.what), guards=True, size=a.size, language=a.language)
     if a.judge == "gemma":
         from . import witness
-        out = witness.flag(segs)
+        out = witness.flag(segs, language=a.language)
     else:
         out = ghosts.flag(segs, a.language)
     if a.json:
@@ -54,7 +54,8 @@ def main(argv=None):
     s.set_defaults(fn=summon)
     e = sub.add_parser("exorcise", help="flag hallucinated lines in a normal transcript")
     e.add_argument("what", help="an audio or video file")
-    e.add_argument("--judge", choices=["rules", "gemma"], default="gemma")
+    e.add_argument("--judge", choices=["rules", "gemma"], default="gemma",
+                   help="gemma: the rules first, then Gemma reads the lines Whisper doubted")
     e.add_argument("--language", default="en")
     e.add_argument("--json", action="store_true")
     e.set_defaults(fn=exorcise)

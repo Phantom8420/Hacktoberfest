@@ -89,7 +89,7 @@
 
 <section class="witness" id="witness">
   <div class="tiles" id="tiles">
-    <div class="tile lead"><h2>Who catches them</h2><p>Six synthetic meetings with known pauses, transcribed the normal way. Then two judges read every line.</p></div>
+    <div class="tile lead"><h2>Who catches them</h2><p>Six synthetic meetings with known pauses, transcribed the normal way. Then each judge marks the lines it thinks nobody said.</p></div>
   </div>
   <p class="witness-note" id="witness-note"></p>
 </section>
@@ -99,7 +99,7 @@
     <h2>Cleaning a transcript</h2>
     <div class="step" data-state="1"><p class="say">First, Whisper transcribes the meeting as usual.</p><p>Base model, its normal filters on. A fan runs under five minutes of talk with long pauses.</p></div>
     <div class="step" data-state="2"><p class="say">Then the rules strike the obvious ghosts.</p><p>Known sign-offs, sound tags, loops, wrong language, and lines Whisper itself thought were silence.</p></div>
-    <div class="step" data-state="3"><p class="say">Then Gemma reads it like a person.</p><p>Gemma 3 4B, running locally, sees each line with its neighbours and how sure Whisper was, and says why.</p></div>
+    <div class="step" data-state="3"><p class="say">Then Gemma reads it like a person.</p><p>Gemma 3 4B, running locally, reads each line Whisper doubted, with its neighbours and any earlier line it repeats, and says why.</p></div>
   </div>
   <div class="stage">
     <div class="doc" id="doc" data-ui data-state="1"></div>

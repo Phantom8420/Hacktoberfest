@@ -7,6 +7,7 @@ My work for the DEV Hacktoberfest Open-Source AI Challenge, one folder per week.
 | 1 | Touch Grass | [Proof of Grass](Week1/) |
 | 2 | Side Hustle | [Déjà](Week2/) ([demo](https://deja-hacktoberfest.vercel.app)) |
 | 3 | Slow and Steady | [Effort Budget](Week3/) ([demo](https://effort-budget.vercel.app)) |
+| 4 | Ghost in the Machine | [Spirit Box](Week4/) ([demo](https://spirit-box-hacktoberfest.vercel.app)) |
 
 ## Week 1: Touch Grass
 
@@ -56,3 +57,17 @@ limits are in [Week3/README.md](Week3/README.md).
 rest of the coding was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that
 I am accountable for the code.
 
+## Week 4: Ghost in the Machine
+
+**What the challenge asked.** Build something on open-weight or open-source AI around the theme of ghosts: things
+that haunt machines, or machines that seem to have a life of their own.
+
+**What I built.** Spirit Box: OpenAI's open Whisper with every filter that keeps it quiet switched off, played pure
+noise. It talks, and it says the same few phrases across seeds and model sizes. A census of 105 noise clips is on the
+demo page, which also runs Whisper tiny in the browser so anyone can summon one. The useful half: Gemma 3 4B, local,
+reads the lines Whisper itself doubted in an ordinary meeting transcript and points at the ones nobody said.
+Details, measurements and limits are in [Week4/README.md](Week4/README.md).
+
+**AI disclosure.** AI assistance was used for this project. I did the planning and laid the base foundations; the
+rest of the coding was done by a team of AI agents led by Claude (Anthropic). I left the debugging for myself so that
+I am accountable for the code.

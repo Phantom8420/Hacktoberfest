@@ -159,9 +159,13 @@ function buildWitness() {
   const w = data.witness, tiles = $("#tiles");
   if (!w) { $("#witness-note").textContent = "The judges are still reading the meetings; their scores land here when they finish."; return; }
   const tile = (big, of, h, p) => { const t = el("div", "tile rise"); const b = el("p", "big", big); b.append(el("small", null, ` of ${of}`)); t.append(b, el("h3", null, h), el("p", null, p)); tiles.append(t); };
-  tile(w.rules.caught, w.ghosts, "ghosts the rules caught", `${w.rules.false_alarms} real ${w.rules.false_alarms === 1 ? "line" : "lines"} struck by mistake.`);
-  tile(w.gemma.caught, w.ghosts, "ghosts Gemma caught", `${w.gemma.false_alarms} real ${w.gemma.false_alarms === 1 ? "line" : "lines"} flagged by mistake.`);
-  $("#witness-note").textContent = `${w.lines} lines across tiny, base and small. With both judges together, ${w.either.caught} of ${w.ghosts} ghosts are caught for ${w.either.false_alarms} false alarms. ${w.ghosts} ghosts is a small test; read these as a direction, not a benchmark.`;
+  const fa = n => `${n} real ${n === 1 ? "line" : "lines"} struck by mistake.`;
+  tile(w.rules.caught, w.ghosts, "the rules", `Known sign-offs, loops, wrong language. ${fa(w.rules.false_alarms)}`);
+  tile(w.doubt.caught, w.ghosts, "Whisper's own doubt", `Strike every line Whisper was unsure of. ${fa(w.doubt.false_alarms)}`);
+  tile(w.first.caught, w.ghosts, "Gemma, first try", `Asked about all ${w.lines} lines, it suspected nearly every pause. ${fa(w.first.false_alarms)}`);
+  tile(w.gemma.caught, w.ghosts, "Gemma, on the doubted lines", `It reads only the ${w.doubt.caught + w.doubt.false_alarms} lines Whisper doubted. ${fa(w.gemma.false_alarms)}`);
+  tiles.lastChild.classList.add("best");
+  $("#witness-note").textContent = `${w.lines} lines across Whisper tiny, base and small. Rules and Gemma together catch ${w.either.caught} of ${w.ghosts} for ${w.either.false_alarms} false alarms. The second prompt was written after seeing the first run's mistakes on these same meetings, so its score is optimistic, and ${w.ghosts} ghosts is a small test: a direction, not a benchmark.`;
 }
 
 function buildDoc() {

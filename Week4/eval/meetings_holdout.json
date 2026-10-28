@@ -1,0 +1,344 @@
+[
+ {
+  "name": "0_silence",
+  "bed": "silence",
+  "seconds": 246.1,
+  "said": [
+   {
+    "start": 13.21,
+    "end": 16.47,
+    "text": "We should ask legal before we use that photo."
+   },
+   {
+    "start": 41.74,
+    "end": 44.98,
+    "text": "I'll book the meeting room for Thursday afternoon."
+   },
+   {
+    "start": 70.73,
+    "end": 74.11,
+    "text": "Marketing wants the banner changed to blue."
+   },
+   {
+    "start": 101.4,
+    "end": 104.96,
+    "text": "The warehouse wants the order numbers in a spreadsheet."
+   },
+   {
+    "start": 141.77,
+    "end": 144.71,
+    "text": "I can take the support tickets this week."
+   },
+   {
+    "start": 154.12,
+    "end": 156.99,
+    "text": "The demo crashed when I clicked export."
+   },
+   {
+    "start": 174.36,
+    "end": 178.25,
+    "text": "The translation files are out of date again."
+   },
+   {
+    "start": 192.49,
+    "end": 195.79,
+    "text": "The office plants need watering while I'm away."
+   },
+   {
+    "start": 200.4,
+    "end": 203.86,
+    "text": "Let's try the new layout with five people first."
+   },
+   {
+    "start": 214.39,
+    "end": 218.17,
+    "text": "My train was late, so I missed the start."
+   }
+  ]
+ },
+ {
+  "name": "1_room",
+  "bed": "room",
+  "seconds": 266.2,
+  "said": [
+   {
+    "start": 20.2,
+    "end": 23.83,
+    "text": "Did anyone hear back from the landlord about the heating?"
+   },
+   {
+    "start": 37.77,
+    "end": 41.07,
+    "text": "The office plants need watering while I'm away."
+   },
+   {
+    "start": 61.24,
+    "end": 64.11,
+    "text": "The demo crashed when I clicked export."
+   },
+   {
+    "start": 86.47,
+    "end": 91.23,
+    "text": "We lost two customers last month, both to the same competitor."
+   },
+   {
+    "start": 115.57,
+    "end": 119.03,
+    "text": "Let's try the new layout with five people first."
+   },
+   {
+    "start": 148.38,
+    "end": 151.57,
+    "text": "The survey got about three hundred answers."
+   },
+   {
+    "start": 164.28,
+    "end": 167.3,
+    "text": "Who has the key to the storage room?"
+   },
+   {
+    "start": 194.0,
+    "end": 197.46,
+    "text": "The parking garage closes early on Sundays."
+   },
+   {
+    "start": 204.71,
+    "end": 207.17,
+    "text": "The printer finally has toner."
+   },
+   {
+    "start": 233.16,
+    "end": 237.01,
+    "text": "The invoices for October are still waiting for approval."
+   }
+  ]
+ },
+ {
+  "name": "2_fan",
+  "bed": "fan",
+  "seconds": 305.6,
+  "said": [
+   {
+    "start": 16.26,
+    "end": 19.82,
+    "text": "I moved the standup to half past nine."
+   },
+   {
+    "start": 29.95,
+    "end": 33.73,
+    "text": "The budget for the offsite is about half of last year's."
+   },
+   {
+    "start": 54.93,
+    "end": 58.39,
+    "text": "The parking garage closes early on Sundays."
+   },
+   {
+    "start": 97.22,
+    "end": 101.11,
+    "text": "The translation files are out of date again."
+   },
+   {
+    "start": 131.73,
+    "end": 135.58,
+    "text": "The invoices for October are still waiting for approval."
+   },
+   {
+    "start": 150.77,
+    "end": 154.51,
+    "text": "The new hire starts on the first of the month."
+   },
+   {
+    "start": 169.54,
+    "end": 173.32,
+    "text": "My train was late, so I missed the start."
+   },
+   {
+    "start": 205.47,
+    "end": 208.81,
+    "text": "Can we push the review to next week?"
+   },
+   {
+    "start": 247.89,
+    "end": 250.63,
+    "text": "I think the bug is in the date parsing."
+   },
+   {
+    "start": 276.75,
+    "end": 280.46,
+    "text": "Please don't merge anything after five today."
+   }
+  ]
+ },
+ {
+  "name": "3_hum",
+  "bed": "hum",
+  "seconds": 317.4,
+  "said": [
+   {
+    "start": 29.68,
+    "end": 33.24,
+    "text": "The warehouse wants the order numbers in a spreadsheet."
+   },
+   {
+    "start": 72.86,
+    "end": 76.75,
+    "text": "The translation files are out of date again."
+   },
+   {
+    "start": 103.72,
+    "end": 106.18,
+    "text": "The printer finally has toner."
+   },
+   {
+    "start": 113.49,
+    "end": 116.72,
+    "text": "I'll book the meeting room for Thursday afternoon."
+   },
+   {
+    "start": 140.83,
+    "end": 144.03,
+    "text": "The survey got about three hundred answers."
+   },
+   {
+    "start": 161.93,
+    "end": 165.19,
+    "text": "We should ask legal before we use that photo."
+   },
+   {
+    "start": 175.84,
+    "end": 179.23,
+    "text": "Marketing wants the banner changed to blue."
+   },
+   {
+    "start": 212.71,
+    "end": 216.45,
+    "text": "The dashboard is slow again when you filter by region."
+   },
+   {
+    "start": 246.17,
+    "end": 249.2,
+    "text": "Who has the key to the storage room?"
+   },
+   {
+    "start": 282.3,
+    "end": 285.17,
+    "text": "The demo crashed when I clicked export."
+   }
+  ]
+ },
+ {
+  "name": "4_rain",
+  "bed": "rain",
+  "seconds": 273.8,
+  "said": [
+   {
+    "start": 6.36,
+    "end": 9.92,
+    "text": "The warehouse wants the order numbers in a spreadsheet."
+   },
+   {
+    "start": 14.88,
+    "end": 18.14,
+    "text": "We should ask legal before we use that photo."
+   },
+   {
+    "start": 29.12,
+    "end": 32.68,
+    "text": "I moved the standup to half past nine."
+   },
+   {
+    "start": 70.83,
+    "end": 74.57,
+    "text": "The new hire starts on the first of the month."
+   },
+   {
+    "start": 92.28,
+    "end": 97.04,
+    "text": "We lost two customers last month, both to the same competitor."
+   },
+   {
+    "start": 130.49,
+    "end": 133.95,
+    "text": "Let's try the new layout with five people first."
+   },
+   {
+    "start": 151.07,
+    "end": 154.85,
+    "text": "My train was late, so I missed the start."
+   },
+   {
+    "start": 182.24,
+    "end": 185.7,
+    "text": "The parking garage closes early on Sundays."
+   },
+   {
+    "start": 203.14,
+    "end": 206.56,
+    "text": "Can you share your screen for a second?"
+   },
+   {
+    "start": 240.11,
+    "end": 243.5,
+    "text": "Marketing wants the banner changed to blue."
+   }
+  ]
+ },
+ {
+  "name": "5_pink",
+  "bed": "pink",
+  "seconds": 257.1,
+  "said": [
+   {
+    "start": 11.87,
+    "end": 15.29,
+    "text": "Can you share your screen for a second?"
+   },
+   {
+    "start": 51.91,
+    "end": 55.62,
+    "text": "Please don't merge anything after five today."
+   },
+   {
+    "start": 69.25,
+    "end": 72.27,
+    "text": "Who has the key to the storage room?"
+   },
+   {
+    "start": 100.96,
+    "end": 104.74,
+    "text": "My train was late, so I missed the start."
+   },
+   {
+    "start": 133.78,
+    "end": 137.63,
+    "text": "The invoices for October are still waiting for approval."
+   },
+   {
+    "start": 145.04,
+    "end": 148.93,
+    "text": "The translation files are out of date again."
+   },
+   {
+    "start": 155.72,
+    "end": 158.83,
+    "text": "The vendor sent the new contract this morning."
+   },
+   {
+    "start": 190.66,
+    "end": 193.89,
+    "text": "I'll book the meeting room for Thursday afternoon."
+   },
+   {
+    "start": 202.79,
+    "end": 205.73,
+    "text": "I can take the support tickets this week."
+   },
+   {
+    "start": 216.77,
+    "end": 219.64,
+    "text": "The demo crashed when I clicked export."
+   }
+  ]
+ }
+]
